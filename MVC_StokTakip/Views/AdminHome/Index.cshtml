@@ -1,28 +1,61 @@
-﻿
+﻿@using MVC_StokTakip.ActiveFolder
+@using MVC_StokTakip.Models.Entity
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="text-align:center;">ARABAMİSTANBUL OTOMASYON</h2>
+<h2 style="text-align:center;">ARABAMİSTANBUL OTOSERVİS PROGRAMI</h2>
 <br />
 <div class="container">
-
     <div class="col-12">
         <a href="/Servis/ServisKayit/" class="btn btn-block bg-gradient-primary btn-lg" style=" height:70px; width:100%; font-size:1.700em; ">Yeni Servis Girişi</a>
     </div>
     <br />
     <div class="col-12">
-        <a href="/Arac/Ekle/"  class="btn btn-block bg-gradient-secondary btn-lg" style=" height:70px; width:100%; font-size:1.700em;">Yeni Araç Ekle</a>
+        <a href="/Urunler/StokAra/" class="btn btn-block bg-gradient-indigo btn-lg" style=" height:70px; width:100%; font-size:1.700em;">Hızlı Stok Arama</a>
     </div>
     <br />
     <div class="col-12">
-        <a href="/Urunler/Index2/" class="btn btn-block bg-gradient-success btn-lg" style=" height:70px; width:100%; font-size:1.700em;">Ürünler Listesi</a>
+        <a href="/Servis/Index/" class="btn btn-block bg-gradient-gray-dark btn-lg" style=" height:70px; width:100%; font-size:1.700em;">
+            Servis
+            @{
+                arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
+
+
+
+                int count = db.Servis.Count();
+                if (count > 0)
+                {
+
+                    <span class="right badge badge-danger">@{Html.RenderAction("TotalCount", "Servis");}</span>
+
+                }
+                if (count == 0)
+                {
+                    <span class="right badge badge-danger"></span>
+                }
+
+            }
+        </a>
+    </div>
+    <br />
+    <div class="col-12">
+        <a href="/Arac/Ekle/" class="btn btn-block bg-gradient-secondary btn-lg" style=" height:70px; width:100%; font-size:1.700em;">Yeni Araç Ekle</a>
+    </div>
+    <br />
+    <div class="col-12">
+        <a href="/Urunler/Product/" class="btn btn-block bg-gradient-success btn-lg" style=" height:70px; width:100%; font-size:1.700em;">Ürünler Listesi</a>
     </div>
     <br />
     <div class="col-12">
         <a href="/Tamiratlar/Index/" class="btn btn-block bg-gradient-info btn-lg" style=" height:70px; width:100%; font-size:1.700em;">Tamiratlar</a>
     </div>
+    <br />
+    <div class="col-12">
+        <a href="/Depolar/Index/" class="btn btn-block bg-gradient-danger btn-lg" style=" height:70px; width:100%; font-size:1.700em; ">Depolar</a>
+    </div>
+
 
 </div>
 

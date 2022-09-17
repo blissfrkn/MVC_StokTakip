@@ -1,0 +1,195 @@
+﻿@using MVC_StokTakip.Models.Entity
+@model List<Depolar>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Depo Listesi</h2>
+<br />
+<div class=" form-group col-12">
+    @if (User.IsInRole("A"))
+    {
+
+
+        <div>   <button id="depoek" class="btn btn-success">Yeni Depo Oluştur</button></div>
+
+
+
+    }
+</div>
+<br />
+
+<table id="tbl1" class="table table-striped" style="margin-top:20px">
+    <thead>
+        <tr>
+            <th>Adı</th>
+            <th>Adres</th>
+            <th>Açıklama</th>
+            <th>Varsayılan</th>
+            <th>Varsayılan Yap</th>
+            <th>Detay</th>
+
+        </tr>
+    </thead>
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>@k.Adi</td>
+            <td>@k.Adres</td>
+            <td>@k.Aciklama</td>
+            @if (k.IsDefault == true)
+            {
+                <td><i class="fa fa-check" aria-hidden="true"></i></td>
+            }
+            else
+            {
+                <td><i class="fa fa-times" aria-hidden="true"></i></td>
+            }
+            <td><input type="submit" name="btnDefault" value="Varsayılan Yap" class="btn btn-default btnDefault" data-id="@k.ID" /></td>
+            <td><a href="/Depolar/DepoDetay/?id=@k.ID" class="btn btn-success">Detaylar</a></td>
+        </tr>
+    }
+</table>
+
+<br />
+<div id="dialog-form" title="Yeni Depo Ekle">
+    <p class="validateTips">Gerekli Alanları Doldurunuz.</p>
+
+    <form id="depoForm">
+        <fieldset>
+            <label for="text">Depo Adı</label>
+            <input type="text" name="DepoAdi" id="DepoAdi" value="" class="text ui-widget-content ui-corner-all">
+            <br />
+            <label for="text">Adres</label>
+            <input type="text" name="Adres" id="Adres" value="" class="text ui-widget-content ui-corner-all">
+            <br />
+            <label for="text">Açıklama</label>
+            <input type="text" name="Aciklama" id="Aciklama" value="" class="text ui-widget-content ui-corner-all">
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+
+@section scriptdanger{
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $(function () {
+                var DepoAdi = $("#DepoAdi").val()
+                var Adres = $("#Adres").val()
+                var Aciklama = $("#Aciklama").val()
+                var dialog
+
+
+                dialog = $("#dialog-form").dialog({
+                    autoOpen: false,
+                    height: 400,
+                    width: 350,
+                    modal: true,
+                    buttons: {
+                        "Depo Ekle": function () {
+                            $("#depoForm").submit();
+                        },
+
+                        "İptal": function () {
+                            dialog.dialog("close");
+                        }
+                    }
+                });
+                $("#depoek").button().on("click", function () {
+                    dialog.dialog("open");
+                });
+            });
+
+
+            $("#depoForm").validate({
+                rules: {
+                    "DepoAdi": {
+                        required: true,
+
+                    }
+                },
+                messages: {
+                    "DepoAdi": {
+                        required: 'Depo Adi girmelisiniz',
+
+                    }
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: "/Depolar/DepoEkle/",
+                        type: "POST",
+                        data: { Ad: $("#DepoAdi").val(), Adres: $("#Adres").val(), Aciklama: $("#Aciklama").val() },
+                        dataType: 'json',
+                        success:
+                            function (response) {
+                                alert("Yeni Depo başarılı bir şekilde eklendi.");
+                                window.location = response.url;
+                                dialog.dialog("close");
+                            }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $('#tbl1').dataTable({
+            language: {
+                "search": "Depo Ara :",
+                "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+                "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+                "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+                "paginate": {
+                    "first": "İlk Sayfa",
+                    "last": "Son Sayfa",
+                    "next": "İleri",
+                    "previous": "Geri"
+                }
+            },
+
+
+        });
+    </script>
+
+
+    <script>
+        $("#tbl1").on("click", ".btnDefault", function () {
+            var btn = $(this);
+            bootbox.confirm(btn.data("id") + "nolu depo varsayılan olarak ayarlansın mı?", function (result) {
+                if (result) {
+                    var id = btn.data("id");
+                    $.ajax({
+                        type: "POST",
+                        url: "/Depolar/DefaultDepo",
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data == 0) {
+                                alert("Varsayılan depo olarak güncellendi.");
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+
+}
+
+
+

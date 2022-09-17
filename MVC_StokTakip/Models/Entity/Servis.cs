@@ -26,9 +26,9 @@ namespace MVC_StokTakip.Models.Entity
         public int DurumID { get; set; }
         public int AracID { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime Tarih { get; set; }
-        public int Km { get; set; }
+        public Nullable<int> Km { get; set; }
         [AllowHtml]
         public string Not1 { get; set; }
         [AllowHtml]

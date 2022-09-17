@@ -10,7 +10,7 @@ namespace MVC_StokTakip.Controllers
     [Authorize(Roles = "A")]
     public class GirislerController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         public ActionResult Index(string ara,string ara2)
         {
             var model = db.Girisler.ToList();
@@ -44,31 +44,67 @@ namespace MVC_StokTakip.Controllers
                 if (ModelState.IsValid)
                 {
                     var model = db.Sepet.FirstOrDefault(x => x.ID == id);
-                    var urun = db.Urunler.FirstOrDefault(x => x.ID == model.UrunID);
-                    urun.Miktari = urun.Miktari + model.Miktari;
+                    var urun = db.DepoUrun.Where(x => x.UrunID == model.UrunID && x.DepoID == model.DepoID).FirstOrDefault();
 
-                    var giris = new Girisler
+                    if (urun == null)
                     {
-                        KullaniciID = model.KullaniciID,
-                        UrunID = model.UrunID,
-                        SepetID = model.ID,
-                        BarkodNo = model.Urunler.BarkodNo,
-                        //StokKodu = model.Urunler.StokKodu,
-                        OemKod = model.Urunler.OemKod,
-                        BirimFiyati = model.BirimFiyati,
-                        Miktari = model.Miktari,
-                        ToplamFiyati = model.ToplamFiyat,
-                        KDV = model.Urunler.KDV,
-                        BirimID = model.Urunler.BirimID,
-                        Tarih = DateTime.Now,
-                        Saat = DateTime.Now
-                    };
+                        DepoUrun product = new DepoUrun()
+                        {
+                            UrunID = model.UrunID,
+                            DepoID = model.DepoID,
+                            Miktar = model.Miktari,
+                            BirimID = model.Urunler.BirimID,
+                            BaslangicStok = model.Miktari,
+                        };
+                        db.DepoUrun.Add(product);
+                        var giris = new Girisler
+                        {
+                            KullaniciID = model.KullaniciID,
+                            UrunID = model.UrunID,
+                            SepetID = model.ID,
+                            DepoID = model.DepoID,
+                            Durum = "Manuel Giriş",
+                            BarkodNo = model.Urunler.BarkodNo,
+                            StokKodu = model.Urunler.StokKodu,
+                            OemKod = model.Urunler.OemKod,
+                            BirimFiyati = model.BirimFiyati,
+                            Miktari = model.Miktari,
+                            ToplamFiyati = model.ToplamFiyat,
+                            KDV = model.Urunler.KDV,
+                            BirimID = model.Urunler.BirimID,
+                            Tarih = DateTime.Now,
+                            Saat = DateTime.Now
+                        };
+                        db.Girisler.Add(giris);
+
+                    }
+                    else
+                    {
+                        urun.Miktar = urun.Miktar + model.Miktari;
+                        var giris = new Girisler
+                        {
+                            KullaniciID = model.KullaniciID,
+                            UrunID = model.UrunID,
+                            SepetID = model.ID,
+                            DepoID = model.DepoID,
+                            Durum = "Manuel Giriş",
+                            BarkodNo = model.Urunler.BarkodNo,
+                            StokKodu = model.Urunler.StokKodu,
+                            OemKod = model.Urunler.OemKod,
+                            BirimFiyati = model.BirimFiyati,
+                            Miktari = model.Miktari,
+                            ToplamFiyati = model.ToplamFiyat,
+                            KDV = model.Urunler.KDV,
+                            BirimID = model.Urunler.BirimID,
+                            Tarih = DateTime.Now,
+                            Saat = DateTime.Now
+                        };
+
+                        db.Girisler.Add(giris);
+                    }
                     db.Sepet.Remove(model);
-                    db.Girisler.Add(giris);
                     db.SaveChanges();
                     ViewBag.islem = "Stoğa Ekleme İşlemi başarılı bir şekilde gerçekleşmiştir.";
-
-
                 }
             }
             catch (Exception)
@@ -79,14 +115,11 @@ namespace MVC_StokTakip.Controllers
             }
 
             return View("islem");
-
-
-
-
         }
 
         public ActionResult HepsiniStokEkle(decimal? Tutar)
         {
+
             if (User.Identity.IsAuthenticated)
             {
                 var kullaniciadi = User.Identity.Name;
@@ -114,46 +147,84 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult HepsiniStokEkle2()
         {
-            var username = User.Identity.Name;
-            var kullanici = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == username);
-            var model = db.Sepet.Where(x => x.KullaniciID == kullanici.ID).ToList();
-            int row = 0;
-            foreach (var item in model)
+            try
             {
-                var giris = new Girisler
+                var username = User.Identity.Name;
+                var kullanici = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == username);
+                var model = db.Sepet.Where(x => x.KullaniciID == kullanici.ID).ToList();
+                int row = 0;
+                foreach (var item in model)
                 {
-                    KullaniciID = model[row].KullaniciID,
-                    UrunID = model[row].UrunID,
-                    SepetID = model[row].ID,
-                    BarkodNo = model[row].Urunler.BarkodNo,
-                    //StokKodu = model[row].Urunler.StokKodu,
-                    OemKod = model[row].Urunler.OemKod,
-                    BirimFiyati = model[row].BirimFiyati,
-                    Miktari = model[row].Miktari,
-                    ToplamFiyati = model[row].ToplamFiyat,
-                    KDV = model[row].Urunler.KDV,
-                    BirimID = model[row].Urunler.BirimID,
-                    Tarih = DateTime.Now,
-                    Saat = DateTime.Now
-
-
-                };
-                db.Girisler.Add(giris);
-                row++;
-            }
-            foreach (var item in model)
-            {
-                var urun = db.Urunler.FirstOrDefault(x => x.ID == item.UrunID);
-                if (urun != null)
-                {
-                    urun.Miktari = urun.Miktari + item.Miktari;
-
+                    var urun = db.DepoUrun.Where(x => x.UrunID == item.UrunID && x.DepoID == item.DepoID).FirstOrDefault();
+                    if (urun == null)
+                    {
+                        DepoUrun product = new DepoUrun()
+                        {
+                            UrunID = item.UrunID,
+                            DepoID = item.DepoID,
+                            Miktar = item.Miktari,
+                            BirimID = item.Urunler.BirimID,
+                            BaslangicStok = item.Miktari,
+                        };
+                        db.DepoUrun.Add(product);
+                        var giris = new Girisler
+                        {
+                            KullaniciID = model[row].KullaniciID,
+                            UrunID = model[row].UrunID,
+                            SepetID = model[row].ID,
+                            DepoID = model[row].DepoID,
+                            Durum = "Manuel Giriş",
+                            BarkodNo = model[row].Urunler.BarkodNo,
+                            StokKodu = model[row].Urunler.StokKodu,
+                            OemKod = model[row].Urunler.OemKod,
+                            BirimFiyati = model[row].BirimFiyati,
+                            Miktari = model[row].Miktari,
+                            ToplamFiyati = model[row].ToplamFiyat,
+                            KDV = model[row].Urunler.KDV,
+                            BirimID = model[row].Urunler.BirimID,
+                            Tarih = DateTime.Now,
+                            Saat = DateTime.Now
+                        };
+                        db.Girisler.Add(giris);
+                        row++;
+                    }
+                    else 
+                    {
+                        urun.Miktar += item.Miktari;
+                        var giris = new Girisler
+                        {
+                            KullaniciID = model[row].KullaniciID,
+                            UrunID = model[row].UrunID,
+                            SepetID = model[row].ID,
+                            Durum = "Manuel Giriş",
+                            BarkodNo = model[row].Urunler.BarkodNo,
+                            StokKodu = model[row].Urunler.StokKodu,
+                            OemKod = model[row].Urunler.OemKod,
+                            BirimFiyati = model[row].BirimFiyati,
+                            Miktari = model[row].Miktari,
+                            DepoID = model[row].DepoID,
+                            ToplamFiyati = model[row].ToplamFiyat,
+                            KDV = model[row].Urunler.KDV,
+                            BirimID = model[row].Urunler.BirimID,
+                            Tarih = DateTime.Now,
+                            Saat = DateTime.Now
+                        };
+                        db.Girisler.Add(giris);
+                        row++;
+                    }
                 }
+
+                db.Sepet.RemoveRange(model);
+                db.SaveChanges();
+                ViewBag.islem = "Stoğa Ekleme İşlemi başarılı bir şekilde gerçekleşmiştir.";
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
 
-            db.Sepet.RemoveRange(model);
-            db.SaveChanges();
-            return RedirectToAction("Index", "Sepet");
+            return View("islem");
         }
     }
 }

@@ -17,6 +17,7 @@ namespace MVC_StokTakip.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Urunler()
         {
+            this.DepoUrun = new HashSet<DepoUrun>();
             this.Girisler = new HashSet<Girisler>();
             this.Satislar = new HashSet<Satislar>();
             this.Sepet = new HashSet<Sepet>();
@@ -26,17 +27,23 @@ namespace MVC_StokTakip.Models.Entity
         public int KategoriID { get; set; }
         public string UrunAdi { get; set; }
         public string BarkodNo { get; set; }
+        public string StokKodu { get; set; }
         public string OemKod { get; set; }
         public decimal AlisFiyati { get; set; }
         public decimal SatisFiyati { get; set; }
-        public decimal Miktari { get; set; }
         public int KDV { get; set; }
         public int BirimID { get; set; }
         public System.DateTime Tarih { get; set; }
         public string Aciklama { get; set; }
+        public string FormAciklama { get; set; }
+        public Nullable<decimal> KritikSeviye { get; set; }
+        public Nullable<decimal> KritikStok { get; set; }
+        public string Konum { get; set; }
         public Nullable<bool> IsDelete { get; set; }
     
         public virtual Birimler Birimler { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DepoUrun> DepoUrun { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Girisler> Girisler { get; set; }
         public virtual Kategoriler Kategoriler { get; set; }

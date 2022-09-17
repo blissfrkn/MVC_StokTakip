@@ -1,0 +1,355 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "HizliFiyat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+            <div class="card-header d-flex p-0">
+                <h3 class="card-title p-3" style="font-size: 1.350em; text-align:center;">
+                    Hızlı Fiyat Teklif Formu
+                </h3>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 center2">
+                        <form id="AracKayidi">
+                            <div class="row">
+                                <div class="input-group col-md-12">
+                                    <label>Plaka Sorgulama</label>
+                                </div>
+                                <div class="form-group col-md-12">
+                                 <input class="form-control" id="Plaka" name="Plaka" type="text" placeholder="Araç Plakası arayınız."/>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select class="form-control" id="marka" name="MarkaID" type="text" placeholder="Marka Seçiniz" />                                   
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" id="Model" name="Model" type="text" placeholder="Model Yazınız" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" id="Ad" name="Ad" type="text" placeholder="Müşteri Adı" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" id="Soyad" name="Soyad" type="text" placeholder="Müşteri Soyadı" />
+                                </div>
+                                <div class="form-group col-md-6">                                    
+                                    <input class="form-control" id="SasiNo" name="SasiNo" type="text" placeholder="Şasi No" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" id="SasiNo" name="SasiNo" type="text" placeholder="Şasi No" />
+                                </div>
+                            </div>                        
+                        </form>
+
+
+                            <table id="detailsTablem" class="table  table-striped table-responsive-sm">
+                                <thead>
+                                    <tr>
+                                        <th hidden>Urun ID</th>
+                                        <th>Stoktan Yedek Parça</th>
+                                        <th hidden>Kategori</th>
+                                        <th>Açıklama</th>
+                                        <th>Form Açıklama</th>
+                                        <th>Tür</th>
+                                        <th>Miktar</th>
+                                        <th>Birim</th>
+                                        <th>Birim Fiyatı</th>
+                                        <th>Toplam Fiyatı</th>
+                                        <th>Sil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button style="float:right;" class="btn btn-primary" id="transfer" name="transfer">Fiyat Teklifi Kaydet</button>
+
+                        <button class="btn btn-success" id="ekle" name="ekle">Yeni Ürün Ekle</button>
+                    </div>
+                </div>
+            </div><!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section scriptdanger {
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/Servis/getMarka",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="-1">Marka Seçiniz</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].ID + '">' + data[i].Marka + '</option>';
+                    }
+                    $("#marka").html(s);
+                }
+            });
+        });
+
+        $("#ekle").click(function () {
+            var id = new Date().getTime();
+            $('#detailsTablem > tbody:last-child').append('<tr>' +
+                '<td hidden></td>' +
+                '<td><input type="text" id="urun' + id + '" class="form-control urunStok" placeholder="Stoktan Yedek Parça" ></td>' +
+                '<td hidden><input type="text" id="kategoriAd' + id + '" class="form-control kategoriAd" placeholder="Kategori Adı" ></td>' +
+                '<td><input type="text" id="Aciklama' + id + '" class="form-control Aciklama" placeholder="Aciklama" ></td>' +
+                '<td><input type="text" id="formAciklama' + id + '" class="form-control formAciklama" placeholder="Fiyat Form Aciklama" ></td>' +
+                '<td><select class="form-control" id="Tur' + id + '" name="Tur"></select></td>' +
+                '<td><input type="number" id="Miktar' + id + '" class="form-control urunMiktar" placeholder="Adet"></td>' +
+                '<td><select class="form-control" id="birim' + id + '" name="birim"></select></td>' +
+                '<td><input type="text" id="birimFiyat' + id + '" class="form-control birimFiyat" placeholder="Birim Fiyat"></td>' +
+                '<td><input type="text" id="ToplamFiyat' + id + '" class="form-control ToplamFiyat" placeholder="Toplam Fiyat" disabled></td>' +
+                '<td><a data-itemId="0" href="#" class="deleteItem">Sil</a></td>' +
+                '<td><a data-itemId="1" href="#" class="clearItem">Sıfırla</a></td>'
+                + '</tr>');
+
+            $.ajax({
+                type: "GET",
+                url: "/DepoUrun/getBirim",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="-1">Birim Seçiniz</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].ID + '">' + data[i].Birim + '</option>';
+                    }
+                    $("#detailsTablem tbody tr:last-child").find('td:eq(7) select').html(s);
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/DepoUrun/getTur",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="-1">Tür Seçiniz</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].ID + '">' + data[i].Tur1 + '</option>';
+                    }
+                    $("#detailsTablem tbody tr:last-child").find('td:eq(5) select').html(s);
+                }
+            });
+        });
+
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
+
+        $(document).on('click', 'a.clearItem', function (e) {
+            e.preventDefault();
+            $(this).parents('tr').find('td:eq(0)').html("");
+            $(this).parents('tr').find('td:eq(2) input').val("");
+            $(this).parents('tr').find('td:eq(1) input').val("");
+            $(this).parents('tr').find('td:eq(3) input').val("");
+            $(this).parents('tr').find('td:eq(4) input').val("");
+            $(this).parents('tr').find('td:eq(5) select').val("");
+            $(this).parents('tr').find('td:eq(6) input').val("");
+            $(this).parents('tr').find('td:eq(8) input').val("");
+            $(this).parents('tr').find('td:eq(9) input').val("");
+            $(this).parents('tr').find('td:eq(7) select').val("");
+            $(this).parents('tr').find('td:eq(3) input').removeAttr("disabled");
+            $(this).parents('tr').find('td:eq(4) input').removeAttr("disabled");
+        });
+
+
+        $(document).on('click', '.urunStok', function (e) {
+            e.preventDefault();
+            var self = $(this);
+            $(this).autocomplete({
+                source: '/Servis/Search',
+                minLength: 1,
+                select: function (event, ui) {
+                    $.ajax({
+                        url: "/Servis/UrunGetir3/" + ui.item.id,
+                        type: 'GET',
+                        dataType: 'json',
+                        success:
+                            function (data) {
+                                if (data == "0") {
+                                    $(self).parents('tr').find('td:eq(2) input').val("");
+                                    $(self).parents('tr').find('td:eq(3) input').val("Varsayılan stokta bu ürün bulunmamaktadır.");
+                                    $(self).parents('tr').find('td:eq(4) input').val("");
+                                    $(self).parents('tr').find('td:eq(5) select').val("");
+                                    $(self).parents('tr').find('td:eq(6) input').val("");
+                                    $(self).parents('tr').find('td:eq(7) select').val("");
+                                    $(self).parents('tr').find('td:eq(3) input').attr("disabled", "true");
+                                    $(self).parents('tr').find('td:eq(4) input').attr("disabled", "true");
+
+                                    //$("#MiktarAcik").removeAttr("hidden");
+                                    //$("#MiktarAcik").html("Bu üründen varsayılan mağaza stoğunda kalmamıştır. Depo stoğunu kontrol ediniz.");
+
+                                }
+                                else {
+
+                                    $.each(data, function (key, Value) {
+                                        var TurID = 1
+                                        var UrunAdi = Value.UrunAdi;
+                                        var Miktar = 1;
+                                        var ToplamFiyat = Value.SatisFiyati * Miktar;
+                                        Tur = "Yedek Parça"
+                                        $(self).parents('tr').find('td:eq(0)').html(Value.UrunID);
+                                        $(self).parents('tr').find('td:eq(2) input').val(Value.Kategori);
+                                        $(self).parents('tr').find('td:eq(3) input').val(Value.StokKodu + ' - ' + UrunAdi);
+                                        $(self).parents('tr').find('td:eq(4) input').val(Value.StokKodu + ' - ' + Value.FormAciklama);
+                                        $(self).parents('tr').find('td:eq(5) select').val(TurID);
+                                        $(self).parents('tr').find('td:eq(6) input').val(Miktar);
+                                        $(self).parents('tr').find('td:eq(7) select').val(Value.BirimID);
+                                        $(self).parents('tr').find('td:eq(8) input').val(Value.SatisFiyati);
+                                        $(self).parents('tr').find('td:eq(9) input').val(ToplamFiyat);
+                                        $(self).parents('tr').find('td:eq(3) input').attr("disabled", "true");
+                                        $(self).parents('tr').find('td:eq(4) input').attr("disabled", "true");
+
+                                        //$("#MiktarAcik").removeAttr("hidden");
+                                        //$("#MiktarAcik").html("Bu üründen " + Value.Adi + "'da " + Value.Miktar + " adet kalmıştır");
+
+                                    });
+                                }
+                            },
+                        error:
+                            function () {
+                                alert("Hata");
+                            }
+                    });
+                },
+            })
+        });
+
+        $(document).on('keyup', '.urunStok', function (e) {
+            if (e.keyCode == 8) {
+                $(this).val("");
+                $(this).parents('tr').find('td:eq(0)').html("");
+                $(this).parents('tr').find('td:eq(2) input').val("");
+                $(this).parents('tr').find('td:eq(3) input').val("");
+                $(this).parents('tr').find('td:eq(4) input').val("");
+                $(this).parents('tr').find('td:eq(5) select').val("");
+                $(this).parents('tr').find('td:eq(6) input').val("");
+                $(this).parents('tr').find('td:eq(8) input').val("");
+                $(this).parents('tr').find('td:eq(9) input').val("");
+                $(this).parents('tr').find('td:eq(7) select').val("");
+                $(this).parents('tr').find('td:eq(3) input').removeAttr("disabled", "true");
+                $(this).parents('tr').find('td:eq(4) input').removeAttr("disabled", "true");
+            }
+            $(this).parents('tr').find('td:eq(0)').html("");
+        });
+
+        $(document).on('keyup', '.urunMiktar', function (e) {
+            var satisFiyat = $(this).parents('tr').find('td:eq(8) input').val();
+            var miktar = $(this).val();
+            var ToplamFiyat = $(this).parents('tr').find('td:eq(9) input').val();
+            parseInt(miktar);
+            parseFloat($(this).parents('tr').find('td:eq(9) input').val(satisFiyat * miktar)).toFixed(2);
+            e.preventDefault();
+        });
+
+        $(document).on('click', '.urunMiktar', function (e) {
+            var satisFiyat = $(this).parents('tr').find('td:eq(8) input').val();
+            var miktar = $(this).val();
+            parseInt(miktar);
+            parseFloat($(this).parents('tr').find('td:eq(9) input').val(satisFiyat * miktar)).toFixed(2);
+            e.preventDefault();
+        });
+
+        $(document).on('keyup', '.birimFiyat', function (e) {
+            var satisFiyat = $(this).val();
+            var miktar = $(this).parents('tr').find('td:eq(6) input').val();
+            parseInt(miktar);
+            parseFloat($(this).parents('tr').find('td:eq(9) input').val(satisFiyat * miktar)).toFixed(2);
+            e.preventDefault();
+        });
+
+        $(document).on('keyup', '.Aciklama', function (e) {
+            var acik = $(this).val();
+            $(this).parents('tr').find('td:eq(4) input').val(acik);
+            $(this).parents('tr').find('td:eq(2) input').val("");
+            $(this).parents('tr').find('td:eq(0) input').html("");
+        });
+
+        $(document).on('change', '.formAciklama', function (e) {
+            $(this).parents('tr').find('td:eq(2) input').val("");
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            var orderArr = [];
+
+            orderArr.length = 0;
+
+            var data;
+
+            $("#transfer").click(function () {
+                $.each($("#detailsTablem tbody tr"), function () {
+
+                    orderArr.push({
+
+                        UrunID: $(this).find('td:eq(0)').html(),
+                        KategoriAd: $(this).find('td:eq(2)').val(),
+                        StokKodu: $(this).find('td:eq(3) input').val(),
+                        Aciklama: $(this).find('td:eq(4) input').val(),
+                        TurID: $(this).find('td:eq(5) select').val(),
+                        Miktari: $(this).find('td:eq(6)').val(),
+                        BirimID: $(this).find('td:eq(6) select').val(),
+                        BirimFiyat: $(this).find('td:eq(8)').val(),
+                    });
+                });
+                data = JSON.stringify({
+                    kalemler: orderArr
+                });
+            })
+
+            $("#AracKayidi").validate({
+
+                rules: {
+                    "FiyatForm.Plaka": {
+                        required: true,
+                        minlength: 7,
+                        maxlength: 9
+
+                    },
+                },
+                messages: {
+                    "Araclar.Plaka": {
+                        required: 'En az 7 hane girmelisiniz.',
+                        minlength: "7 Haneden az olamaz",
+                        maxlength: "9 Haneden fazla olamaz"
+
+                    },
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: "/Servis/FiyatEkle/",
+                        type: "POST",
+                        data: $(form).serialize() + data,
+                        dataType: 'json',
+                        success: function (data) {                    
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+}
+
+
+

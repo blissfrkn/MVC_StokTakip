@@ -35,11 +35,12 @@ namespace MVC_StokTakip.Roller
         {
             throw new NotImplementedException();
         }
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         public override string[] GetRolesForUser(string username)
         {
             //var kullanici = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == username);
             //return new string[] { kullanici.Rol };
+            //buraya bakılacak hata veriyor.
             List<KullaniciRolleri> kullanicirolleri = db.KullaniciRolleri.Where(x => x.Kullanicilar.KullaniciAdi == username).ToList();
             string[] roller = new string[kullanicirolleri.Count];
             if (kullanicirolleri.Count > 0)

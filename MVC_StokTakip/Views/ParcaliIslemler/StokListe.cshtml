@@ -1,0 +1,52 @@
+﻿@model List<MVC_StokTakip.Models.Entity.DepoUrun>
+@{
+    ViewBag.Title = "StokListe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Azalan Stok Listesi</h2>
+
+<table id="tbl1" class="table table-responsive-sm table-striped" style="margin-top:20px">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Kategori</th>
+            <th>Stok Kodu</th>
+            <th>BarkodNo</th>
+            <th>OemKod</th>
+            <th>Ürün Adı</th>
+            <th>Miktarı</th>
+            <th>Birimi</th>
+            <th>Açıklama</th>
+        </tr>
+    </thead>
+    @foreach (var k in Model)
+    {
+        if (k.Urunler.IsDelete == false)
+        {
+            <tr>
+                <td>@k.Urunler.UrunAdi</td>
+                <td>@k.Urunler.Kategoriler.Kategori</td>
+                <td>@k.Urunler.StokKodu</td>
+                <td>@k.Urunler.BarkodNo</td>
+                <td>@k.Urunler.OemKod</td>
+                <td>@k.Urunler.UrunAdi</td>
+                <td>@k.Miktar</td>
+                <td>@k.Urunler.Birimler.Birim</td>
+                <td>@k.Urunler.Aciklama</td>
+            </tr>
+
+        }
+
+    }
+</table>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+<script>
+    $('#tbl1').dataTable({});
+</script>

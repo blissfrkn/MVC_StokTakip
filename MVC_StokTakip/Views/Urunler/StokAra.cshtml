@@ -19,11 +19,11 @@
             <div class="col-md-8 offset-md-2">
                 <form action="simple-results.html">
                     <div class="input-group input-group-lg">
-                        <input type="search" id="BarkodNo" class="form-control form-control-lg" placeholder="Barkod Numarası giriniz." value="Barkod Numarası">
+                        <input type="search" id="BarkodNo" class="form-control form-control-lg" placeholder="Barkod Numarası giriniz." value="">
                         <div class="input-group-append">
-                            <a href="#" class="btn btn-lg btn-default">
+                            <button class="btn btn-lg btn-default" id="stokAra1">
                                 <i class="fa fa-search"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -36,6 +36,7 @@
                         <tr>
                             <th>Barkod No</th>
                             <th>Kategori</th>
+                            <th>Stok Kodu</th>
                             <th>Ürün Adı</th>
                             <th>Miktar</th>
                             <th>Alış Fiyat</th>
@@ -56,6 +57,73 @@
 <script src="~/GenelScript/jquery-code-scanner.js"></script>
 <script>
     $("#Tablomuz").hide();
+    $('#BarkodNo').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+</script>
+
+<script>
+    $("#stokAra1").click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "/Urunler/UrunGetir/" + $('#BarkodNo').val(),
+            type: 'GET',
+            dataType: 'json',
+            success:
+                function (data) {
+                    if (data == "0") {
+                        alert("Bu barkodlu ürün yoktur.");
+                    }
+                    else {
+                        $("#Tablomuz").show();
+                        $("#detailsTablem tbody").empty();
+                        $.each(data, function (key, Value) {
+                            var ID = Value.ID;
+                            var Aciklama = Value.UrunAdi;
+                            var Miktar = Value.Miktari;
+                            var SatisFiyat = Value.SatisFiyati;
+                            var AlisFiyat = Value.AlisFiyati;
+                            var BarkodNo = Value.BarkodNo;
+                            var Kategori = Value.Kategori;
+                            var StokKodu = Value.StokKodu;
+
+
+                            detailsTableBody = $("#detailsTablem tbody");
+
+
+                            var productItem = '<tr><td>' + BarkodNo
+                                + '</td><td hidden>' + ID
+                                + '</td><td>' + Kategori
+                                + '</td><td>' + StokKodu
+                                + '</td><td>' + Aciklama
+                                + '</td><td>' + Miktar
+                                + '</td><td>' + AlisFiyat
+                                + '</td><td>' + SatisFiyat
+                                + '</td><td><input type="submit" name="btnSepet" value="Sepete Ekle" class="btn btn-success btnSepet" data-id="' + ID + '" /></td></tr > ';
+                            detailsTableBody.append(productItem);
+                        });
+
+                    }
+                    $("#BarkodNo").val('');
+                },
+            error:
+                function () {
+                    alert("Hata");
+                }
+        });
+    });
+</script>
+<script>
+    $("#BarkodNo").keyup(function (event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            $("#stokAra1").click();
+        }
+    });
+
 </script>
 
 <script>
@@ -78,12 +146,13 @@
                             $.each(data, function (key, Value) {
                                 var ID = Value.ID;
                                 var Aciklama = Value.UrunAdi;
-                                var Miktar = Value.Miktari; 
+                                var Miktar = Value.Miktari;
                                 var SatisFiyat = Value.SatisFiyati;
                                 var AlisFiyat = Value.AlisFiyati;
                                 var BarkodNo = Value.BarkodNo;
                                 var Kategori = Value.Kategori;
-                               
+                                var StokKodu = Value.StokKodu;
+
 
                                 detailsTableBody = $("#detailsTablem tbody");
 
@@ -91,14 +160,15 @@
                                 var productItem = '<tr><td>' + BarkodNo
                                     + '</td><td hidden>' + ID
                                     + '</td><td>' + Kategori
+                                    + '</td><td>' + StokKodu
                                     + '</td><td>' + Aciklama
                                     + '</td><td>' + Miktar
                                     + '</td><td>' + AlisFiyat
-                                    + '</td><td>' + SatisFiyat   
-                                    + '</td><td><a data-itemId="0" href="#" class="btn btn-success addItem">Sepete Ekle</a></td></tr > ';
+                                    + '</td><td>' + SatisFiyat
+                                    + '</td><td><input type="submit" name="btnSepet" value="Sepete Ekle" class="btn btn-success btnSepet" data-id="'+ID+'" /></td></tr > ';
                                 detailsTableBody.append(productItem);
                             });
-                            
+
                         }
                         $("#BarkodNo").val('');
                     },
@@ -111,30 +181,54 @@
         }
     });
 
-    $(document).on('click', 'a.addItem', function (e) {
+    //$(document).on('click', 'a.addItem', function (e) {
 
-        e.preventDefault();
-        var Id = $("#detailsTablem tbody").find('td:eq(1)').html();
-        alert(Id);
-        $.ajax({
-            url: "/Sepet/SepeteEkle2/" + Id,
-            type: "POST",
-            dataType: 'json',
-            success:
-                function (response) {
-                    if (response == "0")
-                        alert("Ürün Sepete Eklendi");
-                    location.reload();
-                },
-            error: function () {
-                alert("Hata");
-            }
-        });
+    //    e.preventDefault();
+    //    var Id = $("#detailsTablem tbody").find('td:eq(1)').html();
+    //    alert(Id);
+    //    $.ajax({
+    //        url: "/Sepet/SepeteEkle2/" + Id,
+    //        type: "POST",
+    //        dataType: 'json',
+    //        success:
+    //            function (response) {
+    //                if (response == "0")
+    //                    alert("Ürün Sepete Eklendi");
+    //                location.reload();
+    //            },
+    //        error: function () {
+    //            alert("Hata");
+    //        }
+    //    });
 
-    });
+    //});
 
 </script>
 
-<script>
-
+<script type="text/javascript">
+    $(function () {
+        $("#detailsTablem").on("click", ".btnSepet", function () {
+            var btn = $(this);
+            bootbox.confirm(btn.data("id") + "nolu ürün sepete eklensin mi?", function (result) {
+                if (result) {
+                    var id = btn.data("id");
+                    $.ajax({
+                        type: "POST",
+                        url: "/Sepet/SepeteEkle2",
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data == 0) {
+                                alert("Ürün başarıyla sepete eklendi");
+                                location.reload();
+                            }
+                            //if (data == 1) {
+                            //    alert("Bu ürün sepete eklenemez. Stok adedi kalmamıştır.")
+                            //}
+                        }
+                    });
+                }
+            });
+        });
+    });
 </script>

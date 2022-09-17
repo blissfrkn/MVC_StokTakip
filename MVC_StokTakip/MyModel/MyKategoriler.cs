@@ -21,6 +21,7 @@ namespace MVC_StokTakip.MyModel
         [Required(ErrorMessage = "Açıklama Alanı Boş Bırakılamaz.")]
 
         public string Aciklama { get; set; }
+        public string SayfaNo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<MyMarkalar> Markalar { get; set; }

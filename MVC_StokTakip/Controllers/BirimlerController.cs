@@ -12,7 +12,7 @@ namespace MVC_StokTakip.Controllers
 
     public class BirimlerController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         public ActionResult Index()
         {
             return View(db.Birimler.ToList());
@@ -53,10 +53,12 @@ namespace MVC_StokTakip.Controllers
         public ActionResult GuncelleBilgiGetir(int? id)
         {
             var model = db.Birimler.Find(id);
-            MyBirimler k = new MyBirimler();
-            k.ID = model.ID;
-            k.Birim = model.Birim;
-            k.Aciklama = model.Aciklama;
+            MyBirimler k = new MyBirimler
+            {
+                ID = model.ID,
+                Birim = model.Birim,
+                Aciklama = model.Aciklama
+            };
             if (model == null) return HttpNotFound();
             return View("Kaydet",k);
         }

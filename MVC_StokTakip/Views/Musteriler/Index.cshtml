@@ -19,18 +19,23 @@
             <th>Araçlar</th>
             <th>Güncelle</th>         
             <th>Detay</th>
+            <th>Sil</th>
 
         </tr>
     </thead>
     @foreach (var k in Model)
     {
+        if (k.IsDelete == false)
+        {
         <tr>
             <td>@k.Ad @k.Soyad</td>
             <td>@k.Telefon</td>
             <td>@Html.Action("Araclar", "Musteriler", new { area = "", id = k.ID }) </td>
             <td>@Html.ActionLink("Güncelle", "MusteriGetir", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
-            <td>@Html.ActionLink("Detay", "Detay", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
+            <td>@Html.ActionLink("Detay", "Detay", new { id = k.ID }, new { @class = "btn btn-success" })</td>
+            <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@k.ID" /></td>
         </tr>
+        }
     }
 </table>
 
@@ -46,6 +51,47 @@
 
 
 <script>
-    $('#tbl1').dataTable({});
+    $('#tbl1').dataTable({
+        language: {
+            "search": "Müşteri Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+
+    });
 </script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#tbl1").on("click", ".btnSil", function () {
+            var btn = $(this);
+            bootbox.confirm(btn.data("id") + "nolu müşteri kaydı silinsin mi?", function (result) {
+                if (result) {
+                    var id = btn.data("id");
+                    $.ajax({
+                        type: "GET",
+                        url: "/Musteriler/Sil",
+                        data: { id: id },
+                        success: function (data) {
+                            btn.parent().parent().remove();
+                            alert("Müşteri Başarıyla Silindi");
+                        
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 

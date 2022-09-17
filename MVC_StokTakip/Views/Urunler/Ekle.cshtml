@@ -23,15 +23,106 @@
         top: 0;
     }
 </style>
-<h2 style="text-align:center;">Ürün Ekleme Sayfası</h2>
+<h2 style="text-align:center;">Ürün Stok Kartı Oluştur</h2>
+<br />
 <div class="container">
     @using (Html.BeginForm("Ekle", "Urunler", FormMethod.Post, new { id = "urunkayidi" }))
     {
-        <div class="form-group">
-            @Html.LabelFor(x => x.Kategoriler.Kategori)
-            @Html.DropDownListFor(x => x.KategoriID, Model.KategoriListesi, "Seçiniz", new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.KategoriID, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.Kategoriler.Kategori)
+                @Html.DropDownListFor(x => x.KategoriID, Model.KategoriListesi, "Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.KategoriID, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.BarkodNo)
+                @Html.TextBoxFor(x => x.BarkodNo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.BarkodNo, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.UrunAdi)
+                @Html.TextBoxFor(x => x.UrunAdi, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.UrunAdi, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.StokKodu)
+                @Html.TextBoxFor(x => x.StokKodu, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.StokKodu, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.OemKod)
+                @Html.TextBoxFor(x => x.OemKod, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.OemKod, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.AlisFiyati)
+                @Html.TextBoxFor(x => x.AlisFiyati, new { @class = "form-control", data_val = "false" })
+                @Html.ValidationMessageFor(x => x.AlisFiyati, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.SatisFiyati)
+                @Html.TextBoxFor(x => x.SatisFiyati, new { @class = "form-control", data_val = "false" })
+                @Html.ValidationMessageFor(x => x.SatisFiyati, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.Birimler.Birim)
+                @Html.DropDownListFor(x => x.BirimID, Model.BirimListesi, "Seçiniz", new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.BirimID, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.KDV)
+                @Html.TextBoxFor(x => x.KDV, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.KDV, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.Tarih)
+                @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(x => x.Tarih, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.Aciklama)
+                @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Aciklama, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.FormAciklama)
+                @Html.TextAreaFor(x => x.FormAciklama, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.FormAciklama, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.Label("Kritik Sipariş Adedi")
+                @Html.TextBoxFor(x => x.KritikSeviye, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.KritikSeviye, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.Label("Kritik Dükkan Adedi")
+                @Html.TextBoxFor(x => x.KritikStok, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.KritikStok, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group col-md-3">
+                @Html.Label("Konum")
+                @Html.TextBoxFor(x => x.Konum, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Konum, "", new { @class = "text-danger" })
+
+            </div>
         </div>
+
+
         @*<div class="form-group">
                 @Html.LabelFor(x => x.Markalar.Marka)
                 @Html.DropDownListFor(x => x.MarkaID, Model.MarkaListesi, new { @class = "form-control" })
@@ -39,100 +130,11 @@
 
             </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(x => x.BarkodNo)
-            @Html.TextBoxFor(x => x.BarkodNo, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.BarkodNo, "", new { @class = "text-danger" })
-
-            @*<button class="btn btn-danger" style="margin-top:10px;" type="button" data-toggle="modal" data-target="#livestream_scanner">
-                    Barkod Tarayıcı
-                </button>
-
-                <div class="modal" id="livestream_scanner">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                                <h4 class="modal-title">Barkod Tarayıcı</h4>
-                            </div>
-                            <div class="modal-body" style="position: static">
-                                <div id="interactive" class="viewport"></div>
-                                <div class="error"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <label class="btn btn-default pull-left">
-                                <i class="fa fa-camera"></i> Use camera app
-                                <input type="file" accept="image/*;capture=camera"  class="hidden" />
-                            </label>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Kapat</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
-
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.UrunAdi)
-            @Html.TextBoxFor(x => x.UrunAdi, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.UrunAdi, "", new { @class = "text-danger" })
-
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.OemKod)
-            @Html.TextBoxFor(x => x.OemKod, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.OemKod, "", new { @class = "text-danger" })
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.AlisFiyati)
-            @Html.TextBoxFor(x => x.AlisFiyati, new { @class = "form-control", data_val = "false"} )
-            @Html.ValidationMessageFor(x => x.AlisFiyati, "", new { @class = "text-danger" })
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.SatisFiyati)
-            @Html.TextBoxFor(x => x.SatisFiyati, new { @class = "form-control", data_val = "false" })
-            @Html.ValidationMessageFor(x => x.SatisFiyati, "", new { @class = "text-danger" })
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.Miktari)
-            @Html.TextBoxFor(x => x.Miktari, new { @class = "form-control", data_val = "false" })
-            @Html.ValidationMessageFor(x => x.Miktari, "", new { @class = "text-danger" })
-
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(x => x.Birimler.Birim)
-            @Html.DropDownListFor(x => x.BirimID, Model.BirimListesi, "Seçiniz", new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.BirimID, "", new { @class = "text-danger" })
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.KDV)
-            @Html.TextBoxFor(x => x.KDV, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.KDV, "", new { @class = "text-danger" })
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.Tarih)
-            @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date" })
-            @Html.ValidationMessageFor(x => x.Tarih, "", new { @class = "text-danger" })
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(x => x.Aciklama)
-            @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control" })
-            @Html.ValidationMessageFor(x => x.Aciklama, "", new { @class = "text-danger" })
-
-        </div>
 
         <div><button class="btn btn-success">Ürün Ekle</button></div>
+        <div id="dialog" title="Emin Misiniz ?">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Bu stok kodlu ürünün daha önceden silinmiş kaydı bulunmaktadır. Yinede oluşturmak istermisiniz ? </p>
+        </div>
 
 
     }
@@ -150,14 +152,82 @@
 <script src="~/GenelScript/jquery-code-scanner.js"></script>
 
 <script>
+    String.prototype.turkishToUpper = function () {
+        var string = this;
+        var letters = { "i": "I", "ş": "S", "ğ": "G", "ü": "U", "ö": "O", "ç": "C", "ı": "I" };
+        string = string.replace(/(([iışğüçö]))/g, function (letter) { return letters[letter]; })
+        return string.toUpperCase();
+    }
+    $('#AlisFiyati').keyup(function (index, value) {
+        this.value = this.value.replace(',', '.');
+    });
+    $('#SatisFiyati').keyup(function (index, value) {
+        this.value = this.value.replace(',', '.');
+    });
+    $('#Miktar').keyup(function (index, value) {
+        this.value = this.value.replace(',', '.');
+    });
+    $('#KritikSeviye').keyup(function (index, value) {
+        this.value = this.value.replace(',', '.');
+    });
+    $('#KritikStok').keyup(function (index, value) {
+        this.value = this.value.replace(',', '.');
+    });
+    $('#UrunAdi').keyup(function (index, value) {
+        this.value = this.value.turkishToUpper();
+    });
+    $('#UrunAdi').keyup(function (index, value) {
+        this.value = this.value.replace('İ', 'I');
+        this.value = this.value.replace('Ş', 'S');
+        this.value = this.value.replace('Ğ', 'G');
+        this.value = this.value.replace('Ü', 'U');
+        this.value = this.value.replace('Ö', 'O');
+        this.value = this.value.replace('Ç', 'C');
+  });
+    $('#StokKodu').keyup(function (index, value) {
+        this.value = this.value.toUpperCase();
+    });
+    $('#FormAciklama').keyup(function (index, value) {
+        this.value = this.value.turkishToUpper();
+    });
+    $('#FormAciklama').keyup(function (index, value) {
+        this.value = this.value.replace('İ', 'I');
+        this.value = this.value.replace('Ş', 'S');
+        this.value = this.value.replace('Ğ', 'G');
+        this.value = this.value.replace('Ü', 'U');
+        this.value = this.value.replace('Ö', 'O');
+        this.value = this.value.replace('Ç', 'C');
+    });
+    $('#Aciklama').keyup(function (index, value) {
+        this.value = this.value.turkishToUpper();
+    });
+    $('#Aciklama').keyup(function (index, value) {
+        this.value = this.value.replace('İ', 'I');
+        this.value = this.value.replace('Ş', 'S');
+        this.value = this.value.replace('Ğ', 'G');
+        this.value = this.value.replace('Ü', 'U');
+        this.value = this.value.replace('Ö', 'O');
+        this.value = this.value.replace('Ç', 'C');
+    });
+    $('#OemKod').keyup(function (index, value) {
+        this.value = this.value.turkishToUpper();
+    });
+    $('#OemKod').keyup(function (index, value) {
+        this.value = this.value.replace('İ', 'I');
+        this.value = this.value.replace('Ş', 'S');
+        this.value = this.value.replace('Ğ', 'G');
+        this.value = this.value.replace('Ü', 'U');
+        this.value = this.value.replace('Ö', 'O');
+        this.value = this.value.replace('Ç', 'C');
+    });
+</script>
+<script>
     $('#BarkodNo').codeScanner({
         onScan: function ($element, code) {
             $("#BarkodNo").val(code);
 
         }
     });
-
-
 </script>
 
 
@@ -173,6 +243,9 @@
                     required: true
                 },
                 "BarkodNo": {
+                    required: true
+                },
+                "StokKodu": {
                     required: true
                 },
                 "OemKod": {
@@ -198,6 +271,9 @@
                 },
                 "Aciklama": {
                     required: true
+                },
+                "FormAciklama": {
+                    required: true
                 }
             },
             messages: {
@@ -210,6 +286,9 @@
                 },
                 "BarkodNo": {
                     required: 'Barkod No girmelisiniz'
+                },
+                "StokKodu": {
+                    required: 'StokKodu girmelisiniz'
                 },
                 "OemKod": {
                     required: 'OemKod girmelisiniz'
@@ -234,6 +313,9 @@
                 },
                 "Aciklama": {
                     required: 'Açıklama girmelisiniz'
+                },
+                "FormAciklama": {
+                    required: 'Açıklama girmelisiniz'
                 }
             },
             submitHandler: function (form) {
@@ -243,17 +325,20 @@
                     data: $(form).serialize(),
                     dataType: 'json',
                     success:
-                    function(response) {
-                    
-                        if (response.result == 'Redirect') {
-                            alert("Ürün Ekleme işlemi başarılı");
-                            window.location = response.url;
-                        }
+                        function (response) {
 
-                        if (response = "0") {
-                            alert("Bu barkodlu ürün zaten sistemde kayıtlıdır");
-                        }
-                    },
+                            if (response.result == 'Redirect') {
+                                alert("Ürün Ekleme işlemi başarılı");
+                                window.location = response.url;
+                            }
+                            else if (response == "0") {
+                                alert("Bu barkodlu ürün sistemde kayıtlıdır.");
+                                
+                            }
+                            else if (response == "2") {
+                                $("#dialog").dialog("open");
+                            }
+                        },
                     error: function () {
                         alert("Hata");
                     }
@@ -263,9 +348,47 @@
     })
 
 </script>
-
 <script>
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            resizable: false,
+            draggable: false,
+            show: {
+                effect: "blind",
+                duration: 100
+            },
+            hide: {
+                effect: "blind",
+                duration: 100
+            },
+            buttons: {
+                "Evet": function () {
+                    $.ajax({
+                        url: "/Urunler/Ekle2/",
+                        type: "POST",
+                        data: $("#urunkayidi").serialize(),
+                        dataType: 'json',
+                        success:
+                            function (response) {
+                                if (response.result == 'Redirect')
+                                    window.location = response.url;
 
+                            },
+                        error: function () {
+                            alert("Hata");
+                        }
+                    });
+                },
+                "İptal": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+    });
 </script>
 
 @*@section scripts{

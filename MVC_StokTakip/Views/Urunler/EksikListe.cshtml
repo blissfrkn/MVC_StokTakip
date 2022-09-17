@@ -1,0 +1,163 @@
+﻿
+
+@model MVC_StokTakip.Models.Entity.Class1
+@{
+    Layout = null;
+}
+
+<br />
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Arabamİstanbul</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+</head>
+
+<body>
+
+    <table id="example" class="table table-striped">
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Kategori</th>
+
+                <th>StokKodu</th>
+
+                <th>Ürün Adı</th>
+
+                <th>Açıklama </th>
+
+                <th>Bayrampaşa Miktar</th>
+
+                <th>Sultançiftliği Miktar</th>
+
+                <th>Toplam</th>
+
+                <th> Depodan Gelecek Miktar Miktarı </th>
+
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var k in Model.DepoUrunModels)
+            {
+                if (k.IsDelete == false && k.KritikMiktar > 0 && k.DepoMiktar > 0)
+                {
+                    <tr>
+                        <td>@k.ID</td>
+                        <td>@k.KategoriAdi</td>
+                        <td>@k.StokKodu</td>
+                        <td>@k.UrunAdi</td>
+                        <td>@k.Aciklama</td>
+                        <td>@k.MagazaMiktar</td>
+                        <td>@k.DepoMiktar</td>
+                        @if (k.Toplam == null)
+                        {
+                            <td>0</td>
+                        }
+                        else
+                        {
+                            <td>@k.Toplam</td>
+                        }
+
+                        <td>@k.KritikMiktar</td>
+                    </tr>
+
+                }
+
+            }
+
+        </tbody>
+
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.bootstrap4.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+
+    <script src="https://cdn.datatables.net/plug-ins/1.12.1/sorting/natural.js"></script>
+
+    @*<link href="~/GenelScript/vendor/tablesorter-master/dist/css/jquery.tablesorter.pager.min.css" rel="stylesheet" />
+        <link href="~/GenelScript/vendor/tablesorter-master/dist/css/theme.blue.css" rel="stylesheet" />
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/jquery.tablesorter.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/parsers/parser-input-select.min.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/jquery.tablesorter.widgets.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/widgets/widget-pager.min.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/widgets/widget-output.min.js"></script>*@
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            var table = $('#example').DataTable({
+                columnDefs: [{ targets: '_all', type: 'natural' }],
+                lengthChange: false,
+
+                buttons: [
+                    { extend: 'excel', title: ' ', text: 'Excel olarak dışarı aktar' },
+                    { extend: 'pdf', title: ' ', text: 'PDF olarak dışarı aktar' },
+                    { extend: 'csv', title: ' ', text: 'Csv olarak dışarı aktar' },
+                    { extend: 'colvis', title: ' ', text: 'Kolon gizle  ' }
+                ]
+            });
+
+
+
+
+            table.buttons().container()
+
+                .appendTo('#example_wrapper .col-md-6:eq(0)');
+
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

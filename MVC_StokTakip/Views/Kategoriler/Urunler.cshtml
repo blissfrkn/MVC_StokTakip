@@ -20,6 +20,7 @@
                 <th>
                     Barkod No
                 </th>
+                <th>Stok Kodu</th>
                 <th>
                     Oem Kodu
                 </th>
@@ -35,9 +36,9 @@
                 @*<th>
                         Satış Fiyatı
                     </th>*@
-                <th>
+                @*<th>
                     Miktarı
-                </th>
+                </th>*@
                 <th>
                     Birim
                 </th>
@@ -57,28 +58,29 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    @*<th>@Html.DisplayFor(x => item.ID)</th>*@
-                    <td>@Html.DisplayFor(x => item.Kategoriler.Kategori)</td>
-                    <td>@Html.DisplayFor(x => item.BarkodNo) </td>
-                    <td>@Html.DisplayFor(x => item.OemKod)</td>
+            <tr>
+                @*<th>@Html.DisplayFor(x => item.ID)</th>*@
+                <td>@Html.DisplayFor(x => item.Kategoriler.Kategori)</td>
+                <td>@Html.DisplayFor(x => item.BarkodNo) </td>
+                <td>@Html.DisplayFor(x => item.StokKodu) </td>
+                <td>@Html.DisplayFor(x => item.OemKod)</td>
 
-                    <td>@Html.DisplayFor(x => item.UrunAdi)</td>
-
-
-                    @*<td>@Html.DisplayFor(x => item.AlisFiyati) </td>*@
-                    @*<td>@Html.DisplayFor(x => item.SatisFiyati) </td>*@
-                    <td>@Html.DisplayFor(x => item.Miktari) </td>
-                    <td>@Html.DisplayFor(x => item.Birimler.Birim) </td>
-                    @*<td>% @Html.DisplayFor(x => item.KDV) </td>*@
-                    @*<td>@Html.DisplayFor(x => item.Tarih) </td>*@
-                    <td>@Html.DisplayFor(x => item.Aciklama) </td>
+                <td>@Html.DisplayFor(x => item.UrunAdi)</td>
 
 
+                @*<td>@Html.DisplayFor(x => item.AlisFiyati) </td>*@
+                @*<td>@Html.DisplayFor(x => item.SatisFiyati) </td>*@
+                @*<td>@Html.DisplayFor(x => item.Miktari) </td>*@
+                <td>@Html.DisplayFor(x => item.Birimler.Birim) </td>
+                @*<td>% @Html.DisplayFor(x => item.KDV) </td>*@
+                @*<td>@Html.DisplayFor(x => item.Tarih) </td>*@
+                <td>@Html.DisplayFor(x => item.Aciklama) </td>
 
 
 
-                </tr>
+
+
+            </tr>
             }
 
         </tbody>

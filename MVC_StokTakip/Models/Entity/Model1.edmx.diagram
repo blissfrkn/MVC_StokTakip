@@ -4,46 +4,54 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9d45784efaac4066a8171840e4330c17" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Birimler" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Kategoriler" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Kullanicilar" Width="1.5" PointX="3.375" PointY="8.75" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.KullaniciRolleri" Width="1.5" PointX="5.625" PointY="10.25" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Roller" Width="1.5" PointX="3.375" PointY="13.375" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_KullaniciRolleri_Roller" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Girisler" Width="1.5" PointX="7.5" PointY="0.75" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Girisler_Kullanicilar" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Satislar" Width="1.5" PointX="10.5" PointY="4.75" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Satislar_Kullanicilar" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Durumlar" Width="1.5" PointX="8.375" PointY="15.375" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.AracMarka" Width="1.5" PointX="6.125" PointY="22.625" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.ServisKalem" Width="1.5" PointX="12.875" PointY="9.375" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Tur" Width="1.5" PointX="10.625" PointY="10.125" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_ServisKalem_Birimler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_ServisKalem_Tur" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.TamiratKalem" Width="1.5" PointX="12.875" PointY="13.875" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_TamiratKalem_Birimler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_TamiratKalem_Tur" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Sepet" Width="1.5" PointX="7.5" PointY="6.25" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Sepet_Kullanicilar" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Musteriler" Width="1.5" PointX="6.125" PointY="18.375" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Araclar" Width="1.5" PointX="8.375" PointY="19.75" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Araclar_AracMarka" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Araclar_Musteriler" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Tamiratlar" Width="1.5" PointX="10.625" PointY="18.25" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Urunler" Width="1.5" PointX="5.25" PointY="1.375" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Tamiratlar_Araclar" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Urunler_Birimler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Girisler_Urunler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Urunler_Kategoriler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Satislar_Ürünler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Sepet_Ürünler" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_TamiratKalem_Tamiratlar" />
-        <EntityTypeShape EntityType="MVC_StokTakipModel.Servis" Width="1.5" PointX="13.625" PointY="17.875" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Servis_Araclar" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_Servis_Durumlar" />
-        <AssociationConnector Association="MVC_StokTakipModel.FK_ServisKalem_Servis" />
+      <Diagram DiagramId="f00efb39a4c74370963fd4869e281d3f" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Araclar" Width="1.5" PointX="1.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.AracMarka" Width="1.5" PointX="1.5" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Birimler" Width="1.5" PointX="0.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Depolar" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.DepoUrun" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Durumlar" Width="1.5" PointX="1.5" PointY="36.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Girisler" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.İscilik" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Kullanicilar" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.KullaniciRolleri" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Musteriler" Width="1.5" PointX="1.5" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Roller" Width="1.5" PointX="3" PointY="39.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Satislar" Width="1.5" PointX="15.125" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Sepet" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Servis" Width="1.5" PointX="0.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.ServisKalem" Width="1.5" PointX="12" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.TamiratKalem" Width="1.5" PointX="6" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Tamiratlar" Width="1.5" PointX="3.75" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Tur" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Araclar_AracMarka" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Araclar_Musteriler" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Servis_Araclar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Tamiratlar_Araclar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_ServisKalem_Birimler" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_TamiratKalem_Birimler" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_DepoUrun_Depolar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Girisler_Depolar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Satislar_Depolar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Sepet_Depolar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Servis_Durumlar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Girisler_Kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Satislar_Kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Sepet_Kullanicilar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_KullaniciRolleri_Roller" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_ServisKalem_Servis" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_ServisKalem_Tur" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_TamiratKalem_Tamiratlar" ManuallyRouted="false" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_TamiratKalem_Tur" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Kategoriler" Width="1.5" PointX="0.75" PointY="8.375" />
+        <EntityTypeShape EntityType="arabamis_MVC_StokTakipModel.Urunler" Width="1.5" PointX="3" PointY="6.625" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Urunler_Birimler" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_DepoUrun_Urunler" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Girisler_Urunler" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Urunler_Kategoriler" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Satislar_Ürünler" />
+        <AssociationConnector Association="arabamis_MVC_StokTakipModel.FK_Sepet_Ürünler" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

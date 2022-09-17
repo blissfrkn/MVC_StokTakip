@@ -29,10 +29,10 @@ namespace MVC_StokTakip.MyModel
         [Display(Name = "Barkod No")]
 
         public string BarkodNo { get; set; }
-        //[Required(ErrorMessage = "Stok Kodu alanı boş bırakılamaz.")]
-        //[Display(Name = "Stok Kodu")]
-        
-        //public string StokKodu { get; set; }
+        [Required(ErrorMessage = "Stok Kodu alanı boş bırakılamaz.")]
+        [Display(Name = "Stok Kodu")]
+
+        public string StokKodu { get; set; }
 
 
         [Display(Name = "Oem Kodu")]
@@ -50,21 +50,31 @@ namespace MVC_StokTakip.MyModel
         [Range(0, 100, ErrorMessage = "0-100 arası sayı giriniz.")]
         [Display(Name = "K.D.V")]
 
-        public int? KDV { get; set; }
+        public int KDV { get; set; }
         [Required(ErrorMessage = "Birim alanı boş bırakılamaz.")]
 
         public int BirimID { get; set; }
         [Required(ErrorMessage = "Tarih alanı boş bırakılamaz.")]
 
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime Tarih { get; set; }
 
         [Display(Name = "Açıklama")]
         public string Aciklama { get; set; }
 
-        [Display(Name = "Miktarı")]
-        [DisplayFormat(DataFormatString = "{0:n0}", ApplyFormatInEditMode = true)]
-        public decimal? Miktari { get; set; }
+        [Display(Name = "Fiyat Formu Açıklama")]
+        public string FormAciklama { get; set; }
+
+        //[Display(Name = "Miktarı")]
+        //[DisplayFormat(DataFormatString = "{0:n0}", ApplyFormatInEditMode = true)]
+        //public decimal? Miktari { get; set; }
+
+        public Nullable<bool> IsDelete { get; set; }
+
+        public Nullable<decimal> KritikSeviye { get; set; }
+        public Nullable<decimal> KritikStok { get; set; }
+        public string Konum { get; set; }
 
         public virtual MyBirimler Birimler { get; set; }
         public virtual MyKategoriler Kategoriler { get; set; }
@@ -78,5 +88,7 @@ namespace MVC_StokTakip.MyModel
         public List<SelectListItem> KategoriListesi { get; set; }
         //public List<SelectListItem> MarkaListesi { get; set; }
         public List<SelectListItem> BirimListesi { get; set; }
+
+
     }
 }

@@ -19,11 +19,16 @@ namespace MVC_StokTakip
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
-            ModelBinders.Binders.Add(typeof(decimal?), new DecimalModelBinder());
+            //ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
             //  BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 
+        }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session.Timeout = 1500;
+            //TimeOut özelliğine aktarılacak değer dakika olarak aktarılmaktadır.
         }
 
 

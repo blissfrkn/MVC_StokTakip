@@ -1,0 +1,475 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "DepoDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="col-md-12">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1><a href="/Depolar/Index">Depolar</a> / @Html.DisplayFor(x => Model.Depolar.Adi) Deposu</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            @*<div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="../../dist/img/user4-128x128.jpg"
+                                         alt="User profile picture">
+                                </div>*@
+                            <h3 class="profile-username text-center">@Html.DisplayFor(x => Model.Depolar.Adi)</h3>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Adres</b> <a class="float-right">@Html.DisplayFor(x => Model.Depolar.Adres)</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Açıklama</b> <a class="float-right">@Html.DisplayFor(x => Model.Depolar.Aciklama)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#genel" data-toggle="tab">Genel</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Depo Hareketleri</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Ürünler</a></li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="genel">
+
+                                    <button class="btn btn-app" id="edit"> <i class="fas fa-edit"></i>Düzenle</button>
+                                    @using (Html.BeginForm("DepoGuncelle", "Depolar", FormMethod.Post, new { id = "DepoGuncelle" }))
+                                    {
+
+                                        @Html.HiddenFor(x => x.Depolar.ID)
+                                        <div class="form-row">
+                                            <div class="form-group col-md-3">
+                                                <label>Depo Adı :</label>
+                                                @Html.TextBoxFor(x => x.Depolar.Adi, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Depolar.Adi, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Depo Adresi :</label>
+                                                @Html.TextBoxFor(x => x.Depolar.Adres, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Depolar.Adres, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label>Depo Açıklaması :</label>
+                                                @Html.TextBoxFor(x => x.Depolar.Aciklama, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Depolar.Aciklama, "", new { @class = "text-danger" })
+                                            </div>
+
+
+
+                                        </div>
+                                        <button class="btn btn-primary" id="guncelleBtn" name="guncelle">Depo Güncelle</button>
+                                        <button class="btn btn-default" id="cancel" name="cancel">Vazgeç</button>
+                                    }
+
+
+
+
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="timeline">
+                                    <div class="container">
+                                        <h3 style="text-align:center;"> Stok Çıkışları</h3>
+                                        <table class="table table-responsive-sm table-striped" id="tbl1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kullanıcı</th>
+                                                    <th>Barkod No</th>
+                                                    <th>Stok Kodu</th>
+                                                    <th>Oem Kodu</th>
+                                                    <th>Ürün Adı</th>
+                                                    <th>Miktarı</th>
+                                                    <th>Birimi</th>
+                                                    <th>Durumu</th>
+                                                    <th>Depo</th>
+                                                    <th>Tarih</th>
+                                                    <th>Saat</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var item in Model.Satislars)
+                                            {
+
+                                                <tr>
+                                                    <td>@Html.DisplayFor(x => item.Kullanicilar.AdiSoyadi)</td>
+                                                    <td>@Html.DisplayFor(x => item.BarkodNo)</td>
+                                                    <td>@Html.DisplayFor(x => item.StokKodu)</td>
+                                                    <td>@Html.DisplayFor(x => item.OemKod)</td>
+                                                    <td>@Html.DisplayFor(x => item.Urunler.UrunAdi)</td>
+                                                    <td>@Html.DisplayFor(x => item.Miktari)</td>
+                                                    <td>@Html.DisplayFor(x => item.Urunler.Birimler.Birim)</td>
+                                                    <td>@Html.DisplayFor(x => item.Durum)</td>
+                                                    <td>@Html.DisplayFor(x => item.Depolar.Adi)</td>
+                                                    <td>@item.Tarih.ToString("dd.MM.yyyy")</td>
+                                                    <td>@item.Saat.ToString("dd.MM.yyyy HH:mm:ss")</td>
+
+                                                </tr>
+                                            }
+                                        </table>
+                                        <br />
+                                        <h3 style="text-align:center;"> Stok Girişleri</h3>
+                                        <table class="table table-responsive-sm table-striped" id="tbl2">
+                                            <thead>
+                                                <tr>
+                                                    <th>Kullanıcı</th>
+                                                    <th>Barkod No</th>
+                                                    <th>Stok Kodu</th>
+                                                    <th>Oem Kodu</th>
+                                                    <th>Ürün Adı</th>
+                                                    <th>Miktarı</th>
+                                                    <th>Birimi</th>
+                                                    <th>Durumu</th>
+                                                    <th>Depo</th>
+                                                    <th>Tarih</th>
+                                                    <th>Saat</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var item in Model.Girislers)
+                                            {
+
+                                                <tr>
+                                                    <td>@Html.DisplayFor(x => item.Kullanicilar.AdiSoyadi)</td>
+                                                    <td>@Html.DisplayFor(x => item.BarkodNo)</td>
+                                                    <td>@Html.DisplayFor(x => item.StokKodu)</td>
+                                                    <td>@Html.DisplayFor(x => item.OemKod)</td>
+                                                    <td>@Html.DisplayFor(x => item.Urunler.UrunAdi)</td>
+                                                    <td>@Html.DisplayFor(x => item.Miktari)</td>
+                                                    <td>@Html.DisplayFor(x => item.Urunler.Birimler.Birim)</td>
+                                                    <td>@Html.DisplayFor(x => item.Durum)</td>
+                                                    <td>@Html.DisplayFor(x => item.Depolar.Adi)</td>
+                                                    <td>@item.Tarih.ToString("dd.MM.yyyy")</td>
+                                                    <td>@item.Saat.ToString("dd.MM.yyyy HH:mm:ss")</td>
+
+
+
+
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="settings">
+                                    <table id="tbl2" class="table table-responsive-sm" style="margin-top:20px">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Kategori</th>
+                                                <th>BarkodNo</th>
+                                                <th>StokKodu</th>
+                                                <th>OemKod</th>
+                                                <th>Ürün Adı</th>
+                                                <th>Miktarı</th>
+                                                <th>Birimi</th>
+                                                <th>Açıklama</th>
+
+                                            </tr>
+                                        </thead>
+                                        @foreach (var k in Model.DepoUruns)
+                                        {
+                                            if (k.Urunler.IsDelete == false)
+                                            {
+                                                <tr>
+                                                    <td>@k.Urunler.ID</td>
+                                                    <td>@k.Urunler.Kategoriler.Kategori</td>
+                                                    <td>@k.Urunler.BarkodNo</td>
+                                                    <td>@k.Urunler.StokKodu</td>
+                                                    <td>@k.Urunler.OemKod</td>
+                                                    <td>@k.Urunler.UrunAdi</td>
+                                                    <td>@k.Miktar</td>
+                                                    <td>@k.Urunler.Birimler.Birim</td>
+                                                    <td>@k.Urunler.Aciklama</td>
+                                                </tr>
+
+                                            }
+
+                                        }
+                                    </table>
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+@section scripts{
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+    <script>
+        $('#Urunler_AlisFiyati').keyup(function (index, value) {
+            this.value = this.value.replace(',', '.');
+        });
+        $('#Urunler_SatisFiyati').keyup(function (index, value) {
+            this.value = this.value.replace(',', '.');
+        });
+        $('#Urunler_Miktar').keyup(function (index, value) {
+            this.value = this.value.replace(',', '.');
+        });
+        $('#Urunler_StokKodu').keyup(function (index, value) {
+            this.value = this.value.toUpperCase();
+        });
+        $('#Urunler_FormAciklama').keyup(function (index, value) {
+            this.value = this.value.toUpperCase();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#UrunGuncelle").validate({
+                rules: {
+                    "Urunler.KategoriID": {
+                        required: true,
+
+                    },
+                    "Urunler.UrunAdi": {
+                        required: true
+                    },
+                    "Urunler.BarkodNo": {
+                        required: true
+                    },
+                    "Urunler.StokKodu": {
+                        required: true
+                    },
+                    "Urunler.OemKod": {
+                        required: true
+                    },
+                    "Urunler.AlisFiyati": {
+                        required: true
+                    },
+                    "Urunler.SatisFiyati": {
+                        required: true
+                    },
+                    "Urunler.Miktari": {
+                        required: true
+                    },
+                    "Urunler.KDV": {
+                        required: true
+                    },
+                    "Urunler.BirimID": {
+                        required: true
+                    },
+                    "Urunler.Aciklama": {
+                        required: true
+                    },
+                    "Urunler.FormAciklama": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "Urunler.KategoriID": {
+                        required: 'Kategori seçmelisiniz'
+
+                    },
+                    "Urunler.UrunAdi": {
+                        required: 'Ürün adı girmelisiniz'
+                    },
+                    "Urunler.BarkodNo": {
+                        required: 'Barkod No girmelisiniz'
+                    },
+                    "Urunler.StokKodu": {
+                        required: 'Barkod No girmelisiniz'
+                    },
+                    "Urunler.OemKod": {
+                        required: 'OemKod girmelisiniz'
+                    },
+                    "Urunler.AlisFiyati": {
+                        required: 'Alış Fiyatı girmelisiniz'
+                    },
+                    "Urunler.SatisFiyati": {
+                        required: 'Satış Fiyatı girmelisiniz'
+                    },
+                    "Urunler.Miktari": {
+                        required: 'Miktar bilgisi girmelisiniz'
+                    },
+                    "Urunler.KDV": {
+                        required: 'Kdv bilgisi girmelisiniz'
+                    },
+                    "Urunler.BirimID": {
+                        required: 'Birim türü girmelisiniz'
+                    },
+                    "Urunler.Aciklama": {
+                        required: 'Açıklama girmelisiniz'
+                    },
+                    "Urunler.FormAciklama": {
+                        required: 'Açıklama girmelisiniz'
+                    }
+
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: "/Urunler/Guncelle/",
+                        type: "POST",
+                        data: $(form).serialize(),
+                        dataType: 'json',
+                        success:
+                            function (data) {
+                                alert(data);
+                                location.reload();
+                            },
+                        error: function () {
+                            alert("Hata");
+                        }
+                    });
+                }
+            })
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+
+
+    <script>
+
+        $('#tbl1').dataTable({
+            language: {
+                "search": "Ürün Ara :",
+                "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+                "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+                "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+                "paginate": {
+                    "first": "İlk Sayfa",
+                    "last": "Son Sayfa",
+                    "next": "İleri",
+                    "previous": "Geri"
+                }
+            },
+
+        });
+
+        $('#tbl2').dataTable({
+            language: {
+                "search": "Ürün Ara :",
+                "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+                "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+                "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+                "paginate": {
+                    "first": "İlk Sayfa",
+                    "last": "Son Sayfa",
+                    "next": "İleri",
+                    "previous": "Geri"
+                }
+            },
+
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#guncelleBtn").hide();
+            $("#cancel").hide();
+            $("#DepoGuncelle :input").prop('readonly', true);
+            $("#edit").click(function () {
+                $("#DepoGuncelle :input").prop('readonly', false);
+                $("#guncelleBtn").show();
+                $("#cancel").show();
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#DepoGuncelle").validate({
+                rules: {
+                    "Depolar.Adi": {
+                        required: true,
+
+                    }
+                },
+                messages: {
+                    "Depolar.Adi": {
+                        required: 'Depo Adı Girmelisiniz'
+
+                    }
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: "/Depolar/DepoGuncelle/",
+                        type: "POST",
+                        data: $(form).serialize(),
+                        dataType: 'json',
+                        success:
+                            function (response) {
+                                if (response == "1") {
+                                    alert("Depo Güncelleme işlemi başarılı şekilde gerçekleştirildi.");
+                                    location.reload();
+                                }
+                                else if (response == "2") {
+                                    location.reload();
+                                }
+
+                            },
+                        error: function () {
+                            alert("Hata");
+                        }
+                    });
+                }
+            });
+
+            $("#cancel").click(function () {
+                location.reload();
+            });
+        });
+
+
+    </script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+}
+
+
+
+
+
+<style>
+</style>

@@ -1,4 +1,5 @@
-﻿using MVC_StokTakip.Models.ParcaliIslemler;
+﻿using MVC_StokTakip.Models.Entity;
+using MVC_StokTakip.Models.ParcaliIslemler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,10 @@ namespace MVC_StokTakip.Controllers
             return PartialView(new BildirimIslemler().AzalanStokListe());
         }
 
+        public ActionResult StokListe()
+        {
+            return View(new BildirimIslemler().AzalanStokListe());
+        }
 
 
     }

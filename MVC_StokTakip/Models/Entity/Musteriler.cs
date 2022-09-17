@@ -28,6 +28,7 @@ namespace MVC_StokTakip.Models.Entity
         public string Adres { get; set; }
         public string VergiDairesi { get; set; }
         public string VergiNo { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Araclar> Araclar { get; set; }

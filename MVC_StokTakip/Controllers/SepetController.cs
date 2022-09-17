@@ -12,9 +12,10 @@ namespace MVC_StokTakip.Controllers
 
     public class SepetController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         public ActionResult Index(decimal? Tutar)
         {
+                    
             if (User.Identity.IsAuthenticated)
             {
                 var kullaniciadi = User.Identity.Name;
@@ -31,7 +32,14 @@ namespace MVC_StokTakip.Controllers
                     {
                         Tutar = db.Sepet.Where(x => x.KullaniciID == kid.KullaniciID).Sum(x => x.ToplamFiyat);
                         ViewBag.Tutar = "Toplam tutar=" + Tutar + "TL";
+
                     }
+                    foreach (var item in model)
+                    {
+                        List<Depolar> Depolar = db.Depolar.OrderBy(x => x.Adi).ToList();
+                        item.DepoListesi = (from x in Depolar select new SelectListItem { Text = x.Adi, Value = x.ID.ToString(), Selected = (x.ID == item.DepoID ? true : false) }).ToList();
+                    }
+
                     return View(model);
                 }
 
@@ -47,6 +55,7 @@ namespace MVC_StokTakip.Controllers
                 var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == kullaniciadi);
                 var u = db.Urunler.Find(id);
                 var sepet = db.Sepet.FirstOrDefault(x => x.KullaniciID == model.ID && x.UrunID == id);
+                var depo = db.Depolar.Where(x => x.IsDefault == true).FirstOrDefault();
                 if (model != null)
                 {
                     if (sepet != null) // Sepete eklenen ürün sepette varsa bu işlem çalıştırılır
@@ -56,24 +65,33 @@ namespace MVC_StokTakip.Controllers
                         db.SaveChanges();
                         return Json("0", JsonRequestBehavior.AllowGet);
                     }
-                    if (u.Miktari <=0)
+                    else
                     {
-                        return Json("1", JsonRequestBehavior.AllowGet);
+                        if (depo != null)
+                        {
+                            var s = new Sepet // Sepete eklenen ürün sepette yoksa yeni sepet girişi yapılır.
+                            {
+                                KullaniciID = model.ID,
+                                UrunID = u.ID,
+                                Miktari = 1,
+                                DepoID = depo.ID,
+                                BirimFiyati = u.SatisFiyati,
+                                ToplamFiyat = u.SatisFiyati,
+                                Tarih = DateTime.Now,
+                                Saat = DateTime.Now
+                            };
+
+                            db.Entry(s).State = System.Data.Entity.EntityState.Added;
+                            db.SaveChanges();
+                            return Json("0", JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            return Json("1", JsonRequestBehavior.AllowGet);
+                        }
+
                     }
-                    var s = new Sepet // Sepete eklenen ürün sepette yoksa yeni sepet girişi yapılır.
-                    {
-                        KullaniciID = model.ID,
-                        UrunID = u.ID,
-                        Miktari = 1,
-                        BirimFiyati = u.SatisFiyati,
-                        ToplamFiyat = u.SatisFiyati,
-                        Tarih = DateTime.Now,
-                        Saat = DateTime.Now
-                    };
-                   
-                    db.Entry(s).State = System.Data.Entity.EntityState.Added;
-                    db.SaveChanges();
-                    return Json("0", JsonRequestBehavior.AllowGet);
+            
                 }
             }
             return Json("" , JsonRequestBehavior.AllowGet);
@@ -87,6 +105,8 @@ namespace MVC_StokTakip.Controllers
                 var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == kullaniciadi);
                 var u = db.Urunler.Find(Id);
                 var sepet = db.Sepet.FirstOrDefault(x => x.KullaniciID == model.ID && x.UrunID == Id);
+                var depo = db.Depolar.Where(x => x.IsDefault == true).FirstOrDefault();
+
                 if (model != null)
                 {
                     if (sepet != null)
@@ -96,26 +116,86 @@ namespace MVC_StokTakip.Controllers
                         db.SaveChanges();
                         return Json("0", JsonRequestBehavior.AllowGet);
                     }
-                    if (u.Miktari <= 0)
+                    else
                     {
-                        return Json("1", JsonRequestBehavior.AllowGet);
+                        if (depo != null)
+                        {
+                            var s = new Sepet // Sepete eklenen ürün sepette yoksa yeni sepet girişi yapılır.
+                            {
+                                KullaniciID = model.ID,
+                                UrunID = u.ID,
+                                Miktari = 1,
+                                DepoID = depo.ID,
+                                BirimFiyati = u.SatisFiyati,
+                                ToplamFiyat = u.SatisFiyati,
+                                Tarih = DateTime.Now,
+                                Saat = DateTime.Now
+                            };
+
+                            db.Entry(s).State = System.Data.Entity.EntityState.Added;
+                            db.SaveChanges();
+                            return Json("0", JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            return Json("1", JsonRequestBehavior.AllowGet);
+                        }
+
                     }
-                    var s = new Sepet
-                    {
-                        KullaniciID = model.ID,
-                        UrunID = u.ID,
-                        Miktari = 1,
-                        BirimFiyati = u.SatisFiyati,
-                        ToplamFiyat = u.SatisFiyati,
-                        Tarih = DateTime.Now,
-                        Saat = DateTime.Now
-                    };
-                    db.Entry(s).State = System.Data.Entity.EntityState.Added;
-                    db.SaveChanges();
-                    return Json("0", JsonRequestBehavior.AllowGet);
                 }
             }
-            return HttpNotFound();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult SepeteEkle3(string Id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var kullaniciadi = User.Identity.Name;
+                var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == kullaniciadi);
+                var u = db.Urunler.Where(x=>x.BarkodNo == Id && x.IsDelete == false).FirstOrDefault();
+                var sepet = db.Sepet.FirstOrDefault(x => x.KullaniciID == model.ID && x.UrunID == u.ID);
+                var depo = db.Depolar.Where(x => x.IsDefault == true).FirstOrDefault();
+
+                if (model != null)
+                {
+                    if (sepet != null)
+                    {
+                        sepet.Miktari++;
+                        sepet.ToplamFiyat = u.SatisFiyati * sepet.Miktari;
+                        db.SaveChanges();
+                        return Json("0", JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        if (depo != null)
+                        {
+                            var s = new Sepet // Sepete eklenen ürün sepette yoksa yeni sepet girişi yapılır.
+                            {
+                                KullaniciID = model.ID,
+                                UrunID = u.ID,
+                                Miktari = 1,
+                                DepoID = depo.ID,
+                                BirimFiyati = u.SatisFiyati,
+                                ToplamFiyat = u.SatisFiyati,
+                                Tarih = DateTime.Now,
+                                Saat = DateTime.Now
+                            };
+
+                            db.Entry(s).State = System.Data.Entity.EntityState.Added;
+                            db.SaveChanges();
+                            return Json("0", JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            return Json("1", JsonRequestBehavior.AllowGet);
+                        }
+
+                    }
+                }
+            }
+            return Json("",JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult TotalCount(int? count)
@@ -164,6 +244,15 @@ namespace MVC_StokTakip.Controllers
             model.ToplamFiyat = model.BirimFiyati * model.Miktari;
             db.SaveChanges();
         }
+
+        public ActionResult DinamikDepo(int id,int depo)
+        {
+            var model = db.Sepet.Find(id);
+            model.DepoID = depo;
+            db.SaveChanges();
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult Sil(int id)
         {

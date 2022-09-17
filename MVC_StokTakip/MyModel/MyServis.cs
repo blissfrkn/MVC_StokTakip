@@ -13,16 +13,16 @@ namespace MVC_StokTakip.MyModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MyServis()
         {
-
+            //this.ServisKalem = new HashSet<ServisKalem>();
         }
 
         public int ID { get; set; }
         public int DurumID { get; set; }
         public int AracID { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime Tarih { get; set; }
-        public int Km { get; set; }
+        public Nullable<int> Km { get; set; }
         [AllowHtml]
         public string Not1 { get; set; }
         [AllowHtml]
@@ -36,9 +36,12 @@ namespace MVC_StokTakip.MyModel
         public decimal Toplam { get; set; }
         public decimal İskonto { get; set; }
         public decimal GenelToplam { get; set; }
+
         public virtual Araclar Araclar { get; set; }
         public virtual Durumlar Durumlar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServisKalem> ServisKalem { get; set; }
+
+        public List<SelectListItem> DurumListesi { get; set; }
     }
 }

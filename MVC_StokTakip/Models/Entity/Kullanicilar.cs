@@ -17,8 +17,8 @@ namespace MVC_StokTakip.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Kullanicilar()
         {
-            this.KullaniciRolleri = new HashSet<KullaniciRolleri>();
             this.Girisler = new HashSet<Girisler>();
+            this.KullaniciRolleri = new HashSet<KullaniciRolleri>();
             this.Satislar = new HashSet<Satislar>();
             this.Sepet = new HashSet<Sepet>();
         }
@@ -33,9 +33,9 @@ namespace MVC_StokTakip.Models.Entity
         public System.DateTime Tarih { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KullaniciRolleri> KullaniciRolleri { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Girisler> Girisler { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KullaniciRolleri> KullaniciRolleri { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Satislar> Satislar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

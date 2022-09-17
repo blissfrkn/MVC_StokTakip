@@ -1,0 +1,98 @@
+﻿@model List<MVC_StokTakip.Models.Entity.İscilik>
+@{
+    ViewBag.Title = "Deleteİscilik";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="col-md-12">
+    <h2 style="text-align:center;">Silinmiş İşçilikler Listesi</h2>
+    <br />
+
+    <br />
+</div>
+
+
+
+
+
+<table id="tbl1" class="table table-responsivsm" style="margin-top:20px">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>İşçilik</th>
+            <th>Satış Fiyatı</th>
+            <th>Açıklama</th>
+            <th>Geri Yükle</th>
+        </tr>
+    </thead>
+    @foreach (var k in Model)
+    {
+
+        <tr>
+            <td>@k.ID</td>
+            <td>@k.İscilik1</td>
+            <td>@k.SatisFiyat</td>
+            <td>@k.Aciklama</td>
+            <td><input type="submit" name="btnSepet" value="Geri Yükle" class="btn btn-success btnBack" data-id="@k.ID" /></td>
+        </tr>
+
+
+    }
+</table>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<script>
+
+    $('#tbl1').dataTable({
+        language: {
+            "search": "İşçilik Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+    });
+
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#tbl1").on("click", ".btnBack", function () {
+            var btn = $(this);
+            bootbox.confirm(btn.data("id") + "nolu işçilik geri yüklensin mi?", function (result) {
+                if (result) {
+                    var id = btn.data("id");
+                    $.ajax({
+                        type: "POST",
+                        url: "/İscilik/GeriYukle",
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+                            alert(data);
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+

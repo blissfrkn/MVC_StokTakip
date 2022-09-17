@@ -13,7 +13,7 @@ namespace MVC_StokTakip.Controllers
 
     public class KategorilerController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
      
         public ActionResult Index(String ara)
         {
@@ -46,10 +46,13 @@ namespace MVC_StokTakip.Controllers
                 return View();
             }
             var model = db.Kategoriler.Find(id);
-            MyKategoriler k = new MyKategoriler();
-            k.ID = model.ID;
-            k.Kategori = model.Kategori;
-            k.Aciklama = model.Aciklama;
+            MyKategoriler k = new MyKategoriler
+            {
+                ID = model.ID,
+                Kategori = model.Kategori,
+                Aciklama = model.Aciklama,
+                SayfaNo = model.SayfaNo
+            };
             if (model == null)
                 return HttpNotFound();
 
@@ -70,7 +73,7 @@ namespace MVC_StokTakip.Controllers
             if (model == null) return HttpNotFound();
             return View(model);
         }
-        public ActionResult Sil(Kategoriler p , Urunler u)
+        public ActionResult Sil(Kategoriler p)
         {
             
             db.Entry(p).State = System.Data.Entity.EntityState.Deleted;      

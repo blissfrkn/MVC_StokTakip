@@ -15,16 +15,19 @@ namespace MVC_StokTakip.Models.Entity
     public partial class TamiratKalem
     {
         public int ID { get; set; }
+        public int UrunID { get; set; }
+        public string StokKodu { get; set; }
+        public string KategoriAd { get; set; }
         public string Aciklama { get; set; }
-        public Nullable<int> BirimID { get; set; }
-        public Nullable<int> TurID { get; set; }
-        public Nullable<int> TamiratID { get; set; }
-        public Nullable<decimal> BirimFiyat { get; set; }
-        public Nullable<decimal> Miktari { get; set; }
-        public Nullable<decimal> ToplamTutar { get; set; }
+        public int BirimID { get; set; }
+        public int TurID { get; set; }
+        public int TamiratID { get; set; }
+        public decimal BirimFiyat { get; set; }
+        public decimal Miktari { get; set; }
+        public decimal ToplamTutar { get; set; }
     
         public virtual Birimler Birimler { get; set; }
-        public virtual Tur Tur { get; set; }
         public virtual Tamiratlar Tamiratlar { get; set; }
+        public virtual Tur Tur { get; set; }
     }
 }

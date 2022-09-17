@@ -1,0 +1,580 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "UrunDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="col-md-12">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Ürün Detay Sayfası</h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+
+                    <!-- Profile Image -->
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            @*<div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="../../dist/img/user4-128x128.jpg"
+                                         alt="User profile picture">
+                                </div>*@
+                            <h3 class="profile-username text-center">@Html.DisplayFor(x => Model.Urunler.UrunAdi)</h3>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    @*<b>Stok Adedi</b> <a class="float-right">@Html.TextBoxFor(x => x.Ur, new { disabled = true})</a>*@
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Geliş Fiyatı</b> <a class="float-right">@Html.TextBoxFor(x => Model.Urunler.AlisFiyati, new { disabled = true })</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Satış Fiyatı</b> <a class="float-right">@Html.TextBoxFor(x => Model.Urunler.SatisFiyati, new { disabled = true })</a>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="btn btn-primary btn-block"><b>Stok Ekle</b></a>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <!-- About Me Box -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Ürün Hakkında</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-book mr-1"></i> Ürün Açıklaması</strong>
+
+                            <p class="text-muted">
+                                @Html.DisplayFor(x => Model.Urunler.Aciklama)
+                            </p>
+
+                            <hr>
+
+                            <strong><i class="fas fa-book mr-1"></i> Fiyat Formu Açıklaması</strong>
+
+                            <p class="text-muted">@Html.DisplayFor(x => Model.Urunler.FormAciklama)</p>
+
+                            <hr>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Stok Hareketleri</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Ürün Bilgisi Güncelle</a></li>
+                                @*<li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>*@
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+
+                        <!-- Stok Hareketleri Bölümü -->
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    @foreach (var item in Model.DepoUruns)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <p> @Html.DisplayFor(x => item.Depolar.Adi) : @Html.DisplayFor(x => item.Miktar) @Html.DisplayFor(x => item.Urunler.Birimler.Birim)</p>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    <label>Giriş Yapılan Toplam Stok Adedi : </label> @ViewBag.grs @ViewBag.brm
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    <label>Çıkış Yapılan Toplam Stok Adedi : </label> @ViewBag.cks @ViewBag.brm
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="info-box bg-light">
+                                                <div class="info-box-content">
+                                                    <label>Toplam Bakiye :</label> @ViewBag.tplm @ViewBag.brm
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h3 style="text-align:center;"> Stok Çıkışları</h3>
+                                    <table class="table table-responsive-sm table-striped" id="tbl1">
+                                        <thead>
+                                            <tr>
+                                                <th>Kullanıcı</th>
+                                                <th>Barkod No</th>
+                                                <th>Stok Kodu</th>
+                                                <th>Oem Kodu</th>
+                                                <th>Ürün Adı</th>
+                                                <th>Miktarı</th>
+                                                <th>Birimi</th>
+                                                <th>Durumu</th>
+                                                <th>Çıkış Yapılan Depo</th>
+                                                <th>Tarih</th>
+                                                <th>Saat</th>
+                                            </tr>
+                                        </thead>
+                                        @foreach (var item in Model.Satislars)
+                                        {
+
+                                            <tr>
+                                                <td>@Html.DisplayFor(x => item.Kullanicilar.AdiSoyadi)</td>
+                                                <td>@Html.DisplayFor(x => item.BarkodNo)</td>
+                                                <td>@Html.DisplayFor(x => item.StokKodu)</td>
+                                                <td>@Html.DisplayFor(x => item.OemKod)</td>
+                                                <td>@Html.DisplayFor(x => item.Urunler.UrunAdi)</td>
+                                                <td>@Html.DisplayFor(x => item.Miktari)</td>
+                                                <td>@Html.DisplayFor(x => item.Urunler.Birimler.Birim)</td>
+                                                <td>@Html.DisplayFor(x => item.Durum)</td>
+                                                <td>@Html.DisplayFor(x => item.Depolar.Adi)</td>
+                                                <td>@item.Tarih.ToString("dd.MM.yyyy")</td>
+                                                <td>@item.Saat.ToString("dd.MM.yyyy HH:mm:ss")</td>
+                                                
+                                           </tr>
+                                        }
+                                    </table>
+                                    <br />
+                                    <h3 style="text-align:center;"> Stok Girişleri</h3>
+                                    <table class="table table-responsive-sm table-striped" id="tbl2">
+                                        <thead>
+                                            <tr>
+                                                <th>Kullanıcı</th>
+                                                <th>Barkod No</th>
+                                                <th>Stok Kodu</th>
+                                                <th>Oem Kodu</th>
+                                                <th>Ürün Adı</th>
+                                                <th>Miktarı</th>
+                                                <th>Birimi</th>
+                                                <th>Durumu</th>
+                                                <th>Giriş Yapılan Depo</th>
+                                                <th>Tarih</th>
+                                                <th>Saat</th>
+                                            </tr>
+                                        </thead>
+                                        @foreach (var item in Model.Girislers)
+                                        {
+
+                                            <tr>
+                                                <td>@Html.DisplayFor(x => item.Kullanicilar.AdiSoyadi)</td>
+                                                <td>@Html.DisplayFor(x => item.BarkodNo)</td>
+                                                <td>@Html.DisplayFor(x => item.StokKodu)</td>
+                                                <td>@Html.DisplayFor(x => item.OemKod)</td>
+                                                <td>@Html.DisplayFor(x => item.Urunler.UrunAdi)</td>
+                                                <td>@Html.DisplayFor(x => item.Miktari)</td>
+                                                <td>@Html.DisplayFor(x => item.Urunler.Birimler.Birim)</td>
+                                                <td>@Html.DisplayFor(x => item.Durum)</td>
+                                                <td>@Html.DisplayFor(x => item.Depolar.Adi)</td>
+                                                <td>@item.Tarih.ToString("dd.MM.yyyy")</td>
+                                                <td>@item.Saat.ToString("dd.MM.yyyy HH:mm:ss")</td>
+
+
+
+
+                                            </tr>
+                                        }
+                                    </table>
+
+
+                                </div>
+                                <!-- Stok Hareketleri Bölümü Bitiş -->
+                                <!-- Ürün Bilgisi Güncelleme Bölümü-->
+                                <div class="tab-pane" id="timeline">
+                                    <div class="container">
+                                        @using (Html.BeginForm("Guncelle", "Urunler", FormMethod.Post, new { id = "UrunGuncelle" }))
+                                        {
+                                            @Html.HiddenFor(x => x.Urunler.ID)
+                                        <div class="form-row">
+                                            <div class="form-group col-md-3">
+
+                                                @Html.LabelFor(x => x.Urunler.Kategoriler.Kategori)
+                                                @Html.DropDownListFor(x => x.Urunler.KategoriID, Model.Urunler.KategoriListesi, "Seçiniz", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.KategoriID, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.BarkodNo)
+                                                @Html.TextBoxFor(x => x.Urunler.BarkodNo, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.BarkodNo, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.UrunAdi)
+                                                @Html.TextBoxFor(x => x.Urunler.UrunAdi, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.UrunAdi, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.StokKodu)
+                                                @Html.TextBoxFor(x => x.Urunler.StokKodu, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.StokKodu, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.OemKod)
+                                                @Html.TextBoxFor(x => x.Urunler.OemKod, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.OemKod, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.AlisFiyati)
+                                                @Html.TextBoxFor(x => x.Urunler.AlisFiyati, new { @class = "txt5 form-control", data_val = "false" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.AlisFiyati, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.SatisFiyati)
+                                                @Html.TextBoxFor(x => x.Urunler.SatisFiyati, new { @class = "txt5 form-control", data_val = "false" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.SatisFiyati, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Birimler.Birim)
+                                                @Html.DropDownListFor(x => x.Urunler.BirimID, Model.Urunler.BirimListesi, "Seçiniz", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.BirimID, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                            @Html.DropDownListFor(x => x.Urunler.BirimID, Model.Urunler.BirimListesi, "Seçiniz", new { @class = "form-control", style = "display: none;" })
+
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.KDV)
+                                                @Html.TextBoxFor(x => x.Urunler.KDV, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.KDV, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            @*<div class="form-group col-md-3">
+            @Html.LabelFor(x => x.Urunler.Tarih)
+            @Html.TextBoxFor(x => x.Urunler.Tarih, "{0:MM/dd/yyyy}", new { @class = "form-control", @id = "datepicker" })
+            @Html.ValidationMessageFor(x => x.Urunler.Tarih, "", new { @class = "text-danger" })
+
+        </div>*@
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.Aciklama)
+                                                @Html.TextAreaFor(x => x.Urunler.Aciklama, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.Aciklama, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.LabelFor(x => x.Urunler.FormAciklama)
+                                                @Html.TextAreaFor(x => x.Urunler.FormAciklama, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.FormAciklama, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Kritik Sipariş Adedi")
+                                                @Html.TextBoxFor(x => x.Urunler.KritikSeviye, new { @class = "txt5 form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.KritikSeviye, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Kritik Dükkan Adedi")
+                                                @Html.TextBoxFor(x => x.Urunler.KritikStok, new { @class = "txt5 form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.KritikStok, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Konum")
+                                                @Html.TextBoxFor(x => x.Urunler.Konum, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(x => x.Urunler.Konum, "", new { @class = "text-danger" })
+
+                                            </div>
+
+                                        </div>
+                                            <div><button class="btn btn-primary">Ürün Güncelle</button></div>
+
+                                        }
+
+                                    </div>
+                                </div>
+                                <!-- Ürün Bilgisi Güncelleme Bölümü Bitiş-->
+
+                                @*<div class="tab-pane" id="settings">
+
+                                </div>*@
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#tbl1').dataTable({
+                language: {
+                    "search": "Kayıt Ara :",
+                    "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                    "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+                    "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                    "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+                    "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+                    "paginate": {
+                        "first": "İlk Sayfa",
+                        "last": "Son Sayfa",
+                        "next": "İleri",
+                        "previous": "Geri"
+                    }
+                },
+
+
+            });
+            $('#tbl2').dataTable({
+                language: {
+                    "search": "Kayit Ara :",
+                    "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                    "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+                    "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+                    "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+                    "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+                    "paginate": {
+                        "first": "İlk Sayfa",
+                        "last": "Son Sayfa",
+                        "next": "İleri",
+                        "previous": "Geri"
+                    }
+                },
+
+
+            });
+            $("#datepicker").datepicker();
+        });
+    </script>
+    <script>
+        String.prototype.turkishToUpper = function () {
+            var string = this;
+            var letters = { "i": "I", "ş": "S", "ğ": "G", "ü": "U", "ö": "O", "ç": "C", "ı": "I" };
+            string = string.replace(/(([iışğüçö]))/g, function (letter) { return letters[letter]; })
+            return string.toUpperCase();
+        }
+
+        $('.txt5').keyup(function () {
+            this.value = this.value.replace(',', '.');
+        });
+
+        $('#Urunler_Miktar').keyup(function (index, value) {
+            this.value = this.value.replace(',', '.');
+        });
+        $('#Urunler_KDV').keyup(function (index, value) {
+            this.value = this.value.replace(',', '.');
+        });
+        $('#Urunler_UrunAdi').keyup(function (index, value) {
+            this.value = this.value.turkishToUpper();
+        });
+        $('#Urunler_UrunAdi').keyup(function (index, value) {
+            this.value = this.value.replace('İ', 'I');
+            this.value = this.value.replace('Ş', 'S');
+            this.value = this.value.replace('Ğ', 'G');
+            this.value = this.value.replace('Ü', 'U');
+            this.value = this.value.replace('Ö', 'O');
+            this.value = this.value.replace('Ç', 'C');
+        });
+        $('#Urunler_StokKodu').keyup(function (index, value) {
+            this.value = this.value.toUpperCase();
+        });
+        $('#Urunler_FormAciklama').keyup(function (index, value) {
+            this.value = this.value.turkishToUpper();
+        });
+        $('#Urunler_FormAciklama').keyup(function (index, value) {
+            this.value = this.value.replace('İ', 'I');
+            this.value = this.value.replace('Ş', 'S');
+            this.value = this.value.replace('Ğ', 'G');
+            this.value = this.value.replace('Ü', 'U');
+            this.value = this.value.replace('Ö', 'O');
+            this.value = this.value.replace('Ç', 'C');
+        });
+        $('#Urunler_Aciklama').keyup(function (index, value) {
+            this.value = this.value.turkishToUpper();
+        });
+        $('#Urunler_Aciklama').keyup(function (index, value) {
+            this.value = this.value.replace('İ', 'I');
+            this.value = this.value.replace('Ş', 'S');
+            this.value = this.value.replace('Ğ', 'G');
+            this.value = this.value.replace('Ü', 'U');
+            this.value = this.value.replace('Ö', 'O');
+            this.value = this.value.replace('Ç', 'C');
+        });
+        $('#Urunler_OemKod').keyup(function (index, value) {
+            this.value = this.value.turkishToUpper();
+        });
+        $('#Urunler_OemKod').keyup(function (index, value) {
+            this.value = this.value.replace('İ', 'I');
+            this.value = this.value.replace('Ş', 'S');
+            this.value = this.value.replace('Ğ', 'G');
+            this.value = this.value.replace('Ü', 'U');
+            this.value = this.value.replace('Ö', 'O');
+            this.value = this.value.replace('Ç', 'C');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#UrunGuncelle").validate({
+                rules: {
+                    "Urunler.KategoriID": {
+                        required: true,
+
+                    },
+                    "Urunler.UrunAdi": {
+                        required: true
+                    },
+                    "Urunler.BarkodNo": {
+                        required: true
+                    },
+                    "Urunler.StokKodu": {
+                        required: true
+                    },
+                    "Urunler.OemKod": {
+                        required: true
+                    },
+                    "Urunler.AlisFiyati": {
+                        required: true
+                    },
+                    "Urunler.SatisFiyati": {
+                        required: true
+                    },
+                    "Urunler.Miktari": {
+                        required: true
+                    },
+                    "Urunler.KDV": {
+                        required: true
+                    },
+                    "Urunler.BirimID": {
+                        required: true
+                    },
+                    "Urunler.Aciklama": {
+                        required: true
+                    },
+                    "Urunler.FormAciklama": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "Urunler.KategoriID": {
+                        required: 'Kategori seçmelisiniz'
+
+                    },
+                    "Urunler.UrunAdi": {
+                        required: 'Ürün adı girmelisiniz'
+                    },
+                    "Urunler.BarkodNo": {
+                        required: 'Barkod No girmelisiniz'
+                    },
+                    "Urunler.StokKodu": {
+                        required: 'Barkod No girmelisiniz'
+                    },
+                    "Urunler.OemKod": {
+                        required: 'OemKod girmelisiniz'
+                    },
+                    "Urunler.AlisFiyati": {
+                        required: 'Alış Fiyatı girmelisiniz'
+                    },
+                    "Urunler.SatisFiyati": {
+                        required: 'Satış Fiyatı girmelisiniz'
+                    },
+                    "Urunler.Miktari": {
+                        required: 'Miktar bilgisi girmelisiniz'
+                    },
+                    "Urunler.KDV": {
+                        required: 'Kdv bilgisi girmelisiniz'
+                    },
+                    "Urunler.BirimID": {
+                        required: 'Birim türü girmelisiniz'
+                    },
+                    "Urunler.Aciklama": {
+                        required: 'Açıklama girmelisiniz'
+                    },
+                    "Urunler.FormAciklama": {
+                        required: 'Açıklama girmelisiniz'
+                    }
+
+                },
+                submitHandler: function (form) {
+                    $.ajax({
+                        url: "/Urunler/Guncelle/",
+                        type: "POST",
+                        data: $(form).serialize(),
+                        dataType: 'json',
+                        success:
+                            function (data) {
+                                alert(data);
+                                location.reload();
+                            },
+                        error: function () {
+                            alert("Hata");
+                        }
+                    });
+                }
+            })
+        });
+
+    </script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+}
+
+
+
+
+<style>
+    #interactive.viewport {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        text-align: center;
+    }
+
+        #interactive.viewport > canvas, #interactive.viewport > video {
+            max-width: 100%;
+            width: 100%;
+        }
+
+    canvas.drawing, canvas.drawingBuffer {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+</style>
+
+

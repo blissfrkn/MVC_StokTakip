@@ -1,4 +1,4 @@
-﻿@model List<MVC_StokTakip.Models.Entity.Urunler>
+﻿@model List<MVC_StokTakip.Models.Entity.Class1>
 
 
 
@@ -14,14 +14,14 @@
             @foreach (var item in Model)
             {
                 <div class="dropdown-divider"></div>
-                <a href="/Urunler/GuncelleBilgiGetir/@item.ID" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i>  @item.BarkodNo - @item.Miktari adet kalmıştır.
+                <a href="/Urunler/GuncelleBilgiGetir/@item.Urunler.ID" class="dropdown-item">
+                    <i class="fas fa-envelope mr-2"></i>  @item.Urunler.StokKodu  adet kalmıştır.
                   
                 </a>
 
                 }
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                <a href="/ParcaliIslemler/StokListe/" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
       
         </li>

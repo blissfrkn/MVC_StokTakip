@@ -9,11 +9,11 @@ namespace MVC_StokTakip.Controllers
 {
     public class MusterilerController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         // GET: Musteriler
         public ActionResult Index()
         {
-            var degerler = db.Musteriler.ToList();
+            var degerler = db.Musteriler.Where(x=> x.IsDelete == false).ToList();
             return View(degerler);
         }
 
@@ -33,6 +33,7 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult Ekle(Musteriler m)
         {
+            m.IsDelete = false;
             db.Musteriler.Add(m);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -60,16 +61,39 @@ namespace MVC_StokTakip.Controllers
 
         public ActionResult Detay(int id)
         {
-            Class1 c = new Class1();
-            c.Musteriler = db.Musteriler.Find(id);
-            c.Tamiratlars = db.Tamiratlar.Where(x => x.Araclar.Musteriler.ID == id).ToList();
-            c.TamiratKalems = db.TamiratKalem.Where(x => x.Tamiratlar.Araclar.Musteriler.ID == id).ToList();
-            c.Araclars = db.Araclar.Where(x => x.Musteriler.ID == id).ToList();
+            Class1 c = new Class1
+            {
+                Musteriler = db.Musteriler.Find(id),
+                Tamiratlars = db.Tamiratlar.Where(x => x.Araclar.Musteriler.ID == id).ToList(),
+                TamiratKalems = db.TamiratKalem.Where(x => x.Tamiratlar.Araclar.Musteriler.ID == id).ToList(),
+                Araclars = db.Araclar.Where(x => x.Musteriler.ID == id).ToList()
+            };
 
-            
+
             return View(c);
         }
+        public ActionResult Sil(int id)
+        {
+            var model = db.Musteriler.FirstOrDefault(x => x.ID == id);
+            model.IsDelete = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
+        public ActionResult DeleteCustomers()
+        {
+            var model = db.Musteriler.Where(x => x.IsDelete == true).ToList();
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult GeriYukle(int id)
+        {
+            var model = db.Musteriler.Find(id);
+            model.IsDelete = false;
+            db.SaveChanges();
+            return Json("Müşteri başarıyla geri yüklendi", JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

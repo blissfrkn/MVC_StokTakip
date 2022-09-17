@@ -8,34 +8,18 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
-            <h2>Kategoriler Ana Sayfası</h2>
+        <div class="col-md-10">
+            <h2>Kategoriler Ana Sayfası</h2>         
         </div>
-
-        <div class="form-group">
-            @using (Html.BeginForm("Index", "Kategoriler", FormMethod.Get))
-            {
-                <div class="col-md-12"  style="margin-bottom:20px;">
-                    <div class="form-group">
-                        <div style="width:75%; float:left">
-                            @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Aranacak Kategori Adı  Giriniz." })
-
-                        </div>
-                        <div style="float:left">
-                            @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="col-md-12">
+        <div class="col-md-2">
             <a href=" /Kategoriler/Ekle/" class="btn btn-success" style="margin-top:10px">Kategori Ekle</a>
         </div>
     </div>
-    </div>
-
+</div>
+<br />
+<br />
 <div style="margin-top:10px" class="container">
-    <table class="table">
+    <table class="table table-responsive-sm" id="tbl1">
         <thead style="background-color:aliceblue">
             <tr>
                 <th>
@@ -46,6 +30,9 @@
                 </th>
                 <th>
                     Açıklama
+                </th>
+                <th>
+                    Sayfa Numarası
                 </th>
                 <th>
                     Güncelle
@@ -70,9 +57,12 @@
                         @item.Aciklama
                     </td>
                     <td>
+                        @item.SayfaNo
+                    </td>
+                    <td>
                         <a href="/Kategoriler/GuncelleBilgiGetir/@item.ID" class="btn btn-warning">Güncelle</a>
                     </td>
-  
+
                     <td>
                         <a href="/Kategoriler/Urunler/@item.ID" class="btn btn-info">Ürünler</a>
                     </td>
@@ -85,3 +75,32 @@
 
 </div>
 
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script src="~/GenelScript/jquery-code-scanner.js"></script>
+
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+<script>
+    $('#tbl1').dataTable({
+        language: {
+            "search": "Kategori Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+
+    });
+</script>

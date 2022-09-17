@@ -1,0 +1,94 @@
+﻿@model List<MVC_StokTakip.Models.Entity.İscilik>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="width:100%;" class="col-md-12">
+    <h2 style="text-align:center;">İşçilikler Listesi</h2>
+    <br />
+
+
+
+    <table id="tbl1" class="table table-responsive-sm" style="margin-top:20px">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>İşçilik Adı</th>
+                <th>Fiyat</th>
+                <th>Açıklama</th>
+                <th>Güncelle</th>
+                <th>Sil</th>
+            </tr>
+        </thead>
+        @foreach (var k in Model)
+        {
+            if (k.IsDelete == false)
+            {
+                <tr>
+                    <td>@k.ID</td>
+                    <td>@k.İscilik1</td>
+                    <td>@k.SatisFiyat</td>
+                    <td>@k.Aciklama</td>
+                    <td>@Html.ActionLink("Güncelle", "GuncelleBilgiGetir", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
+                    <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@k.ID" /></td>
+                </tr>
+
+            }
+
+        }
+    </table>
+
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+
+<script>
+
+    $('#tbl1').dataTable({
+        language: {
+            "search": "İşçilik Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+    });
+
+
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#tbl1").on("click", ".btnSil", function () {
+            var btn = $(this);
+            bootbox.confirm(btn.data("id") + "nolu ID kaydı silinsin mi?", function (result) {
+                if (result) {
+                    var id = btn.data("id");
+                    $.ajax({
+                        type: "GET",
+                        url: "/İscilik/Sil",
+                        data: { id: id },
+                        success: function () {
+                            btn.parent().parent().remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

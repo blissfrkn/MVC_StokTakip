@@ -22,6 +22,7 @@ namespace MVC_StokTakip.Models.Entity
             this.TamiratKalem = new HashSet<TamiratKalem>();
         }
 
+
         public int ID { get; set; }
         public Nullable<int> AracID { get; set; }
         public Nullable<int> ServisID { get; set; }

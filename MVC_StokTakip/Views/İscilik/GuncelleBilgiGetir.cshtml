@@ -1,0 +1,128 @@
+﻿@model MVC_StokTakip.Models.Entity.İscilik
+@{
+    ViewBag.Title = "GuncelleBilgiGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 style="text-align:center;">İşçilik Güncelle</h2>
+<br />
+<div class="container">
+    @using (Html.BeginForm("Guncelle", "İscilik", FormMethod.Post, new { id = "UrunGuncelle" }))
+    {
+        @Html.HiddenFor(x => x.ID)
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.İscilik1)
+                @Html.TextBoxFor(x => x.İscilik1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.İscilik1, "", new { @class = "text-danger" })
+             
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.SatisFiyat)
+                @Html.TextBoxFor(x => x.SatisFiyat, new { @class = "form-control", data_val = "false" })
+                @Html.ValidationMessageFor(x => x.SatisFiyat, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(x => x.Aciklama)
+                @Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Aciklama, "", new { @class = "text-danger" })
+
+            </div>
+
+
+        </div>
+        <div><button class="btn btn-primary">İşçilik Güncelle</button></div>
+
+    }
+</div>
+
+@section scriptdanger{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<style>
+    #interactive.viewport {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        text-align: center;
+    }
+
+        #interactive.viewport > canvas, #interactive.viewport > video {
+            max-width: 100%;
+            width: 100%;
+        }
+
+    canvas.drawing, canvas.drawingBuffer {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+</style>
+
+<script>
+    $('#SatisFiyat').keyup(function (index, value) {
+        this.value = this.value.replace(',', '.');
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#UrunGuncelle").validate({
+            rules: {
+                "İscilik1": {
+                    required: true
+                },
+                "SatisFiyat": {
+                    required: true
+                },
+                "Aciklama": {
+                    required: true
+                }
+            },
+            messages: {
+                "İscilik1": {
+                    required: 'İşçilik bölümünü girmelisiniz'
+
+                },
+                "SatisFiyat": {
+                    required: 'Fiyat bölümünü girmelisiniz'
+                },
+                "Aciklama": {
+                    required: 'Açıklama bölümünü girmelisiniz'
+                }
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/İscilik/Guncelle/",
+                    type: "POST",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success:
+                        function (response) {
+                            
+                            if (response.result == 'Redirect') {
+                                alert("Güncelleme işlemi başarılı");
+                                window.location = response.url;
+                            }
+                                
+                        },
+                    error: function () {
+                        alert("Hata");
+                    }
+                });
+            }
+        })
+    });
+
+</script>
+

@@ -22,6 +22,12 @@
 
         </div>
         <div class="form-group">
+            <label>Sayfa Numarası</label>
+            <input name="SayfaNo" class="form-control" />
+            @Html.ValidationMessageFor(x => x.SayfaNo, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
             <button class="btn btn-success">Kategori Ekle</button>
         </div>
     </form>

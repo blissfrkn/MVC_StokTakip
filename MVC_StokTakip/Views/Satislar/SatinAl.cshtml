@@ -9,10 +9,10 @@
         <h2>Stok Düş</h2>
     </div>
 <div class="container">
-    @using (Html.BeginForm("SatinAl2", "Satislar", FormMethod.Post))
+    @using (Html.BeginForm("SatinAl2", "Satislar", FormMethod.Post, new { id = "SatinAlForm" }))
     {
     <div class="modal-body">
-        @Html.HiddenFor(x => x.ID)
+        @Html.HiddenFor(x => x.ID, new { id = "SepetID" })
 
 
 
@@ -41,12 +41,42 @@
     </div>
 
         <div class="modal-footer" style="float:right">
-            <button class="btn btn-success">Stok Düş</button>
+            <button class="btn btn-success" id="stokDus">Stok Düş</button>
             <a href="/Sepet/Index" class="btn btn-dark">Çıkış</a>
         </div>
     }
 
 </div>
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
 
+        $("#stokDus").click(function () {
+            $.ajax({
+                url: "/Satislar/SatinAl2/",
+                type: "POST",
+                data: $("#SatinAlForm").serialize(),
+                dataType: 'json',
+                success:
+                    function (response) {
+                        if (response == "0")
+                            alert("Girilen miktar stok adedinden fazla olamaz");
 
+                        if (response.result == 'Redirect') {
+                            alert("Ürün başarıyla stoktan düşüldü");
+                            window.location = response.url;
+                        }
+                        if (response == "1") {
+                            alert("Stok düşme işlemi başarısız");
+                        }
+
+                    },
+                error: function () {
+                    alert("Hata");
+                }
+            });
+        });
+    });
+
+</script>*@
 

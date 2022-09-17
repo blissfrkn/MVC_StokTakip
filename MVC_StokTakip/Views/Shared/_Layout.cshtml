@@ -6,8 +6,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Arabamİstanbul Otomasyon</title>
+    <title>OtoServis Otomasyonu</title>
 
+    <link rel="icon" href="@Url.Content("~/Content/favicon.ico")" />
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -21,22 +22,28 @@
     <!-- JQVMap -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
+    <link href="~/css/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/dist/css/adminlte.min.css">
+
+    <link href="~/css/jquery-ui-1.12.1/jquery-ui.theme.css" rel="stylesheet" />
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/summernote/summernote-bs4.min.css">
+
     <link href="~/css/StyleSheet1.css" rel="stylesheet" />
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="~/AdminLTE-3.1.0/dist/img/Arabamİstanbul.png" alt="AdminLTELogo" height="150" width="250">
-        </div>
+        @*<div class="preloader flex-column justify-content-center align-items-center">
+                <img class="animation__shake" src="~/AdminLTE-3.1.0/dist/img/Arabamİstanbul.png" alt="AdminLTELogo" height="150" width="250">
+            </div>*@
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -54,7 +61,25 @@
 
                 <li class="nav-item d-none d-sm-inline-block">
 
+                    <a href="/DepoUrun/DepoTransfer" class="nav-link">  Depo Transfer &nbsp; <i class="fa fa-rocket"></i>  </a>
+
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+
                     <a href="/Urunler/StokAra" class="nav-link">  Hızlı Stok Ara &nbsp; <i class="fa fa-search" aria-hidden="true"></i>  </a>
+
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+
+                    <a href="/Urunler/HizliSepet" class="nav-link">  Hızlı Stok Düş/Ekle  &nbsp; <i class="fa fa-shopping-bag" aria-hidden="true"></i>  </a>
+
+                </li>
+
+                <li class="nav-item d-none d-sm-inline-block">
+
+                    <a href="/ParcaliIslemler/StokListe" class="nav-link">  Azalan Stok Listesi &nbsp; <i class="fa fa-arrow-down" aria-hidden="true"></i>  </a>
 
                 </li>
 
@@ -85,7 +110,7 @@
                     </li>*@
 
                 <!-- Notifications Dropdown Menu -->
-                @Html.Action("BildirimMenusu", "ParcaliIslemler", new { area = "" })
+                @*@Html.Action("BildirimMenusu", "ParcaliIslemler", new { area = "" })*@
                 <li class="nav-item">
                     <div class="dropdown" style="color:white">
                         <a href="#" class="nav-link px-lg-4 dropdown" data-toggle="dropdown">
@@ -93,9 +118,9 @@
                             <i class="fa fa-caret-down" style="color: #CCC" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu">
-                            @*<a class="dropdown-item" href="/Kullanicilar/Guncelle/">
-                                    Bilgileri Güncelle
-                                </a>*@
+                            <a class="dropdown-item" href="/Kullanicilar/Guncelle/">
+                                Bilgileri Güncelle
+                            </a>
                             <a class="dropdown-item" href="/Kullanicilar/Logout">
                                 Çıkış
                             </a>
@@ -120,7 +145,7 @@
                                 <i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i>
 
                                 @{
-                                    MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+                                    arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
                                     var model = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi.Equals(User.Identity.Name));
                                     if (model != null)
                                     {
@@ -194,17 +219,17 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item menu-@Html.ActiveOpen("Urunler")">
-                                <a href="#" class="nav-link @Html.ActivePage("Urunler", "Index2") @Html.ActivePage("Urunler", "Ekle")">
+                            <li class="nav-item menu-@Html.ActiveOpen("Urunler","Urunler")">
+                                <a href="#" class="nav-link @Html.ActivePage("DepoUrun", "Product") @Html.ActivePage("Urunler", "Ekle") @Html.ActivePage("Urunler", "DeleteProducts")">
                                     <i class="fa fa-cubes nav-icon"></i>
                                     <p style="font-size:1.350em;">
-                                        Ürün
+                                        Ürünler
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item ">
-                                        <a href="/Urunler/Index2" class="nav-link @Html.ActivePage("Urunler", "Index2")">
+                                        <a href="/Urunler/Product" class="nav-link @Html.ActivePage("Urunler", "Product")">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p style="font-size:1.350em;">Ürün Listesi</p>
                                         </a>
@@ -212,15 +237,57 @@
                                     <li class="nav-item ">
                                         <a href="/Urunler/Ekle" class="nav-link @Html.ActivePage("Urunler", "Ekle")">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p style="font-size:1.350em;">Ürün Ekleme</p>
+                                            <p style="font-size:1.350em;">Ürün Stok Kartı Oluştur</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="/Urunler/DeleteProducts" class="nav-link @Html.ActivePage("Urunler", "DeleteProducts")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">Silinmiş Ürünler</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item menu-@Html.ActiveOpen("İscilik","İscilik")">
+                                <a href="#" class="nav-link @Html.ActivePage("İscilik", "Index") @Html.ActivePage("İscilik", "Ekle") @Html.ActivePage("İscilik", "Deleteİscilik")">
+                                    <i class="fa fa-wrench  nav-icon"></i>
+
+                                    <p style="font-size:1.350em;">
+                                        İşçilikler
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item ">
+                                        <a href="/İscilik/Index" class="nav-link @Html.ActivePage("İscilik", "Index")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">İşçilik Listesi</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="/İscilik/Ekle" class="nav-link @Html.ActivePage("İscilik", "Ekle")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">İşçilik Kartı Oluştur</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="/İscilik/Deleteİscilik" class="nav-link @Html.ActivePage("İscilik", "Deleteİscilik")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">Silinmiş İşçilikler</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a href="/İscilik/İscilikListe" class="nav-link @Html.ActivePage("İscilik", "İscilikListe")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">İşçilik Fiyat Listesi</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
 
 
-
-                            <li class="nav-item menu-@Html.ActiveOpen("Satislar") @Html.ActiveOpen("Girisler")">
+                            <li class="nav-item menu-@Html.ActiveOpen("Satislar","Girisler")">
                                 <a href="#" class="nav-link @Html.ActivePage("Satislar", "Index") @Html.ActivePage("Girisler", "Index")">
                                     <i class="fa fa-history nav-icon"></i>
                                     <p style="font-size:1.350em;">
@@ -246,8 +313,8 @@
 
 
 
-                            <li class="nav-item menu-@Html.ActiveOpen("Kategoriler")">
-                                <a href="#" class="nav-link @Html.ActivePage("Kategoriler", "Index") @Html.ActivePage("Markalar", "Index") @Html.ActivePage("Birimler", "Index")">
+                            <li class="nav-item menu-@Html.ActiveOpen("Kategoriler","Birimler")">
+                                <a href="#" class="nav-link @Html.ActivePage("Kategoriler", "Index")  @Html.ActivePage("Birimler", "Index")">
                                     <i class="fa fa-plus nav-icon"></i>
                                     <p style="font-size:1.350em;">
                                         Ekleme ve Görüntüleme
@@ -269,7 +336,15 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link @Html.ActivePage("YedekParca", "Index")">
+                                    <i class="fa fa-shopping-cart nav-icon"></i>
+                                    <p style="font-size:1.350em;">
+                                        Yedek Parça Satış
 
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a href="/Urunler/UrunListe" class="nav-link @Html.ActivePage("Urunler", "UrunListe")">
                                     <i class="fa fa-th-list nav-icon"></i>
@@ -280,12 +355,36 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/Urunler/SiparisListe" class="nav-link @Html.ActivePage("Urunler", "SiparisListe")">
+                                    <i class="fa fa-th-list nav-icon"></i>
+                                    <p style="font-size:1.350em;">
+                                        Sipariş Listesi
+
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Urunler/EksikListe" class="nav-link @Html.ActivePage("Urunler", "EksikListe")">
+                                    <i class="fa fa-th-list nav-icon"></i>
+                                    <p style="font-size:1.350em;">
+                                        Depodan Gelecek Listesi
+
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Depolar/Index" class="nav-link @Html.ActivePage("Depolar", "Index")">
+                                    <i class="fa fa-inbox nav-icon"></i>
+                                    <p style="font-size:1.350em;">Depolar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/Servis/Index" class="nav-link @Html.ActivePage("Servis", "Index")">
                                     <i class="fa fa-cog nav-icon"></i>
                                     <p style="font-size:1.350em;">
                                         Servis
                                         @{
-                                            MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+                                            arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
 
 
 
@@ -315,15 +414,40 @@
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/Musteriler/Index" class="nav-link @Html.ActivePage("Musteriler", "Index")">
+                            <li class="nav-item menu-@Html.ActiveOpen("Musteriler","Musteriler")">
+                                <a href="#" class="nav-link @Html.ActivePage("Musteriler", "Index") @Html.ActivePage("Musteriler", "DeleteCustomers")">
                                     <i class="fa fa-users nav-icon"></i>
                                     <p style="font-size:1.350em;">
                                         Müşteriler
-
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item ">
+                                        <a href="/Musteriler/Index/" class="nav-link @Html.ActivePage("Musteriler", "Index")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">Müşteriler Listesi</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item ">
+                                        <a href="/Musteriler/DeleteCustomers/" class="nav-link @Html.ActivePage("Musteriler", "DeleteCustomers")">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p style="font-size:1.350em;">Silinmiş Müşteriler</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+                            @*<li class="nav-item">
+                                    <a href="/Musteriler/Index" class="nav-link @Html.ActivePage("Musteriler", "Index")">
+                                        <i class="fa fa-users nav-icon"></i>
+                                        <p style="font-size:1.350em;">
+                                            Müşteriler
+
+                                        </p>
+                                    </a>
+                                </li>*@
                             <li class="nav-item">
                                 <a href="/Tamiratlar/Index" class="nav-link @Html.ActivePage("Tamiratlar", "Index")">
                                     <i class="fa fa-wrench nav-icon"></i>
@@ -368,10 +492,10 @@
         <!-- /.content-wrapper -->
         <br />
         <footer class="main-footer">
-            <strong>Copyright &copy; 2020 <a href="https://adminlte.io">Arabamİstanbul</a>.</strong>
+            <strong> &copy; 2020 <a href="#">Arabamİstanbul</a>.</strong>
             Tüm Hakları Saklıdır.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
+                <b>Version</b> 0.0.2
             </div>
         </footer>
 
@@ -401,7 +525,15 @@
     <!-- jQuery -->
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
+    <script src="~/GenelScript/jquery-code-scanner.js"></script>
+    <link href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" />
+    @*<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>*@
+    <script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>*@
     <script src="~/AdminLTE-3.1.0/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.12.1/sorting/natural.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)
@@ -424,6 +556,7 @@
     <script src="~/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <!-- Summernote -->
     <script src="~/AdminLTE-3.1.0/plugins/summernote/summernote-bs4.min.js"></script>
+
     <!-- overlayScrollbars -->
     <script src="~/AdminLTE-3.1.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
@@ -431,13 +564,17 @@
 
     <script src="~/GenelScript/jquery.barcodelistener-1.1-min.js"></script>
 
+
     <!-- AdminLTE for demo purposes -->
     @*<script src="~/AdminLTE-3.1.0/dist/js/demo.js"></script>*@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     @*<script src="~/AdminLTE-3.1.0/dist/js/pages/dashboard.js"></script>*@
+    <script src="~/Scripts/bootbox.min.js"></script>
     @RenderSection("scriptdanger", false)
     @RenderSection("scripts", false)
 
-    <script src="~/Scripts/bootbox.min.js"></script>
+
+
+
 </body>
 </html>

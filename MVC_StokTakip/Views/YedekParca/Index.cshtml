@@ -1,0 +1,197 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+            <div class="card-header d-flex p-0">
+                <h3 class="card-title p-3" style="font-size: 1.350em;">
+                    Yedek Parça Satış
+                </h3>
+                <ul id="mytabs" class="nav nav-pills ml-auto p-2">
+                    <li class="active"><a class="nav-link active" href="#tab_1" data-toggle="tab" style="font-size: 1.350em;">Müşteri</a></li>
+                    <li><a class="nav-link" href="#tab_2" data-toggle="tab" style="font-size: 1.350em;">Yedek Parça-Tamir</a></li>
+                </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <div class="input-group">
+                                        <button type="submit" id="Cari" name="Cari" class="btn btn-info active">Cari Müşteri</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="input-group">
+                                        <button type="submit" id="Kapi" name="Kapi" class="btn btn-info ">Kapı Müşteri</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="txt1">
+                                    <div class="input-group">
+                                        <input type="text" id="MusteriAd" name="MusteriAd" class="form-control" placeholder="Müşteri Arayınız.">
+                                    </div>
+                                </div>
+                                <div class="col-md-1" id="btn1">
+                                    <div class="input-group">
+                                        <input type="button" class="input-group-text" id="GetCustomer" value="Ara">
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="kapiDiv">
+                                    <div class="input-group">
+                                        <input type="text" id="kapiAd" class="form-control" value="Kapı Müşteri Adı" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="kapiDiv2">
+                                    <div class="input-group">
+                                        <input type="text" id="kapiTel" class="form-control" value="Telefon No" />
+                                    
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <table id="musteriTablo" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Ad</th>
+                                        <th>Soyad</th>
+                                        <th>Telefon</th>
+                                        <th>Seç</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div id="MusteriKayitForm">
+                            @using (Html.BeginForm("MusteriEkle", "Servis", FormMethod.Post, new { id = "MusteriKayidi" }))
+                            {
+
+                                <div class="card-body">
+                                    <h3>Müşteri Bilgileri</h3>
+                                    <br />
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Müşteri ADI")
+                                            @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Müşteri SOYADI")
+                                            @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Telefon No:")
+                                            @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Email :")
+                                            @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email" })
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Adres :")
+                                            @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Vergi Dairesi")
+                                            @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Vergi Numarası : ")
+                                            @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo" })
+                                        </div>
+                                    </div>
+                                    <button type="submit" id="btnMusteri" class="btn btn-primary">Müşteri Kaydet</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        <h2 style="text-align:center;">Müşteri</h2>
+
+                    </div>
+                    <div class="tab-pane" id="tab_3">
+                        <h2 style="text-align:center;">Servis</h2>
+                        <br />
+                        <input hidden type="text" id="MusteriID" />
+                        @using (Html.BeginForm("ServiseAl", "Servis", FormMethod.Post, new { id = "ServisGiris" }))
+                        {
+                            <div class="form-row">
+                                @Html.HiddenFor(x => x.Servis.AracID, new { id = "AracID" })
+                            </div>
+                            <div class="form-group col-md-6 center2">
+                                @Html.Label("Aracın Kilometresi")
+                                @Html.TextBoxFor(x => x.Servis.Km, new { @class = "form-control", id = "Km" })
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    @Html.Label("Müşteri Şikayetleri")
+                                    @Html.TextAreaFor(x => x.Servis.Not1, new { @class = "form-control content-editor", id = "Not1" })
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    @Html.Label("Usta Notları")
+                                    @Html.TextAreaFor(x => x.Servis.Not3, new { @class = "form-control content-editor", id = "Not3" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-6 center1">
+                                @Html.Label("Araca Uygulananlar")
+                                @Html.TextAreaFor(x => x.Servis.Not2, new { @class = "form-control content-editor", id = "Not2" })
+                            </div>
+                            <br />
+                            <div class="center2">
+                                <button type="submit" class="btn btn-primary btn-lg" id="btnServis">Servise Al</button>
+                            </div>
+
+                        }
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+    </div>
+    <!-- /.col -->
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#MusteriKayidi").hide();
+        $("#kapiDiv").hide();
+        $("#kapiDiv2").hide();
+    });
+
+    $("#Kapi").click(function () {
+        $("#Cari").removeClass("active");
+        $(this).addClass("active");
+        $("#txt1").hide();
+        $("#btn1").hide();
+        $("#musteriTablo").hide();
+        $("#kapiDiv").show();
+        $("#kapiDiv2").show();
+
+    });
+
+    $("#Cari").click(function () {
+        $("#Kapi").removeClass("active");
+        $(this).addClass("active");
+        $("#kapiDiv").hide();
+        $("#kapiDiv2").hide();
+        $("#txt1").show();
+        $("#btn1").show();
+        $("#musteriTablo").show();
+    });
+
+</script>

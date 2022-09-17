@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -42,62 +42,74 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.BarCode, Version=20.11.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
-      <HintPath>..\packages\Aspose.BarCode.20.11.0\lib\net47\Aspose.BarCode.dll</HintPath>
+    <Reference Include="Aspose.BarCode, Version=22.6.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.BarCode.22.6.0\lib\net47\Aspose.BarCode.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="LibExcel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\LibExcel.dll</HintPath>
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\LibExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.1.7.4-rc\lib\net45\Rotativa.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Base, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.Base.dll</HintPath>
+    <Reference Include="Stimulsoft.Base, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Data, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.Data.dll</HintPath>
+    <Reference Include="Stimulsoft.Blockly, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Blockly.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Map, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.Map.dll</HintPath>
+    <Reference Include="Stimulsoft.Data, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.MathFX, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.MathFX.dll</HintPath>
+    <Reference Include="Stimulsoft.Map, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Map.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.Report.dll</HintPath>
+    <Reference Include="Stimulsoft.MathFX, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.MathFX.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report.Check, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.Report.Check.dll</HintPath>
+    <Reference Include="Stimulsoft.Report, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Report.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report.Helper, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Stimulsoft.Report.Helper.dll</HintPath>
+    <Reference Include="Stimulsoft.Report.Check, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Report.Check.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report.Mvc, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Web.2021.3.1\lib\net45\Stimulsoft.Report.Mvc.dll</HintPath>
+    <Reference Include="Stimulsoft.Report.Helper, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Engine.2022.3.3\lib\net452\Stimulsoft.Report.Helper.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report.Web, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Web.2021.3.1\lib\net45\Stimulsoft.Report.Web.dll</HintPath>
+    <Reference Include="Stimulsoft.Report.Mvc, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Web.2022.3.3\lib\net452\Stimulsoft.Report.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Stimulsoft.Report.WebDesign, Version=2021.3.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Web.2021.3.1\lib\net45\Stimulsoft.Report.WebDesign.dll</HintPath>
+    <Reference Include="Stimulsoft.Report.Web, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Web.2022.3.3\lib\net452\Stimulsoft.Report.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Svg, Version=2.4.3.29446, Culture=neutral, PublicKeyToken=12a0bac221edeae2, processorArchitecture=MSIL">
-      <HintPath>..\packages\Stimulsoft.Reports.Engine.2021.3.1\lib\net45\Svg.dll</HintPath>
+    <Reference Include="Stimulsoft.Report.WebDesign, Version=2022.3.3.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Reports.Web.2022.3.3\lib\net452\Stimulsoft.Report.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Stimulsoft.Svg, Version=2022.2.1.0, Culture=neutral, PublicKeyToken=ebe6666cba19647a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stimulsoft.Svg.2022.2.1\lib\net452\Stimulsoft.Svg.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -110,6 +122,24 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.9\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.9\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -119,43 +149,12 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -167,17 +166,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="ActiveFolder\ActiveClass.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminHomeController.cs" />
     <Compile Include="Controllers\AracController.cs" />
     <Compile Include="Controllers\BirimlerController.cs" />
+    <Compile Include="Controllers\DepolarController.cs" />
+    <Compile Include="Controllers\DepoUrunController.cs" />
+    <Compile Include="Controllers\GrafikController.cs" />
+    <Compile Include="Models\Entity\Araclar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\AracMarka.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Birimler.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Depolar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\DepoUrun.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\Durumlar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\EnrollmentDateGroup.cs" />
     <Compile Include="Controllers\GirislerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KategorilerController.cs" />
@@ -189,26 +205,19 @@
     <Compile Include="Controllers\ServisController.cs" />
     <Compile Include="Controllers\TamiratlarController.cs" />
     <Compile Include="Controllers\UrunlerController.cs" />
+    <Compile Include="Controllers\YedekParcaController.cs" />
+    <Compile Include="Controllers\İscilikController.cs" />
     <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Araclar.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entity\AracMarka.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entity\Birimler.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entity\Class1.cs" />
-    <Compile Include="Models\Entity\Durumlar.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Entity\DepoUrunModel.cs" />
+    <Compile Include="Models\Entity\FiyatForm.cs" />
     <Compile Include="Models\Entity\Girisler.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\kalemler.cs" />
     <Compile Include="Models\Entity\Kategoriler.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -258,12 +267,17 @@
     <Compile Include="Models\Entity\Tamiratlar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\TransferUrun.cs" />
     <Compile Include="Models\Entity\Tur.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Urunler.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\İscilik.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\İstatistik.cs" />
     <Compile Include="Models\ParcaliIslemler\BildirimIslemler.cs" />
     <Compile Include="MyModel\MyBirimler.cs" />
     <Compile Include="MyModel\MyKategoriler.cs" />
@@ -886,6 +900,7 @@
     <Content Include="AdminLTE-3.1.0\plugins\datatables-select\js\dataTables.select.min.js" />
     <Content Include="AdminLTE-3.1.0\plugins\datatables-select\js\select.bootstrap4.js" />
     <Content Include="AdminLTE-3.1.0\plugins\datatables-select\js\select.bootstrap4.min.js" />
+    <Content Include="AdminLTE-3.1.0\plugins\datatables\dataTables.bootstrap4.min.js" />
     <Content Include="AdminLTE-3.1.0\plugins\datatables\jquery.dataTables.js" />
     <Content Include="AdminLTE-3.1.0\plugins\datatables\jquery.dataTables.min.js" />
     <Content Include="AdminLTE-3.1.0\plugins\daterangepicker\daterangepicker.css" />
@@ -2335,7 +2350,22 @@
     <Content Include="AdminLTE-3.1.0\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="AdminLTE-3.1.0\plugins\uplot\uPlot.min.css" />
     <Content Include="AdminLTE-3.1.0\starter.html" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-grid.rtl.css" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\bootstrap-utilities.css" />
+    <Content Include="Content\bootstrap-utilities.min.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap.rtl.css" />
+    <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
@@ -2493,12 +2523,48 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\favicon.ico" />
+    <Content Include="Content\jquery-ui-1.12.1\AUTHORS.txt" />
+    <Content Include="Content\jquery-ui-1.12.1\external\jquery\jquery.js" />
+    <Content Include="Content\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui-1.12.1\index.html" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.js" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.min.js" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui-1.12.1\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery-ui-1.12.1\LICENSE.txt" />
     <Content Include="css\business-casual.css" />
     <Content Include="css\business-casual.min.css" />
+    <Content Include="css\jquery-ui-1.12.1\AUTHORS.txt" />
+    <Content Include="css\jquery-ui-1.12.1\external\jquery\jquery.js" />
+    <Content Include="css\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
+    <Content Include="css\jquery-ui-1.12.1\images\ui-icons_555555_256x240.png" />
+    <Content Include="css\jquery-ui-1.12.1\images\ui-icons_777620_256x240.png" />
+    <Content Include="css\jquery-ui-1.12.1\images\ui-icons_777777_256x240.png" />
+    <Content Include="css\jquery-ui-1.12.1\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="css\jquery-ui-1.12.1\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui-1.12.1\index.html" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.css" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.js" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.min.css" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.min.js" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.structure.css" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.structure.min.css" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.theme.css" />
+    <Content Include="css\jquery-ui-1.12.1\jquery-ui.theme.min.css" />
+    <Content Include="css\jquery-ui-1.12.1\LICENSE.txt" />
     <Content Include="css\styledanger.css" />
     <Content Include="css\StyleSheet1.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="GenelScript\404.html" />
     <Content Include="GenelScript\about.html" />
     <Content Include="GenelScript\blog-home-1.html" />
@@ -2537,8 +2603,130 @@
     <Content Include="GenelScript\vendor\jquery\jquery.min.js" />
     <Content Include="GenelScript\vendor\jquery\jquery.slim.js" />
     <Content Include="GenelScript\vendor\jquery\jquery.slim.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\dragtable.mod.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\filter.formatter.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\highlights.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\black-asc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\black-desc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\black-unsorted.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\bootstrap-black-unsorted.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\bootstrap-white-unsorted.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\dragtable-handle.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\dragtable-handle.svg" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\dropbox-asc-hovered.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\dropbox-asc.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\dropbox-desc-hovered.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\dropbox-desc.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\first.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\green-asc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\green-desc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\green-header.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\green-unsorted.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\ice-asc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\ice-desc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\ice-unsorted.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\last.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\loading.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\metro-black-asc.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\metro-black-desc.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\metro-loading.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\metro-unsorted.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\metro-white-asc.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\metro-white-desc.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\next.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\prev.png" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\white-asc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\white-desc.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\images\white-unsorted.gif" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\jquery.tablesorter.pager.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.blackice.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.blue.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.blue.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.bootstrap.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.bootstrap_2.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.bootstrap_3.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.bootstrap_4.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.dark.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.default.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.dropbox.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.green.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.grey.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.ice.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.jui.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.materialize.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\theme.metro-dark.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\widget.grouping.min.css" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\extras\jquery.dragtable.mod.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\extras\jquery.metadata.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\extras\jquery.tablesorter.pager.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\extras\semver-mod.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\jquery.tablesorter.combined.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\jquery.tablesorter.combined.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\jquery.tablesorter.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\jquery.tablesorter.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\jquery.tablesorter.widgets.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\jquery.tablesorter.widgets.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date-extract.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date-iso8601.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date-month.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date-range.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date-two-digit-year.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date-weekday.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-date.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-duration.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-feet-inch-fraction.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-file-type.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-globalize.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-huge-numbers.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-ignore-articles.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-image.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-input-select.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-leading-zeros.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-metric.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-named-numbers.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-network.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\parsers\parser-roman.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-alignChar.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-build-table.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-chart.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-columns.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-columnSelector.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-cssStickyHeaders.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-currentSort.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-editable.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-filter-formatter-html5.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-filter-formatter-jui.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-filter-formatter-select2.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-filter-type-insideRange.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-filter.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-formatter.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-grouping.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-headerTitles.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-lazyload.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-mark.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-math.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-output.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-pager.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-print.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-reflow.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-repeatheaders.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-resizable.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-saveSort.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-scroller.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-sort2Hash.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-sortTbodies.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-staticRow.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-stickyHeaders.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-storage.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-toggle.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-uitheme.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-vertical-group.min.js" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\js\widgets\widget-view.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="img\anasayfaFoto.jpg" />
     <Content Include="img\ANASAYFALOGO.png" />
+    <Content Include="img\EKFE-min.jpg" />
+    <Content Include="img\LOGOS.png" />
     <Content Include="Localization\ar.xml" />
     <Content Include="Localization\be.xml" />
     <Content Include="Localization\bg.xml" />
@@ -2620,20 +2808,13 @@
     <Content Include="LoginScript\Scriptler\vendor\select2\select2.min.js" />
     <Content Include="Models\Entity\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Entity\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\Entity\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entity\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
@@ -2641,8 +2822,6 @@
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="LoginScript\Scriptler\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.eot" />
     <Content Include="LoginScript\Scriptler\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="LoginScript\Scriptler\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff" />
@@ -2999,6 +3178,49 @@
     <Content Include="AdminLTE-3.1.0\plugins\toastr\toastr.js.map" />
     <Content Include="AdminLTE-3.1.0\README.md" />
     <Content Include="App_Browsers\qt.browser" />
+    <Content Include="css\jquery-ui-1.12.1\package.json" />
+    <Content Include="Content\jquery-ui-1.12.1\package.json" />
+    <EntityDeploy Include="Models\Entity\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entity\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
+    <Content Include="GenelScript\vendor\tablesorter-master\CHANGELOG.md" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\less\bootstrap.less" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\less\metro.less" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\less\theme.less" />
+    <Content Include="GenelScript\vendor\tablesorter-master\dist\css\scss\theme.scss" />
+    <Content Include="GenelScript\vendor\tablesorter-master\README.md" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.esm.js" />
+    <Content Include="Scripts\bootstrap.esm.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\bootstrap.esm.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\bootstrap.rtl.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\bootstrap-utilities.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\cldr.js" />
     <Content Include="Scripts\cldr\event.js" />
@@ -3092,6 +3314,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.6.0.js" />
+    <Content Include="Scripts\jquery-3.6.0.min.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.js" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -5022,7 +5249,6 @@
     <Content Include="Views\Urunler\Index.cshtml" />
     <Content Include="Views\Urunler\Ekle.cshtml" />
     <Content Include="Views\Urunler\MiktarEkle.cshtml" />
-    <Content Include="Views\Urunler\GuncelleBilgiGetir.cshtml" />
     <Content Include="Views\Kullanicilar\trarabamis.cshtml" />
     <Content Include="Views\Kullanicilar\ResetPassword.cshtml" />
     <Content Include="Views\Kullanicilar\Kaydol.cshtml" />
@@ -5134,15 +5360,33 @@
     <Content Include="Views\Arac\Detay.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Urunler\StokAra.cshtml" />
+    <Content Include="Views\ParcaliIslemler\StokListe.cshtml" />
+    <Content Include="Views\YedekParca\Index.cshtml" />
+    <Content Include="Views\Urunler\HizliSepet.cshtml" />
+    <Content Include="Views\Urunler\DeleteProducts.cshtml" />
+    <Content Include="Views\İscilik\Index.cshtml" />
+    <Content Include="Views\İscilik\Ekle.cshtml" />
+    <Content Include="Views\İscilik\GuncelleBilgiGetir.cshtml" />
+    <Content Include="Views\İscilik\Deleteİscilik.cshtml" />
+    <Content Include="Views\Musteriler\DeleteCustomers.cshtml" />
+    <Content Include="Views\Urunler\UrunDetay.cshtml" />
+    <Content Include="Views\Depolar\Index.cshtml" />
+    <Content Include="Views\Depolar\DepoDetay.cshtml" />
+    <Content Include="Views\Urunler\Product.cshtml" />
+    <Content Include="Views\Urunler\GridView.cshtml" />
+    <Content Include="Views\DepoUrun\DepoTransfer.cshtml" />
+    <Content Include="Views\Servis\HizliFiyat.cshtml" />
+    <Content Include="Views\Grafik\Index.cshtml" />
+    <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.6.0.min.map" />
+    <Content Include="Views\İscilik\İscilikListe.cshtml" />
+    <Content Include="Views\Urunler\SiparisListe.cshtml" />
+    <Content Include="Views\Urunler\EksikListe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -5156,24 +5400,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="Microsoft.Office.Core">
-      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Excel">
-      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>9</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
     <COMReference Include="VBIDE">
       <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>5</VersionMajor>
@@ -5218,10 +5444,14 @@
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>Bu proje bu bilgisayarda olmayan NuGet paketlerine başvuru yapıyor. Bunları indirmek için NuGet Paket Geri Yükleme'yi kullanın. Daha fazla bilgi için, bkz. http://go.microsoft.com/fwlink/?LinkID=322105. Eksik dosya: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -18,9 +18,10 @@
             <tr>
 
                 <td>Ürün Bilgisi</td>
-                @*<td>Birim Fiyatı</td>*@
+                <td>Birim Fiyatı</td>
+                <td>Depo Seçimi</td>
                 <td>Miktarı</td>
-                @*<td>Toplam Fiyatı</td>*@
+                <td>Toplam Fiyatı</td>
                 <td>Tarih</td>
                 <td></td>
                 <td></td>
@@ -32,9 +33,12 @@
             @foreach (var item in Model)
             {
             <tr>
-
-                <th>@item.Urunler.Kategoriler.Kategori - @item.Urunler.UrunAdi - @item.Urunler.BarkodNo - @*@item.Urunler.StokKodu*@  </th>
-                @*<td>@item.BirimFiyati</td>*@
+                <th hidden id="sepetID">@item.ID </th>
+                <th>@item.Urunler.Kategoriler.Kategori - @item.Urunler.UrunAdi - @item.Urunler.BarkodNo - @item.Urunler.StokKodu </th>
+                <td>@item.BirimFiyati</td>
+            <td>
+                @Html.DropDownListFor(x => item.DepoID, item.DepoListesi, new { @class = "form-control depoSec", data_id = item.ID })
+            </td>
                 <td>
                     <div>
                         @Html.ActionLink("-", "Azalt", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt" })
@@ -46,7 +50,8 @@
                         @Html.ActionLink("+", "Arttir", new { id = item.ID }, new { @class = "btn btn-info btn-sm arttir" })
                     </div>
                 </td>
-                @*<td>@item.ToplamFiyat</td>*@
+
+                <td>@item.ToplamFiyat</td>
                 <td>@item.Tarih.ToString("dd.MM.yyyy")</td>
                 <td>@Html.ActionLink("Sil", "Sil", new { id = item.ID }, new { @class = "btn btn-info" })</td>
                 <td>@Html.ActionLink("Stok Düş", "SatinAl", "Satislar", new { id = item.ID }, new { @class = "btn btn-danger" })</td>
@@ -65,9 +70,9 @@
     </table>
 </div>
 
-@*<div class="container">
+<div class="container">
         @ViewBag.Tutar
-    </div>*@
+    </div>
 <br />
 <br />
 <div class="container form-group">
@@ -116,6 +121,31 @@
             $.ajax({
                 url: '/Sepet/DinamikMiktar/',
                 data: { id: sepetid, miktari: miktar },
+                success: function (res) {
+                    document.location.reload();
+                }
+
+
+            });
+
+
+
+        });
+
+
+    });
+</script>
+
+<script>
+    $(function () {
+        $('.depoSec').on('change', function () {
+            var depo = $(this).val();
+            var sepetid = $(this).attr('data-id');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Sepet/DinamikDepo/',
+                data: { id: sepetid, depo: depo },
                 success: function (res) {
                     document.location.reload();
                 }

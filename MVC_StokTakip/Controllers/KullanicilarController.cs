@@ -13,15 +13,15 @@ namespace MVC_StokTakip.Controllers
     [AllowAnonymous]
     public class KullanicilarController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
 
         [HttpGet]
-        public ActionResult trarabamis()
+        public ActionResult Trarabamis()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult trarabamis(Kullanicilar k)
+        public ActionResult Trarabamis(Kullanicilar k)
         {
             var kullanici = db.Kullanicilar.FirstOrDefault(x => x.KullaniciAdi == k.KullaniciAdi && x.Sifre == k.Sifre);
             if (kullanici != null)
@@ -36,7 +36,7 @@ namespace MVC_StokTakip.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("trarabamis");
+            return RedirectToAction("Trarabamis");
         }
 
         [HttpGet]
@@ -53,10 +53,14 @@ namespace MVC_StokTakip.Controllers
                 Guid rastgele = Guid.NewGuid();
                 model.Sifre = rastgele.ToString().Substring(0, 16);
                 db.SaveChanges();
-                SmtpClient client = new SmtpClient("mail.arabamistanbul.xyz", 587);
-                client.EnableSsl = true;
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("reset@arabamistanbul.xyz", "Şifre Sıfırlama");
+                SmtpClient client = new SmtpClient("mail.arabamistanbul.xyz", 587)
+                {
+                    EnableSsl = true
+                };
+                MailMessage mail = new MailMessage
+                {
+                    From = new MailAddress("reset@arabamistanbul.xyz", "Şifre Sıfırlama")
+                };
                 mail.To.Add(model.Email);
                 mail.IsBodyHtml = true;
                 mail.Subject = "Şifre Değiştirme İsteği";
@@ -64,7 +68,7 @@ namespace MVC_StokTakip.Controllers
                 NetworkCredential net = new NetworkCredential("reset@arabamistanbul.xyz", "^J6lf45l");
                 client.Credentials = net;
                 client.Send(mail);
-                return RedirectToAction("trarabamis");
+                return RedirectToAction("Trarabamis");
 
             }
             ViewBag.hata = "Böyle bir e-mail adresi bulunamadı.";

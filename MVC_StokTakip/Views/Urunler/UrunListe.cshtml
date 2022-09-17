@@ -1,5 +1,4 @@
-﻿@using MVC_StokTakip.Models.Entity
-@model List<Urunler>
+﻿@model MVC_StokTakip.Models.Entity.Class1
 @{
     Layout = null;
 }
@@ -14,7 +13,7 @@
 
     <meta charset="UTF-8">
 
-    <title>Bootstrap 4 Responsive Datatable and Export to PDF, CSV</title>
+    <title>Arabamİstanbul</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
 
@@ -28,7 +27,7 @@
 
 <body>
 
-    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+    <table id="example" class="table table-striped">
 
         <thead>
 
@@ -40,13 +39,23 @@
 
                 <th>Barkod No</th>
 
-              
+                <th>StokKodu</th>
 
                 <th>Ürün Adı</th>
+
+                <th>Açıklama </th>
+
+                <th>Bayrampaşa Miktar</th>
+
+                <th>Sultançiftliği Miktar</th>
+
+                <th>Toplam</th>
 
                 <th>Alış Fiyat</th>
 
                 <th>Satış Fiyat</th>
+                <th> Kullanım </th>
+                <th> Sayfa No</th>
 
 
             </tr>
@@ -55,31 +64,44 @@
 
         <tbody>
 
-            @foreach (var x in Model)
-
+            @foreach (var k in Model.DepoUrunModels)
             {
+                if (k.IsDelete == false)
+                {
+                    <tr>
+                        <td>@k.ID</td>
+                        <td>@k.KategoriAdi</td>
+                        <td>@k.BarkodNo</td>
+                        <td>@k.StokKodu</td>
+                        <td>@k.UrunAdi</td>
+                        <td>@k.Aciklama</td>
+                        <td>@k.MagazaMiktar</td>
+                        <td>@k.DepoMiktar</td>
+                        @if (k.Toplam == null)
+                        {
+                            <td>0</td>
+                        }
+                        else
+                        {
+                            <td>@k.Toplam</td>
+                        }
+                        <td>@k.AlisFiyati</td>
+                        <td>@k.SatisFiyati</td>
+                        @if (k.Kullanim == null)
+                        {
+                            <td>0</td>
+                        }
+                        else
+                        {
+                            <td>@k.Kullanim</td>
+                        }
 
-                <tr>
+                        <td>@k.SayfaNo</td>
+                    </tr>
 
-                    <td>@x.ID</td>
-
-                    <td>@x.Kategoriler.Kategori</td>
-
-                    <td>@x.BarkodNo</td>
-
-
-                    <td>@x.UrunAdi</td>
-
-                    <td>@x.AlisFiyati</td>
-
-                    <td>@x.SatisFiyati</td>
-
-
-                </tr>
+                }
 
             }
-
-
 
         </tbody>
 
@@ -111,17 +133,33 @@
 
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
 
+    <script src="https://cdn.datatables.net/plug-ins/1.12.1/sorting/natural.js"></script>
+
+    @*<link href="~/GenelScript/vendor/tablesorter-master/dist/css/jquery.tablesorter.pager.min.css" rel="stylesheet" />
+        <link href="~/GenelScript/vendor/tablesorter-master/dist/css/theme.blue.css" rel="stylesheet" />
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/jquery.tablesorter.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/parsers/parser-input-select.min.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/jquery.tablesorter.widgets.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/widgets/widget-pager.min.js"></script>
+        <script src="~/GenelScript/vendor/tablesorter-master/dist/js/widgets/widget-output.min.js"></script>*@
+
     <script>
 
         $(document).ready(function () {
 
-            var table = $('#example').DataTable({
 
+            var table = $('#example').DataTable({
+                columnDefs: [{ targets: '_all', type: 'natural' }],
                 lengthChange: false,
 
-                buttons: ['copy', 'excel', 'csv', 'pdf', 'colvis']
-
+                buttons: [
+                    { extend: 'excel', title: ' ', text: 'Excel olarak dışarı aktar' },
+                    { extend: 'pdf', title: ' ', text: 'PDF olarak dışarı aktar' },
+                    { extend: 'csv', title: ' ', text: 'Csv olarak dışarı aktar' },
+                    { extend: 'colvis', title: ' ', text: 'Kolon gizle  ' }
+                ]
             });
+
 
 
 
@@ -132,6 +170,8 @@
         });
 
     </script>
+
+
 
 </body>
 

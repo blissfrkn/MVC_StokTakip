@@ -44,7 +44,7 @@
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Müşteri Bilgileri</a></li>
                     @*<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>*@
+                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>*@
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -60,18 +60,26 @@
                                     <th>Marka</th>
                                     <th>Model</th>
                                     <th>Renk</th>
+                                    <th>Detaylar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model.Araclars)
                                 {
-                                    <tr>
-                                        <td>@Html.DisplayFor(x => item.ID)</td>
-                                        <td>@Html.DisplayFor(x => item.Plaka)</td>
-                                        <td>@Html.DisplayFor(x => item.AracMarka.Marka)</td>
-                                        <td>@Html.DisplayFor(x => item.Model)</td>
-                                        <td>@Html.DisplayFor(x => item.Renk)</td>
-                                    </tr>
+                                <tr>
+
+
+                                    <td>@Html.DisplayFor(x => item.ID)</td>
+                                    <td>@Html.DisplayFor(x => item.Plaka)</td>
+                                    <td>@Html.DisplayFor(x => item.AracMarka.Marka)</td>
+                                    <td>@Html.DisplayFor(x => item.Model)</td>
+                                    <td>@Html.DisplayFor(x => item.Renk)</td>
+                                    <td><a href="/Arac/Detay/?id=@item.ID" class="button btn-block">Bak</a></td>
+
+
+
+
+                                </tr>
 
                                 }
                             </tbody>
@@ -85,6 +93,7 @@
                                     <th>Tarih</th>
                                     <th>Plaka</th>
                                     <th>Fiyat</th>
+                                    <th>Detay</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,6 +104,7 @@
                                         <td>@Html.DisplayFor(x => item.Tarih)</td>
                                         <td>@Html.DisplayFor(x => item.Araclar.Plaka)</td>
                                         <td>@Html.DisplayFor(x => item.GenelToplam)</td>
+                                        <td><a href="/Tamiratlar/Detay/?id=@item.ID" class="button btn-block">Bak</a></td>
                                     </tr>
 
                                 }

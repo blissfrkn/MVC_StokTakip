@@ -17,8 +17,8 @@ namespace MVC_StokTakip.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Araclar()
         {
-            this.Tamiratlar = new HashSet<Tamiratlar>();
             this.Servis = new HashSet<Servis>();
+            this.Tamiratlar = new HashSet<Tamiratlar>();
         }
     
         public int ID { get; set; }
@@ -28,12 +28,13 @@ namespace MVC_StokTakip.Models.Entity
         public string Model { get; set; }
         public string SasiNo { get; set; }
         public string Renk { get; set; }
+        public Nullable<System.DateTime> Tarih { get; set; }
     
         public virtual AracMarka AracMarka { get; set; }
         public virtual Musteriler Musteriler { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tamiratlar> Tamiratlar { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Servis> Servis { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tamiratlar> Tamiratlar { get; set; }
     }
 }

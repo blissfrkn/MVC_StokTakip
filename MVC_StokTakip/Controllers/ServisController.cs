@@ -15,21 +15,41 @@ namespace MVC_StokTakip.Controllers
 
     public class ServisController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         // GET: Servis
         public ActionResult Index()
         {
             var degerler = db.Servis.ToList();
             return View(degerler);
         }
+        public ActionResult ServisKayit()
+        {
+
+            List<SelectListItem> deger1 = (from x in db.AracMarka.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.Marka,
+                                               Value = x.ID.ToString()
+                                           }).ToList();
+
+            ViewBag.dgr1 = deger1;
+            var model = new MyUrunler();
+            List<Birimler> birimList = db.Birimler.OrderBy(x => x.Birim).ToList();
+            model.BirimListesi = (from x in birimList select new SelectListItem { Text = x.Birim, Value = x.ID.ToString() }).ToList();
+            return View();
+        }
 
         [HttpGet]
         public ActionResult ServisDetay(int id)
         {
-            Class1 c = new Class1();
-            c.Servis = db.Servis.Where(x => x.ID == id).FirstOrDefault();
-            c.ServisKalem = db.ServisKalem.Where(y => y.ServisID == id).FirstOrDefault();
-            c.ServisKalemList = db.ServisKalem.Where(z => z.ServisID == id).ToList();
+            Class1 c = new Class1
+            {
+
+                Servis = db.Servis.Where(x => x.ID == id).FirstOrDefault(),
+                ServisKalem = db.ServisKalem.Where(y => y.ServisID == id).FirstOrDefault(),
+                ServisKalemList = db.ServisKalem.Where(z => z.ServisID == id).ToList()
+            };
+
             List<SelectListItem> deger1 = (from x in db.Durumlar.ToList()
                                            select new SelectListItem
                                            {
@@ -38,6 +58,23 @@ namespace MVC_StokTakip.Controllers
 
                                            }).ToList();
             ViewBag.dgr1 = deger1;
+            List<SelectListItem> deger2 = (from x in db.Birimler.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.Birim,
+                                               Value = x.ID.ToString()
+
+                                           }).ToList();
+            ViewBag.dgr2 = deger2;
+            List<SelectListItem> deger3 = (from x in db.Tur.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.Tur1,
+                                               Value = x.ID.ToString()
+
+                                           }).ToList();
+            ViewBag.dgr3 = deger3;
+
             return View(c);
         }
 
@@ -46,18 +83,10 @@ namespace MVC_StokTakip.Controllers
         {
 
             var list = db.Araclar.ToList();
-
-            //if (list != null)
-            //{
-            //    db.Configuration.ProxyCreationEnabled = false;
-            //    var model1 = list.FirstOrDefault();
-            //    return Json(model1, JsonRequestBehavior.AllowGet);
-            //}
             if (list.Count == 0)
             {
                 return Json("0", JsonRequestBehavior.AllowGet);
             }
-
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].Plaka == id && list[i].MusteriID != null)
@@ -98,36 +127,37 @@ namespace MVC_StokTakip.Controllers
                                  };
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-
             }
-
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].Plaka != id)
                 {
-                    //db.Configuration.ProxyCreationEnabled = false;
-                    //var model = list.FirstOrDefault();
                     return Json("0", JsonRequestBehavior.AllowGet);
                 }
-
             }
-
-            //var result = db.Araclar.Where(x => x.Plaka == id).Select(s => new { s.ID, s.Plaka, s.MarkaID, s.Model, s.Musteriler.Ad, s.Musteriler.Soyad });
-
-            //db.Configuration.ProxyCreationEnabled = false;
-            //var model = db.Araclar.Where(x => x.Plaka == id).FirstOrDefault();
-
             return Json("", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult SearchCustomer(string term)
+        {
+            var list = db.Musteriler.ToList();
+            var liste = list.Where(f => f.Ad.StartsWith(term));
+            var autoSearch = from x in liste
+                             select new
+                             {
+                                 id = x.ID,
+                                 value = x.Ad + " " + x.Soyad
+                             };
+            return Json(autoSearch, JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]
         public JsonResult MusteriBilgileri(string Id)
         {
             var list = db.Musteriler.ToList();
-
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].Ad == Id)
+                if (list[i].Ad.ToLower().Contains(Id.ToLower()))
                 {
                     var result = from l in list
                                  where l.Ad.ToLower().Contains(Id.ToLower())
@@ -144,64 +174,63 @@ namespace MVC_StokTakip.Controllers
                                  };
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-
             }
-
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].Ad != Id)
                 {
-                    //db.Configuration.ProxyCreationEnabled = false;
-                    //var model = list.FirstOrDefault();
                     return Json("0", JsonRequestBehavior.AllowGet);
                 }
 
             }
-
-            //var result = db.Araclar.Where(x => x.Plaka == id).Select(s => new { s.ID, s.Plaka, s.MarkaID, s.Model, s.Musteriler.Ad, s.Musteriler.Soyad });
-
-            //db.Configuration.ProxyCreationEnabled = false;
-            //var model = db.Araclar.Where(x => x.Plaka == id).FirstOrDefault();
-
             return Json("", JsonRequestBehavior.AllowGet);
 
-            //var result = db.Araclar.Where(x => x.Plaka == id).Select(s => new { s.ID, s.Plaka, s.MarkaID, s.Model, s.Musteriler.Ad, s.Musteriler.Soyad });
-            //db.Configuration.ProxyCreationEnabled = false;
-            //var model = db.Musteriler.Where(x => x.Ad == Id).FirstOrDefault();
         }
-
         [HttpGet]
-        public ActionResult ServisKayit()
+        public JsonResult MusteriBilgileri2(int id)
         {
+            var list = db.Musteriler.ToList();
 
-            List<SelectListItem> deger1 = (from x in db.AracMarka.ToList()
-                                           select new SelectListItem
-                                           {
-                                               Text = x.Marka,
-                                               Value = x.ID.ToString()
-                                           }).ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].ID == id)
+                {
+                    var result = from l in list
+                                 where l.ID == id
+                                 select new
+                                 {
+                                     l.ID,
+                                     l.Ad,
+                                     l.Soyad,
+                                     l.Telefon,
+                                     l.Adres,
+                                     l.VergiDairesi,
+                                     l.VergiNo,
+                                     l.Email
+                                 };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
 
-            ViewBag.dgr1 = deger1;
-            return View();
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult AracEkle(Class1 c)
         {
-
             var arac = db.Araclar.FirstOrDefault(x => x.Plaka == c.Araclar.Plaka);
             if (arac == null)
             {
+                c.Araclar.Tarih = DateTime.Now;
                 db.Araclar.Add(c.Araclar);
                 db.SaveChanges();
                 var result = c.Araclar.ID;
                 return Json(result, JsonRequestBehavior.AllowGet);
+
             }
             else
             {
                 return Json("0", JsonRequestBehavior.AllowGet);
             }
-
-
         }
 
         public ActionResult AracGuncelle(Class1 c)
@@ -220,16 +249,7 @@ namespace MVC_StokTakip.Controllers
             arac.Model = c.Araclar.Model;
             arac.SasiNo = c.Araclar.SasiNo;
             arac.Renk = c.Araclar.Renk;
-            //var deger2 = (from y in db.Musteriler.ToList() select new { Text = y.Ad, Value = y.ID.ToString() }).ToList();
-            //ViewBag.dgr2 = deger2;
-            //var servis = db.Servis.FirstOrDefault(x => x.ID == c.Servis.ID);
-            //servis.Araclar.Plaka = c.Servis.Araclar.Plaka;
-            //servis.Araclar.MarkaID = c.Servis.Araclar.MarkaID;
-            //servis.Araclar.Model = c.Servis.Araclar.Model;
-            //servis.Araclar.Musteriler.Ad = c.Servis.Araclar.Musteriler.Ad;
-            //servis.Araclar.Musteriler.Soyad = c.Servis.Araclar.Musteriler.Soyad;
             db.SaveChanges();
-
             return Json("Araç Bilgileri Güncellendi.", JsonRequestBehavior.AllowGet);
 
         }
@@ -238,6 +258,7 @@ namespace MVC_StokTakip.Controllers
         {
 
 
+            c.Musteriler.IsDelete = false;
             db.Musteriler.Add(c.Musteriler);
             db.SaveChanges();
             var result = c.Musteriler.ID;
@@ -311,67 +332,215 @@ namespace MVC_StokTakip.Controllers
             servis.Not1 = c.Servis.Not1;
             servis.Not2 = c.Servis.Not2;
             servis.Not3 = c.Servis.Not3;
-            servis.Tarih = DateTime.Now;
+            //servis.Tarih = DateTime.Now;
             servis.DurumID = c.Servis.DurumID;
             db.SaveChanges();
 
             return Json("Servis Bilgileri Güncellendi.", JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Search(string term)
+        {
+            var list = db.Urunler.Where(x => x.IsDelete == false).ToList();
+            var liste = list.Where(f => f.StokKodu.ToLower() == term.ToLower() || f.UrunAdi.ToLower().Contains(term.ToLower()));
+            var autoSearch = from x in liste
+                             select new
+                             {
+                                 id = x.ID,
+                                 value = x.StokKodu + " - " + x.UrunAdi
+
+                             };
+            return Json(autoSearch, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult Search2(string term)
+        {
+            var list = db.İscilik.Where(x=> x.IsDelete == false).ToList();
+            var liste = list.Where(f => f.İscilik1.ToLower().Contains(term.ToLower()));
+            var autoSearch = from x in liste
+                             select new
+                             {
+                                 value = x.İscilik1,
+                                 sfiyat = x.SatisFiyat
+
+                             };
+            return Json(autoSearch, JsonRequestBehavior.AllowGet);
+
+        }
         [HttpGet]
         public JsonResult UrunGetir(string Id)
         {
-            var list = db.Urunler.Where(x=>x.IsDelete==false).ToList();
+            var list = db.DepoUrun.Where(x => x.Urunler.IsDelete == false && x.Depolar.IsDefault == true && (x.Urunler.BarkodNo == Id || x.Urunler.StokKodu == Id)).ToList();
+            if (list.Count == 0)
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i].Miktar > 0)
+                    {
+                        var result = from l in list
+                                     select new
+                                     {
+                                         l.Urunler.ID,
+                                         l.Urunler.KategoriID,
+                                         l.Urunler.Kategoriler.Kategori,
+                                         l.Urunler.UrunAdi,
+                                         l.Urunler.SatisFiyati,
+                                         l.Urunler.FormAciklama,
+                                         l.Urunler.StokKodu,
+                                         l.BirimID
+
+                                     };
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (list[i].Miktar <= 0)
+                    {
+                        return Json("0", JsonRequestBehavior.AllowGet);
+                    }
+
+                }
+            }
+
+            return Json("", JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public JsonResult UrunGetir2(string Id)
+        {
+            var list = db.DepoUrun.Where(x => x.Urunler.IsDelete == false).ToList();
 
             for (int i = 0; i < list.Count; i++)
             {
-                if (list[i].BarkodNo == Id && list[i].Miktari > 0)
+                if (list[i].Urunler.BarkodNo == Id && list[i].Miktar > 0)
                 {
                     var result = from l in list
-                                 where l.BarkodNo == Id && l.Miktari > 0
+                                 where l.Urunler.BarkodNo == Id && l.Miktar > 0
                                  select new
                                  {
-                                     l.UrunAdi,                                  
-                                     l.SatisFiyati
+                                     l.Urunler.UrunAdi,
+                                     l.Urunler.SatisFiyati,
+                                     l.Miktar,
+
                                  };
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
 
             }
 
-            for (int i = 0; i < list.Count; i++)
+            return Json("", JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public JsonResult UrunGetir3(int Id)
+        {
+            var list = db.DepoUrun.Where(x => x.Urunler.IsDelete == false && x.UrunID == Id && x.Depolar.IsDefault == true).ToList();
+            if (list.Count == 0)
             {
-                if (list[i].BarkodNo == Id || list[i].Miktari <= 0 || list[i].BarkodNo != Id)
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                for (int i = 0; i < list.Count;)
                 {
-                    return Json("0", JsonRequestBehavior.AllowGet);
+                    if (list[i].Miktar > 0)
+                    {
+                        var result = from l in list
+                                     where l.Miktar > 0
+                                     select new
+                                     {
+                                         l.UrunID,
+                                         l.Urunler.KategoriID,
+                                         l.Urunler.Kategoriler.Kategori,
+                                         l.Urunler.UrunAdi,
+                                         l.Urunler.SatisFiyati,
+                                         l.Urunler.FormAciklama,
+                                         l.Urunler.StokKodu,
+                                         l.Depolar.Adi,
+                                         l.Miktar,
+                                         l.BirimID
+                                     };
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+                    else if (list[i].Miktar <= 0)
+                    {
+                        return Json("0", JsonRequestBehavior.AllowGet);
+                    }
                 }
 
             }
-
-            //db.Configuration.ProxyCreationEnabled = false;
-            //var model = db.Urunler.FirstOrDefault();
-            //var result = db.Urunler.Where(x => x.BarkodNo == Id && x.Miktari>0).FirstOrDefault();
             return Json("", JsonRequestBehavior.AllowGet);
 
         }
 
 
-        public ActionResult SaveOrder(ServisKalem[] kalemler)
+        public ActionResult SaveOrder(Kalemler[] kalemler)
         {
+
             foreach (var item in kalemler)
             {
-                var model = db.Urunler.Where(x => x.UrunAdi == item.Aciklama).FirstOrDefault();
+                var model = db.Urunler.Where(x => x.ID == item.ID).FirstOrDefault();
+                var model2 = db.ServisKalem.Where(x => x.UrunID == item.ID && x.ServisID == item.ServisID).FirstOrDefault();
+                var model3 = db.Servis.Where(x => x.ID == item.ServisID).FirstOrDefault();
 
-                ServisKalem sk = new ServisKalem();
-                sk.ServisID = item.ServisID;
-                sk.Aciklama = item.Aciklama;
-                sk.TurID = item.TurID;
-                sk.BirimID = item.BirimID;
-                sk.BirimFiyat = item.BirimFiyat;
-                sk.Miktari = item.Miktari;
-                sk.ToplamTutar = sk.Miktari * sk.BirimFiyat;
-                db.ServisKalem.Add(sk);
-                db.SaveChanges();
+
+                if (model != null)
+                {
+
+                    if (model2 != null)
+                    {
+                        model3.YToplam = model3.YToplam - (model2.Miktari * model2.BirimFiyat);
+                        model3.Toplam = model3.Toplam - (model2.Miktari * model2.BirimFiyat);
+                        model3.GenelToplam = model3.GenelToplam - (model2.Miktari * model2.BirimFiyat);
+                        model2.Miktari = model2.Miktari + item.Miktari;
+                        model2.ToplamTutar = model2.Miktari * model2.BirimFiyat;
+                        model3.YToplam = model3.YToplam + (model2.Miktari * model2.BirimFiyat);
+                        model3.Toplam = model3.Toplam + (model2.Miktari * model2.BirimFiyat);
+                        model3.GenelToplam = model3.GenelToplam + (model2.Miktari * model2.BirimFiyat);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        ServisKalem sk = new ServisKalem
+                        {
+                            StokKodu = item.StokKodu,
+                            UrunID = item.ID,
+                            KategoriAd = item.KategoriAd,
+                            ServisID = item.ServisID,
+                            Aciklama = item.Aciklama,
+                            TurID = item.TurID,
+                            BirimID = item.BirimID,
+                            BirimFiyat = item.BirimFiyat,
+                            Miktari = item.Miktari
+                        };
+                        sk.ToplamTutar = sk.Miktari * sk.BirimFiyat;
+                        db.ServisKalem.Add(sk);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    ServisKalem sk = new ServisKalem
+                    {
+                        StokKodu = item.StokKodu,
+                        UrunID = 0,
+                        KategoriAd = "",
+                        ServisID = item.ServisID,
+                        Aciklama = item.Aciklama,
+                        TurID = item.TurID,
+                        BirimID = item.BirimID,
+                        BirimFiyat = item.BirimFiyat,
+                        Miktari = item.Miktari
+                    };
+                    sk.ToplamTutar = sk.Miktari * sk.BirimFiyat;
+                    db.ServisKalem.Add(sk);
+                    db.SaveChanges();
+                }
             }
             return Json("İşlem Başarılı", JsonRequestBehavior.AllowGet);
         }
@@ -401,11 +570,12 @@ namespace MVC_StokTakip.Controllers
 
         public ActionResult PrintReport(int id)
         {
-            Class1 c = new Class1();
-
-            c.Servis = db.Servis.Where(x => x.ID == id).FirstOrDefault();
-            c.ServisKalem = db.ServisKalem.Where(y => y.ServisID == id).FirstOrDefault();
-            c.ServisKalemList = db.ServisKalem.Where(z => z.ServisID == id).ToList();
+            Class1 c = new Class1
+            {
+                Servis = db.Servis.Where(x => x.ID == id).FirstOrDefault(),
+                ServisKalem = db.ServisKalem.Where(y => y.ServisID == id).FirstOrDefault(),
+                ServisKalemList = db.ServisKalem.Where(z => z.ServisID == id).ToList()
+            };
 
 
             return View(c);
@@ -443,7 +613,7 @@ namespace MVC_StokTakip.Controllers
         }
 
         [HttpPost]
-        public ActionResult İskontoKaydet(int id, int iskontoP)
+        public ActionResult İskontoKaydet(int id, decimal iskontoP)
         {
             var model = db.Servis.FirstOrDefault(x => x.ID == id);
             model.İskonto = iskontoP;
@@ -466,12 +636,168 @@ namespace MVC_StokTakip.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult Servisİptal(int id)
+        {
+            var model = db.ServisKalem.Where(x => x.ServisID == id).ToList();
+            var model1 = db.Servis.FirstOrDefault(x => x.ID == id);
+            db.ServisKalem.RemoveRange(model);
+            db.Servis.Remove(model1);
+            db.SaveChanges();
+            return Json(new { result = "Redirect", url = Url.Action("Index", "Servis") }, JsonRequestBehavior.AllowGet);
+        }
 
 
 
+        //BU KISIM GÜNCELLENECEK.
 
+        public void DinamikMiktar1(int id, decimal miktari)
+        {
+            var model = db.ServisKalem.Find(id);
+            var model1 = db.Servis.Find(model.ServisID);
+            // Öncelikle veritabanında ne kadar miktar girilmişse servisin toplam fiyatlarından tek tek o fiyatları miktari kadar düşüyoruz.
+            if (model.TurID == 1)
+            {
+                model1.YToplam = model1.YToplam - (model.BirimFiyat * model.Miktari);
+            }
+            else if (model.TurID == 2)
+                model1.İToplam = model1.İToplam - (model.BirimFiyat * model.Miktari);
+            else if (model.TurID == 3)
+            {
+                model1.MToplam = model1.MToplam - (model.BirimFiyat * model.Miktari);
+            }
+            else if (model.TurID == 4)
+            {
+                model1.RotBalans = model1.RotBalans - (model.BirimFiyat * model.Miktari);
+            }
 
+            model1.Toplam = model1.Toplam - (model.BirimFiyat * model.Miktari);
+            model1.GenelToplam = model1.GenelToplam - (model.BirimFiyat * model.Miktari);
+            // sonra miktar bilgisini güncelledikten sonra toplam tutarı hesaplayıp tek tek servis tablosundaki fiyatlara geri ekliyoruz ve kaydediyoruz.
+            model.Miktari = miktari;
+            model.ToplamTutar = model.BirimFiyat * model.Miktari;
 
+            if (model.TurID == 1)
+            {
+                model1.YToplam = model1.YToplam + (model.BirimFiyat * model.Miktari);
 
+            }
+            else if (model.TurID == 2)
+            {
+                model1.İToplam = model1.İToplam + (model.BirimFiyat * model.Miktari);
+            }
+            else if (model.TurID == 3)
+                model1.MToplam = model1.MToplam + (model.BirimFiyat * model.Miktari);
+            else if (model.TurID == 4)
+                model1.RotBalans = model1.RotBalans + (model.BirimFiyat * model.Miktari);
+
+            model1.Toplam = model1.Toplam + (model.BirimFiyat * model.Miktari);
+            model1.GenelToplam = model1.GenelToplam + (model.BirimFiyat * model.Miktari);
+            db.SaveChanges();
+        }
+
+        public void DinamikMiktar2(int id, decimal satisfiyat)
+        {
+            var model = db.ServisKalem.Find(id);
+            var model1 = db.Servis.Find(model.ServisID);
+            if (model.TurID == 1)
+            {
+                model1.YToplam = model1.YToplam - (model.BirimFiyat * model.Miktari);
+            }
+            else if (model.TurID == 2)
+                model1.İToplam = model1.İToplam - (model.BirimFiyat * model.Miktari);
+            else if (model.TurID == 3)
+            {
+                model1.MToplam = model1.MToplam - (model.BirimFiyat * model.Miktari);
+            }
+            else if (model.TurID == 4)
+            {
+                model1.RotBalans = model1.RotBalans - (model.BirimFiyat * model.Miktari);
+            }
+
+            model1.Toplam = model1.Toplam - (model.BirimFiyat * model.Miktari);
+            model1.GenelToplam = model1.GenelToplam - (model.BirimFiyat * model.Miktari);
+            model.BirimFiyat = satisfiyat;
+            model.ToplamTutar = model.BirimFiyat * model.Miktari;
+
+            if (model.TurID == 1)
+            {
+                model1.YToplam = model1.YToplam + model.ToplamTutar;
+
+            }
+            else if (model.TurID == 2)
+            {
+                model1.İToplam = model1.İToplam + model.ToplamTutar;
+            }
+            else if (model.TurID == 3)
+                model1.MToplam = model1.MToplam + model.ToplamTutar;
+            else if (model.TurID == 4)
+                model1.RotBalans = model1.RotBalans + model.ToplamTutar;
+
+            model1.Toplam = model1.Toplam + model.ToplamTutar;
+            model1.GenelToplam = model1.GenelToplam + model.ToplamTutar;
+            db.SaveChanges();
+        }
+
+        public void DinamikAciklama(int id, string aciklama)
+        {
+            var model = db.ServisKalem.Find(id);
+            if (model.TurID == 1)
+            {
+                model.Aciklama = aciklama;
+            }
+            else if (model.TurID == 2)
+            {
+                model.Aciklama = aciklama;
+                model.StokKodu = aciklama;
+            }
+            else if (model.TurID == 3)
+            {
+                model.Aciklama = aciklama;
+                model.StokKodu = aciklama;
+            }
+            else if (model.TurID == 4)
+            {
+                model.Aciklama = aciklama;
+                model.StokKodu = aciklama;
+            }
+
+            db.SaveChanges();
+        }
+
+        public ActionResult HizliFiyat()
+        {
+            List<SelectListItem> deger1 = (from x in db.AracMarka.ToList()
+                                           select new SelectListItem
+                                           {
+                                               Text = x.Marka,
+                                               Value = x.ID.ToString()
+                                           }).ToList();
+
+            ViewBag.dgr1 = deger1;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult FiyatEkle(Class1 c, Kalemler[] kalemler)
+        {
+
+            return View();
+        }
+
+        public ActionResult KalemEkle(Kalemler[] kalemler)
+        {
+            return View();
+        }
+
+        public ActionResult getMarka()
+        {
+            return Json(db.AracMarka.Select(x => new
+            {
+                x.ID,
+                x.Marka
+            }).ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
+
 }

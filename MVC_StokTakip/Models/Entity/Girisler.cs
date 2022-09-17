@@ -18,6 +18,9 @@ namespace MVC_StokTakip.Models.Entity
         public int UrunID { get; set; }
         public int KullaniciID { get; set; }
         public int SepetID { get; set; }
+        public Nullable<int> DepoID { get; set; }
+        public string Durum { get; set; }
+        public string StokKodu { get; set; }
         public string BarkodNo { get; set; }
         public string OemKod { get; set; }
         public decimal BirimFiyati { get; set; }
@@ -28,6 +31,7 @@ namespace MVC_StokTakip.Models.Entity
         public System.DateTime Tarih { get; set; }
         public System.DateTime Saat { get; set; }
     
+        public virtual Depolar Depolar { get; set; }
         public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual Urunler Urunler { get; set; }
     }

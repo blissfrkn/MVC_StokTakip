@@ -1,0 +1,258 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "DepoTransfer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Depo Transfer</h2>
+<br />
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <label>Çıkış Deposu</label>
+            @Html.DropDownListFor(x => x.Depolar.ID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Depo", value = "1" })
+        </div>
+        <div class="col-md-6">
+            <label>Giriş Deposu</label>
+            @Html.DropDownListFor(x => x.Depolar.ID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Depo1", value = "1" })
+        </div>
+    </div>
+</div>
+<br />
+
+<table id="detailsTablem" class="table  table-striped table-responsive-sm">
+    <thead>
+        <tr>
+            <th>Ürün</th>
+            <th>Miktar</th>
+            <th>Birim</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @*<td hidden id="urunID"></td>
+                <td><input type="text" id="urun" name="urun" class="form-control urunStok" placeholder="Stoktan Yedek Parça"></td>
+                <td><input type="number" id="Miktar" name="Miktar" class="form-control urunMiktar" placeholder="Adet"></td>
+                <td>@Html.DropDownListFor(x => x.Birimler.ID, (List<SelectListItem>)ViewBag.dgr2, "--Birim Seçiniz--", new { @class = "form-control urunBirim", id = "Birim", value = "1" })</td>
+                <td><select class="form-control birimler" id="birim" name="birim"></select> </td>*@
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-success" id="ekle" name="ekle">Yeni Ürün Ekle</button>
+<button style="float:right;" class="btn btn-primary" id="transfer" name="transfer">Transfer ET</button>
+
+
+
+@section scripts {
+
+    <script>
+        $(document).ready(function () {
+            $("#ekle").click(function () {
+                var id = new Date().getTime();
+                $('#detailsTablem > tbody:last-child').append('<tr>' +
+                    '<td hidden></td>' +
+                    '<td><input type="text" id="urun' + id + '" class="form-control urunStok" placeholder="Stoktan Yedek Parça" ></td>' +
+                    '<td><input type="number" id="Miktar' + id + '" class="form-control urunMiktar" placeholder="Adet"></td>' +
+                    '<td><select class="form-control" id="birim' + id + '" name="birim"></select></td>' +
+                    '<td><a data-itemId="0" href="#" class="deleteItem">Sil</a></td>'
+                    + '</tr>');
+
+                $.ajax({
+                    type: "GET",
+                    url: "/DepoUrun/getBirim",
+                    data: "{}",
+                    success: function (data) {
+                        var s = '<option value="-1">Birim Seçiniz</option>';
+                        for (var i = 0; i < data.length; i++) {
+                            s += '<option value="' + data[i].ID + '">' + data[i].Birim + '</option>';
+                        }
+                        $("#detailsTablem tbody tr:last-child").find('td:eq(3) select').html(s);
+                    }
+                });
+            });
+
+
+            $(document).on('click', '.urunStok', function (e) {
+                e.preventDefault();
+                var self = $(this);
+                $(this).autocomplete({
+                    source: function (request, response) {
+                        depoid = $("#Depo").val();
+                        depoid2 = $("#Depo1").val();
+                        if (depoid == "0" || depoid2 == "0") {
+                            alert("Çıkış ve Giriş depolarını boş bırakmayınız.")
+                        }
+                        else if (depoid == depoid2) {
+                            alert("Giriş ve çıkış depoları aynı olamaz");
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: "/DepoUrun/Search",
+                            data: { term: request.term, depo: depoid },
+                            success: response,
+                            error:
+                                function () {
+                                    if (depoid == "") {
+                                        alert("Çıkış Deposu Seçiniz.");
+                                    }
+                                },
+                            dataType: 'json'
+                        });
+                    },
+                    minLength: 1,
+                    select: function (event, ui) {
+                        var order = [];
+                        order.length = 0;
+                        var result = [];
+                        result.length = 0;
+                        $.each($("#detailsTablem tbody tr"), function () {
+                            order.push({
+                                ID: $(this).find('td:eq(0)').html(),
+                            });
+                        });
+                         result = $.grep(order, function (e) { return e.ID == ui.item.id; });
+                        if (result.length == 0) {
+                            $.ajax({
+                                url: "/DepoUrun/UrunGetir/" + ui.item.id,
+                                type: 'GET',
+                                dataType: 'json',
+                                success:
+                                    function (data) {
+                                        if (data == "0") {
+                                            alert("Bu üründen seçili depoda adedi yok.")
+                                            $(self).val('');
+                                        }
+                                        else {
+
+                                            $.each(data, function (key, Value) {
+                                                var UrunAdi = Value.UrunAdi;
+                                                var ID = Value.ID;
+                                                $(self).parents('tr').find('td:eq(0)').html(ID);
+                                                $(self).parents('tr').find('td:eq(2) input').val(1);
+                                                $(self).parents('tr').find('td:eq(3) select').val(Value.BirimID);
+                                            });
+                                        }
+                                    },
+                                error:
+                                    function () {
+                                        alert("Hata");
+                                    }
+                            });
+                        }
+                        else {
+                            alert("Listede aynı ürün var");
+                            $(self).parents('tr').remove();
+                        }
+                    },
+                })
+            });
+
+
+            $(document).on('change', '.urunMiktar', function (e) {
+                e.preventDefault();
+                var self = $(this);
+                var urunID = $(self).parents('tr').find('td:eq(0)').html();
+                var urunMiktarr = parseFloat($(this).val()).toFixed(2);
+                $.ajax({
+                    url: "/DepoUrun/dinamikMiktar/",
+                    type: "GET",
+                    dataType: "json",
+                    data: { ID: urunID, miktar: urunMiktarr },
+                    success:
+                        function (data) {
+                            if (data == "0") {
+                                alert("Stok miktarından daha fazla ürün adedi girişi veya - adetli giriş yapamazsınız.");
+                                $(self).val(0);
+                            }
+                        }
+
+                })
+
+
+            });
+
+            $(document).on('click', 'a.deleteItem', function (e) {
+                e.preventDefault();
+                var $self = $(this);
+                if ($(this).attr('data-itemId') == "0") {
+                    $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                        $(this).remove();
+                    });
+                }
+            });
+
+            $(document).on('keyup', '.urunStok', function (e) {
+                if (e.keyCode == 8) {
+                    $(this).val("");
+                    $(this).parents('tr').find('td:eq(0)').html("");
+                    $(this).parents('tr').find('td:eq(2) input').val("");
+                    $(this).parents('tr').find('td:eq(3) select').val("");
+                }
+                $(this).parents('tr').find('td:eq(0)').html("");
+            });
+
+            function saveOrder(data) {
+                return $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/DepoUrun/transferET",
+                    data: data,
+                    success: function (result) {
+                        if (result == "1") {
+                            alert("Stok adedi olmayan bir ürünü transfer edemezsiniz.");
+                        }
+                        else if (result == "0") {
+                            alert("Transfer işlemi başarılı");
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        alert("Listeye hiçbir ürün eklemediniz.")
+                    }
+                });
+            }
+
+            $("#transfer").click(function (e) {
+
+                e.preventDefault();
+
+                var orderArr = [];
+
+                orderArr.length = 0;
+
+                $.each($("#detailsTablem tbody tr"), function () {
+                    var Amiktar = $(this).find('td:eq(2) input').val();
+                    orderArr.push({
+                        CikisDepoID: $("#Depo").val(),
+                        GirisDepoID: $("#Depo1").val(),
+                        ID: $(this).find('td:eq(0)').html(),
+                        Miktar: parseFloat(Amiktar).toFixed(2),
+                        BirimID: $(this).find('td:eq(3) select').val(),
+                    });
+                });
+                var data = JSON.stringify({
+                    transferUruns: orderArr
+                });
+                $.when(saveOrder(data)).then(function (response) {
+                    console.log(response);
+                }).fail(function (err) {
+                    console.log(err);
+                });
+            });
+
+
+            $("#Depo").change(function () {
+                $("#detailsTablem").find("tr:gt(0)").remove();
+            });
+            $("#Depo1").change(function () {
+                $("#detailsTablem").find("tr:gt(0)").remove();
+            });
+
+
+
+        });
+
+    </script>
+}

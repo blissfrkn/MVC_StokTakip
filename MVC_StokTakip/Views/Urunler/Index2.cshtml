@@ -1,165 +1,7 @@
-﻿@model List<MVC_StokTakip.Models.Entity.Urunler>
-@{
+﻿@model List<MVC_StokTakip.Models.Entity.Class1>
     ViewBag.Title = "Index2";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="col-md-12">
-    <h2 style="text-align:center;">Ürün Güncelleme ve Ekleme</h2>
-    <br />
-    <div class="row">
-
-
-
-        @*<div class="col-md-10" style="margin-bottom:20px;">
-                @using (Html.BeginForm("Index2", "Urunler", FormMethod.Get))
-                {
-                    <div class="form-group">
-
-
-                        <div style="width:75%; float:left">
-                            @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Barkod No Giriniz. ", onchange = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
-
-                        </div>
-
-
-                        <div style="float:left">
-                                @Html.ActionLink("Ara", "Index2", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
-
-                            </div>
-
-                        <div style="float:left">
-                            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#livestream_scanner">
-                                Barkod Tarayıcı
-                            </button>
-                        </div>
-
-                    </div>
-
-                    <div class="modal" id="livestream_scanner">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    <h4 class="modal-title">Barkod Tarayıcı</h4>
-                                </div>
-                                <div class="modal-body" style="position: static">
-                                    <div id="interactive" class="viewport"></div>
-                                    <div class="error"></div>
-                                </div>
-                                <div class="modal-footer">
-                                    <label class="btn btn-default pull-left">
-                                            <i class="fa fa-camera"></i> Use camera app
-                                            <input type="file" accept="image/*;capture=camera"  class="hidden" />
-                                        </label>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Kapat</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>*@
-
-        @*<div class="col-md-8" style="margin-bottom:20px;">
-                @using (Html.BeginForm("Index2", "Urunler", FormMethod.Get))
-                {
-                    <div class="form-group">
-                        <div style="width:75%; float:left">
-                            @Html.TextBox("ara2", null, new { @class = "form-control", @placeholder = "Kategori Adı, Ürün Adı, Oem Kodu, Açıklama Girebilirsiniz." })
-
-                        </div>
-                        <div style="float:left">
-                            @Html.ActionLink("Ara", "Index2", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
-                        </div>
-                    </div>
-                }
-            </div>*@
-
-    </div>
-
-    <br />
-</div>
-
-<div class=" form-group col-12">
-    @if (User.IsInRole("A"))
-    {
-
-
-        @*<div> <a href="@Url.Action("ExcelExport","Urunler")" class="btn btn-dark">Excel'e Aktar</a></div>*@
-        <div>   <a href="/Urunler/Ekle/" class="btn btn-success">Ürün Ekleme Butonu</a></div>
-
-
-
-    }
-</div>
-
-
-
-
-<br />
-<table id="tbl1" class="table table-responsive" style="margin-top:20px">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Kategori</th>
-            <th>BarkodNo</th>
-            <th>OemKod</th>
-            <th>Ürün Adı</th>
-            <th>Miktarı</th>
-            <th>Birimi</th>
-            <th>Açıklama</th>
-            <th>Sepete Ekle</th>
-            <th>Miktar Ekle</th>
-            <th>Güncelle</th>
-            <th>Sil</th>
-        </tr>
-    </thead>
-    @foreach (var k in Model)
-    {
-        if (k.IsDelete == false)
-        {
-            <tr>
-                <td>@k.ID</td>
-                <td>@k.Kategoriler.Kategori</td>
-                <td>@k.BarkodNo</td>
-                <td>@k.OemKod</td>
-                <td>@k.UrunAdi</td>
-                <td>@k.Miktari</td>
-                <td>@k.Birimler.Birim</td>
-                <td>@k.Aciklama</td>
-                <td><input type="submit" name="btnSepet" value="Sepete Ekle" class="btn btn-success btnSepet" data-id="@k.ID" /></td>
-                <td>@Html.ActionLink("MiktarEkle", "MiktarEkle", new { id = k.ID }, new { @class = "btn btn-secondary" })</td>
-                <td>@Html.ActionLink("Güncelle", "GuncelleBilgiGetir", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
-
-                <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@k.ID" /></td>
-            </tr>
-         
-        }
-
-    }
-</table>
-
-
-
-
-
-
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-<script src="~/GenelScript/jquery-code-scanner.js"></script>
-
-
-<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
-<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
-
-<script type="text/javascript" src="~/serratus-quaggaJS-862df88/dist/quagga.min.js"></script>
-<script type="text/javascript" src="~/serratus-quaggaJS-862df88/dist/quagga.js"></script>
-
 <style>
 
 
@@ -182,6 +24,102 @@
         top: 0;
     }
 </style>
+<div class="col-md-12">
+    <h2 style="text-align:center;">Ürün Güncelleme ve Ekleme</h2>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="info-box bg-light">
+                <div class="info-box-content">
+                    @*@Html.DropDownListFor(x => x..DurumID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Durum" })*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<br />
+
+<div class=" form-group col-12">
+    @if (User.IsInRole("A"))
+    {
+
+
+        @*<div> <a href="@Url.Action("ExcelExport","Urunler")" class="btn btn-dark">Excel'e Aktar</a></div>*@
+        <div>   <a href="/Urunler/Ekle/" class="btn btn-success">Ürün Stok Kartı Oluştur</a></div>
+
+
+
+    }
+</div>
+
+
+
+
+<br />
+
+
+<table id="tbl1" class="table table-responsive-sm" style="margin-top:20px">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Kategori</th>
+            <th>BarkodNo</th>
+            <th>StokKodu</th>
+            <th>OemKod</th>
+            <th>Ürün Adı</th>
+            <th>Miktarı</th>
+            <th>Birimi</th>
+            <th>Alış Fiyatı</th>
+            <th>Satış Fiyatı</th>
+            <th>Açıklama</th>
+            <th>Tarih</th>
+            <th>Detay</th>
+            <th>Sepete Ekle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    @foreach (var k in Model.DepoUruns)
+    {
+        if (k.Urunler.IsDelete == false)
+        {
+            <tr>
+                <td>@k.Urunler.ID</td>
+                <td>@k.Urunler.Kategoriler.Kategori</td>
+                <td>@k.Urunler.BarkodNo</td>
+                <td>@k.Urunler.StokKodu</td>
+                <td>@k.Urunler.OemKod</td>
+                <td>@k.Urunler.UrunAdi</td>
+                <td>@k.Miktar</td>
+                <td>@k.Urunler.Birimler.Birim</td>
+                <td>@k.Urunler.AlisFiyati</td>
+                <td>@k.Urunler.SatisFiyati</td>
+                <td>@k.Urunler.Aciklama</td>
+                <td>@k.Urunler.Tarih</td>
+                <td>@Html.ActionLink("Detay", "UrunDetay", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
+                <td><input type="submit" name="btnSepet" value="Sepete Ekle" class="btn btn-success btnSepet" data-id="@k.ID" /></td>
+                @*<td>@Html.ActionLink("MiktarEkle", "MiktarEkle", new { id = k.ID }, new { @class = "btn btn-secondary" })</td>*@
+
+
+                <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@k.ID" /></td>
+            </tr>
+
+        }
+
+    }
+</table>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/GenelScript/jquery-code-scanner.js"></script>
+<link href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+
 <script>
     $(function () {
 
@@ -208,16 +146,52 @@
 
 </script>
 <script>
-    $('#tbl1').dataTable({});
+
+    $('#tbl1').dataTable({
+        language: {
+            "search": "Ürün Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+    });
+
+
 </script>
 
 <script>
-    $('#tbl1_filter input').codeScanner({      
+    //var table = $('#tbl1').DataTable();
+
+    //// #column3_search is a <input type="text"> element
+    //$('#column3_search').on('keyup', function () {
+    //    table
+    //        .columns(3)
+    //        .search('^' + this.value + '$', true, false).draw();
+    //        //.draw();
+    //});
+</script>
+
+<script>
+
+
+
+    $('#tbl1_filter input').codeScanner({
         onScan: function ($element, code) {
-            
             $("#tbl1_filter input").val(code);
+            $("#tbl1_filter input").focus();
         }
     });
+
+
 </script>
 <script type="text/javascript">
     $(function () {
@@ -232,6 +206,7 @@
                         data: { id: id },
                         success: function () {
                             btn.parent().parent().remove();
+                            alert("Ürün başarıyla silindi");
                         }
                     });
                 }
@@ -257,9 +232,9 @@
                                 alert("Ürün başarıyla sepete eklendi");
                                 location.reload();
                             }
-                            if (data == 1) {
-                                alert("Bu ürün sepete eklenemez. Stok adedi kalmamıştır.")
-                            }
+                            //if (data == 1) {
+                            //    alert("Bu ürün sepete eklenemez. Stok adedi kalmamıştır.")
+                            //}
                         }
                     });
                 }
@@ -269,114 +244,114 @@
 </script>
 
 
-<script type="text/javascript">
-    $(function () {
-        // Create the QuaggaJS config object for the live stream
-        var liveStreamConfig = {
-            inputStream: {
-                type: "LiveStream",
-                constraints: {
-                    width: { min: 640 },
-                    height: { min: 480 },
-                    aspectRatio: { min: 1, max: 100 },
-                    facingMode: "environment" // or "user" for the front camera
-                }
-            },
-            locator: {
-                patchSize: "medium",
-                halfSample: true
-            },
-            numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
-            decoder: {
-                "readers": [
-                    { "format": "code_128_reader", "config": {} },
-                    { "format": "ean_reader", "config": {} },
-                    { "format": "ean_8_reader", "config": {} },
-                    { "format": "code_39_reader", "config": {} },
-                    { "format": "upc_reader", "config": {} },
-                    { "format": "upc_e_reader", "config": {} }
-
-                ]
-            },
-            locate: true
-        };
-        // The fallback to the file API requires a different inputStream option.
-        // The rest is the same
-        var fileConfig = $.extend(
-            {},
-            liveStreamConfig,
-            {
+@*<script type="text/javascript">
+        $(function () {
+            // Create the QuaggaJS config object for the live stream
+            var liveStreamConfig = {
                 inputStream: {
-                    size: 800
-                }
-            }
-        );
-        // Start the live stream scanner when the modal opens
-        $('#livestream_scanner').on('shown.bs.modal', function (e) {
-            Quagga.init(
-                liveStreamConfig,
-                function (err) {
-                    if (err) {
-                        $('#livestream_scanner .modal-body .error').html('<div class="alert alert-danger"><strong><i class="fa fa-exclamation-triangle"></i> ' + err.name + '</strong>: ' + err.message + '</div>');
-                        Quagga.stop();
-                        return;
+                    type: "LiveStream",
+                    constraints: {
+                        width: { min: 640 },
+                        height: { min: 480 },
+                        aspectRatio: { min: 1, max: 100 },
+                        facingMode: "environment" // or "user" for the front camera
                     }
-                    Quagga.start();
+                },
+                locator: {
+                    patchSize: "medium",
+                    halfSample: true
+                },
+                numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
+                decoder: {
+                    "readers": [
+                        { "format": "code_128_reader", "config": {} },
+                        { "format": "ean_reader", "config": {} },
+                        { "format": "ean_8_reader", "config": {} },
+                        { "format": "code_39_reader", "config": {} },
+                        { "format": "upc_reader", "config": {} },
+                        { "format": "upc_e_reader", "config": {} }
+
+                    ]
+                },
+                locate: true
+            };
+            // The fallback to the file API requires a different inputStream option.
+            // The rest is the same
+            var fileConfig = $.extend(
+                {},
+                liveStreamConfig,
+                {
+                    inputStream: {
+                        size: 800
+                    }
                 }
             );
-        });
+            // Start the live stream scanner when the modal opens
+            $('#livestream_scanner').on('shown.bs.modal', function (e) {
+                Quagga.init(
+                    liveStreamConfig,
+                    function (err) {
+                        if (err) {
+                            $('#livestream_scanner .modal-body .error').html('<div class="alert alert-danger"><strong><i class="fa fa-exclamation-triangle"></i> ' + err.name + '</strong>: ' + err.message + '</div>');
+                            Quagga.stop();
+                            return;
+                        }
+                        Quagga.start();
+                    }
+                );
+            });
 
-        // Make sure, QuaggaJS draws frames an lines around possible
-        // barcodes on the live stream
-        Quagga.onProcessed(function (result) {
-            var drawingCtx = Quagga.canvas.ctx.overlay,
-                drawingCanvas = Quagga.canvas.dom.overlay;
+            // Make sure, QuaggaJS draws frames an lines around possible
+            // barcodes on the live stream
+            Quagga.onProcessed(function (result) {
+                var drawingCtx = Quagga.canvas.ctx.overlay,
+                    drawingCanvas = Quagga.canvas.dom.overlay;
 
-            if (result) {
-                if (result.boxes) {
-                    drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                    result.boxes.filter(function (box) {
-                        return box !== result.box;
-                    }).forEach(function (box) {
-                        Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
-                    });
+                if (result) {
+                    if (result.boxes) {
+                        drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                        result.boxes.filter(function (box) {
+                            return box !== result.box;
+                        }).forEach(function (box) {
+                            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+                        });
+                    }
+
+                    if (result.box) {
+                        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+                    }
+
+                    if (result.codeResult && result.codeResult.code) {
+                        Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                    }
                 }
+            });
 
-                if (result.box) {
-                    Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+            // Once a barcode had been read successfully, stop quagga and
+            // close the modal after a second to let the user notice where
+            // the barcode had actually been found.
+            Quagga.onDetected(function (result) {
+                if (result.codeResult.code) {
+                    $('#ara').val(result.codeResult.code);
+                    Quagga.stop();
+                    setTimeout(function () { $('#livestream_scanner').modal('hide'); }, 1000);
                 }
+            });
 
-                if (result.codeResult && result.codeResult.code) {
-                    Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+            // Stop quagga in any case, when the modal is closed
+            $('#livestream_scanner').on('hide.bs.modal', function () {
+                if (Quagga) {
+                    Quagga.stop();
                 }
-            }
+            });
+
+            // Call Quagga.decodeSingle() for every file selected in the
+            // file input
+            $("#livestream_scanner input:file").on("change", function (e) {
+                if (e.target.files && e.target.files.length) {
+                    Quagga.decodeSingle($.extend({}, fileConfig, { src: URL.createObjectURL(e.target.files[0]) }), function (result) { alert(result.codeResult.code); });
+                }
+            });
         });
 
-        // Once a barcode had been read successfully, stop quagga and
-        // close the modal after a second to let the user notice where
-        // the barcode had actually been found.
-        Quagga.onDetected(function (result) {
-            if (result.codeResult.code) {
-                $('#ara').val(result.codeResult.code);
-                Quagga.stop();
-                setTimeout(function () { $('#livestream_scanner').modal('hide'); }, 1000);
-            }
-        });
-
-        // Stop quagga in any case, when the modal is closed
-        $('#livestream_scanner').on('hide.bs.modal', function () {
-            if (Quagga) {
-                Quagga.stop();
-            }
-        });
-
-        // Call Quagga.decodeSingle() for every file selected in the
-        // file input
-        $("#livestream_scanner input:file").on("change", function (e) {
-            if (e.target.files && e.target.files.length) {
-                Quagga.decodeSingle($.extend({}, fileConfig, { src: URL.createObjectURL(e.target.files[0]) }), function (result) { alert(result.codeResult.code); });
-            }
-        });
-    });
-
-</script>
+    </script>*@

@@ -16,15 +16,18 @@ namespace MVC_StokTakip.Models.Entity
     {
         public int ID { get; set; }
         public int ServisID { get; set; }
+        public int UrunID { get; set; }
+        public string StokKodu { get; set; }
+        public string KategoriAd { get; set; }
         public string Aciklama { get; set; }
-        public Nullable<int> TurID { get; set; }
-        public Nullable<int> BirimID { get; set; }
+        public int TurID { get; set; }
+        public int BirimID { get; set; }
         public decimal BirimFiyat { get; set; }
         public decimal Miktari { get; set; }
         public decimal ToplamTutar { get; set; }
     
         public virtual Birimler Birimler { get; set; }
-        public virtual Tur Tur { get; set; }
         public virtual Servis Servis { get; set; }
+        public virtual Tur Tur { get; set; }
     }
 }

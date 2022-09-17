@@ -1,0 +1,216 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+
+
+    #interactive.viewport {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        text-align: center;
+    }
+
+        #interactive.viewport > canvas, #interactive.viewport > video {
+            max-width: 100%;
+            width: 100%;
+        }
+
+    canvas.drawing, canvas.drawingBuffer {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+</style>
+<div class="col-md-12">
+    <h2 style="text-align:center;">Ürün Güncelleme ve Ekleme</h2>
+    <br />
+    @*<div class="row">
+        <div class="col-md-12">
+            <div class="info-box bg-light">
+                <div class="info-box-content">
+                    <label>Depo Seçiniz</label>
+                    @Html.DropDownListFor(x => x.Depolar.ID, (List<SelectListItem>)ViewBag.dgr1, new { id = "depoSec", @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+    </div>*@
+
+</div>
+
+<br />
+
+<div class=" form-group col-12">
+    @if (User.IsInRole("A"))
+    {
+
+
+        @*<div> <a href="@Url.Action("ExcelExport","Urunler")" class="btn btn-dark">Excel'e Aktar</a></div>*@
+        <div>   <a href="/Urunler/Ekle/" class="btn btn-success">Ürün Stok Kartı Oluştur</a></div>
+
+
+
+    }
+</div>
+
+
+
+
+<br />
+
+
+<div class="col-md-12" id="theGrid">
+    @Html.Partial("GridView", Model)
+</div>
+
+@section scripts {
+    @*<script>
+        $(function () {
+         
+            $("#depoSec").change(function () {
+                GetList();
+            });
+
+
+        });
+
+        function GetList() {
+
+            $.ajax({
+                url: '/Urunler/updateGrid',
+                type: 'POST',
+                datatype: 'json',
+                data: { id: $("#depoSec").val() },
+                success: function (data) {
+                    $('#theGrid').html(data);
+                    $('#tbl1').dataTable();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+
+    </script>*@
+
+    <script>
+        $(function () {
+
+            var table = $('#tbl1').DataTable({
+                columnDefs: [{ targets: '_all', type: 'natural' }],
+                lengthChange: false,
+
+                buttons: [
+                    { extend: 'excel', title: ' ', text: 'Excel olarak dışarı aktar' },
+                    { extend: 'pdf', title: ' ', text: 'PDF olarak dışarı aktar' },
+                    { extend: 'csv', title: ' ', text: 'Csv olarak dışarı aktar' },
+                    { extend: 'colvis', title: ' ', text: 'Kolon gizle  ' }
+                ]
+            });
+
+            var dir = $("#dir").val();
+            var col = $("#col").val();
+            try {
+                var header = $("th a[href*=" + col + "] ");
+                if (dir == "Ascending") {
+                    header.text(header.text() + " ↑");
+
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + " ↓");
+
+                }
+
+
+            } catch (e) {
+
+            }
+
+            jQuery.fn.DataTable.ext.type.search.string = function (data) {
+                var testd = !data ?
+                    '' :
+                    typeof data === 'string' ?
+                        data
+                            .replace(/i/g, 'İ')
+                            .replace(/ı/g, 'I') :
+                        data;
+                return testd;
+            };
+
+            $('#tbl1_filter input').keyup(function () {
+                table
+                    .search(
+                        jQuery.fn.DataTable.ext.type.search.string(this.value)
+                    )
+                    .draw();
+            });
+        })
+
+    </script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $("#tbl1").on("click", ".btnSil", function () {
+                var btn = $(this);
+                bootbox.confirm(btn.data("id") + "nolu ID kaydı silinsin mi?", function (result) {
+                    if (result) {
+                        var id = btn.data("id");
+                        $.ajax({
+                            type: "GET",
+                            url: "/Urunler/Sil",
+                            data: { id: id },
+                            success: function () {
+                                btn.parent().parent().remove();
+                                alert("Ürün başarıyla silindi");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#tbl1").on("click", ".btnSepet", function () {
+                var btn = $(this);
+                bootbox.confirm(btn.data("id") + "nolu ürün sepete eklensin mi?", function (result) {
+                    if (result) {
+                        var id = btn.data("id");
+                        $.ajax({
+                            type: "POST",
+                            url: "/Sepet/SepeteEkle",
+                            data: { id: id },
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data == 0) {
+                                    alert("Ürün başarıyla sepete eklendi");
+                                    location.reload();
+                                }
+                                else if (data == 1) {
+                                    alert("Varsayılan bir depo mevcut değil.Lütfen Sepete Ürün Eklemek için depo oluşturunuz.");
+                                    location.reload();
+                                }
+                                //if (data == 1) {
+                                //    alert("Bu ürün sepete eklenemez. Stok adedi kalmamıştır.")
+                                //}z
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+}
+
+
+
+

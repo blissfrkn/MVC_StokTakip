@@ -21,6 +21,7 @@
             <th>Marka</th>
             <th>Model</th>
             <th>Müşteri</th>
+            <th>Tarih</th>
             <th>Detay</th>
             <th>Güncelle</th>
 
@@ -44,6 +45,7 @@
             {
                 <td>@Html.DisplayFor(x => k.Musteriler.Ad) @Html.DisplayFor(x => k.Musteriler.Soyad)</td>
             }
+            <td>@Html.DisplayFor(x=> k.Tarih)</td>
             <td>@Html.ActionLink("Detay", "Detay", new { id = k.ID }, new { @class = "btn btn-secondary" })</td>
             <td>@Html.ActionLink("Güncelle", "AracGetir", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
 
@@ -63,6 +65,23 @@
 
 
 <script>
-    $('#tbl1').dataTable({});
+    $('#tbl1').dataTable({
+        language: {
+            "search": "Araç Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+
+    });
 </script>
 

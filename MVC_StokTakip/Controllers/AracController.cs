@@ -10,7 +10,7 @@ namespace MVC_StokTakip.Controllers
     [Authorize(Roles = "A")]
     public class AracController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        readonly arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
         // GET: Arac
         public ActionResult Index()
         {
@@ -37,7 +37,7 @@ namespace MVC_StokTakip.Controllers
         [HttpPost]
         public ActionResult Ekle(Araclar a)
         {
-            
+            a.Tarih = DateTime.Now;
             db.Araclar.Add(a);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -83,10 +83,12 @@ namespace MVC_StokTakip.Controllers
 
         public ActionResult Detay(int id)
         {
-            Class1 c = new Class1();
-            c.Araclar = db.Araclar.Find(id);
-            c.Tamiratlars = db.Tamiratlar.Where(x => x.Araclar.ID == id).ToList();
-            c.TamiratKalems = db.TamiratKalem.Where(x => x.Tamiratlar.Araclar.ID == id).ToList();
+            Class1 c = new Class1
+            {
+                Araclar = db.Araclar.Find(id),
+                Tamiratlars = db.Tamiratlar.Where(x => x.Araclar.ID == id).ToList(),
+                TamiratKalems = db.TamiratKalem.Where(x => x.Tamiratlar.Araclar.ID == id).ToList()
+            };
             return View(c);
         }
 

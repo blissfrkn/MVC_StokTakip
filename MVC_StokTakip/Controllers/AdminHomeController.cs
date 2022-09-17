@@ -10,7 +10,7 @@ namespace MVC_StokTakip.Controllers
     [Authorize(Roles = "A")]
     public class AdminHomeController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        //readonly MVC_StokTakipEntities db = new MVC_StokTakipEntities();
         // GET: AdminHome
         public ActionResult Index()
         {

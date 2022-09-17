@@ -1,0 +1,60 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "GridView";
+}
+
+
+
+<table id="tbl1" class="table table-responsive-sm table-striped" style="margin-top:20px">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Kategori</th>
+            <th>BarkodNo</th>
+            <th>StokKodu</th>
+            <th>OemKod</th>
+            <th>Ürün Adı</th>
+            <th>Bayrampaşa Mağaza Miktarı</th>
+            <th>SultanÇiftliği Depo Miktarı</th>
+            <th>Birimi</th>
+            <th>Alış Fiyatı</th>
+            <th>Satış Fiyatı</th>
+            <th>Açıklama</th>
+            <th>Detay</th>
+            <th>Sepete Ekle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    @foreach (var k in Model.DepoUrunModels)
+    {
+        if (k.IsDelete == false)
+        {
+            <tr>
+                <td>@k.ID</td>
+                <td>@k.KategoriAdi</td>
+                <td>@k.BarkodNo</td>
+                <td>@k.StokKodu</td>
+                <td>@k.OemKod</td>
+                <td>@k.UrunAdi</td>
+                <td>@k.MagazaMiktar</td>
+                <td>@k.DepoMiktar</td>
+                <td>@k.Birim</td>
+                <td>@k.AlisFiyati</td>
+                <td>@k.SatisFiyati</td>
+                <td>@k.Aciklama</td>
+                <td>@Html.ActionLink("Detay", "UrunDetay", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
+                <td><input type="submit" name="btnSepet" value="Sepete Ekle" class="btn btn-success btnSepet" data-id="@k.ID" /></td>
+                @*<td>@Html.ActionLink("MiktarEkle", "MiktarEkle", new { id = k.ID }, new { @class = "btn btn-secondary" })</td>*@
+
+
+                <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@k.ID" /></td>
+            </tr>
+
+        }
+
+    }
+</table>
+
+
+
+

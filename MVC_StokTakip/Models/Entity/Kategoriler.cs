@@ -23,6 +23,7 @@ namespace MVC_StokTakip.Models.Entity
         public int ID { get; set; }
         public string Kategori { get; set; }
         public string Aciklama { get; set; }
+        public string SayfaNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Urunler> Urunler { get; set; }

@@ -12,7 +12,7 @@ namespace MVC_StokTakip.Controllers
 {
     public class HomeController : Controller
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        //readonly MVC_StokTakipEntities db = new MVC_StokTakipEntities();
         public ActionResult Index()
         {
             return View();

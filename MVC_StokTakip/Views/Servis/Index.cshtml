@@ -31,7 +31,7 @@
             <td>@k.Araclar.Plaka @k.Araclar.AracMarka.Marka @k.Araclar.Model</td>
             <td>@k.Araclar.Musteriler.Ad @k.Araclar.Musteriler.Soyad</td>
             <td>@Html.DisplayFor(x => k.Tarih)</td>
-            <td><a href="/Servis/ServisDetay/?id=@k.ID" class="button btn-block">Detaylar</a></td>
+            <td><a href="/Servis/ServisDetay/?id=@k.ID" class="btn btn-success">Detaylar</a></td>
 
         </tr>
     }
@@ -49,5 +49,22 @@
 
 
 <script>
-    $('#tbl1').dataTable({});
+    $('#tbl1').dataTable({
+        language: {
+            "search": "Ara :",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "infoEmpty": "Gösteriliyor 0 to 0 of 0 Girdilerden",
+            "info": "Gösteriliyor _START_ to _END_ of _TOTAL_ Girdilerden",
+            "lengthMenu": "Kaçarlı Gösterilsin _MENU_ ",
+            "zeroRecords": "Hiçbir Kayıt Bulunamadı.",
+            "paginate": {
+                "first": "İlk Sayfa",
+                "last": "Son Sayfa",
+                "next": "İleri",
+                "previous": "Geri"
+            }
+        },
+
+
+    });
 </script>

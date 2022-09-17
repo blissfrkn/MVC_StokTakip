@@ -12,6 +12,7 @@
 
 @using (Html.BeginForm("HepsiniSatinAl2", "Satislar", FormMethod.Post, new { @class = "container" }))
 {
+    <div class="alert alert-info">@TempData["Message"]</div>
     foreach (var item in Model)
     {
 

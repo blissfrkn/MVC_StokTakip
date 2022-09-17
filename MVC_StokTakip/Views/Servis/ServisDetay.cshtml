@@ -4,8 +4,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+<style>
+    .txt {
+        line-height: 18px;
+        width: 85px !important;
+        height: 32px;
+        font-size: 14px;
+        text-align: center;
+        border: solid 1px #ccc;
+        margin-left: 8px;
+    }
+</style>
+
 <div class="col-md-12">
-    <h4 style="text-align:right;">Servis Oluşturulma Tarihi : @Html.DisplayFor(x => Model.Servis.Tarih)</h4>
+    <h4 style="text-align:right;"><button type="submit" class="btn btn-danger" id="iptal">Servis İptali</button> &nbsp; Servis Oluşturulma Tarihi : @Html.DisplayFor(x => Model.Servis.Tarih)</h4>
+    <div id="dialog1" title="Emin Misiniz ?">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Bu servis iptal olmak üzere. İptal Etmek istediğinize emin misiniz ? </p>
+    </div>
 </div>
 
 <div class="row">
@@ -27,6 +43,12 @@
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="tab-content">
+
+
+
+
+
+                    <!------------------------------------------------------------ ARAÇ BİLGİLERİ BÖLÜMÜ BAŞLANGIÇ---------- ------------------------>
                     <div class="tab-pane active" id="tab_1">
                         <div class="row">
                             <div class="col-md-6">
@@ -53,7 +75,7 @@
                             <div class="col-md-6">
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Müşteri Bilgileri</strong></span>
+                                        <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><a href="/Musteriler/MusteriGetir/?id=@Model.Servis.Araclar.Musteriler.ID" class="button btn-block"><strong>Müşteri Bilgileri</strong></a></span>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Ad-Soyad</strong>: @Html.DisplayFor(x => x.Servis.Araclar.Musteriler.Ad) @Html.DisplayFor(x => x.Servis.Araclar.Musteriler.Soyad)</span>
@@ -78,8 +100,8 @@
                                         </h3>
                                     </div>
                                     <!-- /.card-header -->
-                                    <div class="card-body" style="font-size:1.350em;">
-                                        @Html.Raw(Model.Servis.Not1)
+                                    <div class="card-body" style="font-size:1.350em; line-height: 0.9;">
+                                        <p>@Html.Raw(Model.Servis.Not1)</p>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -95,8 +117,8 @@
                                         </h3>
                                     </div>
                                     <!-- /.card-header -->
-                                    <div class="card-body" style="font-size:1.350em;">
-                                        @Html.Raw(Model.Servis.Not2)
+                                    <div class="card-body" style="font-size:1.350em; line-height: 0.9;">
+                                        <p>@Html.Raw(Model.Servis.Not2)</p>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
@@ -109,7 +131,9 @@
                         <table id="tbl2" class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th>Açıklama</th>
+                                    <th hidden>ID</th>
+                                    <th>Servis İçi Açıklama</th>
+                                    <th>Fiyat Formu Açıklaması</th>
                                     <th hidden>TürID</th>
                                     <th>Miktarı</th>
                                     <th>Birimi</th>
@@ -124,19 +148,33 @@
                                     if (item.TurID == 1 || item.TurID == 3)
                                     {
                                         <tr>
+                                            <td hidden>@Html.DisplayFor(x => item.UrunID)</td>
                                             <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                            @if (item.UrunID == 0)
+                                            {
+                                                <td>
+
+                                                    @Html.TextBoxFor(x => item.Aciklama, new { @class = "acik1", data_id = item.ID, id = "ida" + item.ID })
+                                                </td>
+
+                                            }
+                                            else
+                                            {
+                                                <td>@Html.DisplayFor(x => item.KategoriAd) - @Html.DisplayFor(x => item.StokKodu)</td>
+                                            }
+
                                             <td hidden>@Html.DisplayFor(x => item.TurID)</td>
                                             <td>
-                                                @*<div>
-                                                    @Html.ActionLink("-", "Azalt1", new { id = item.ID }, new { @class = "btn btn-secondary btn-sm azalt1" })
-                                                </div>*@
 
-                                                @Html.DisplayFor(x => item.Miktari)
-
+                                                @Html.TextBoxFor(x => item.Miktari, new { @class = "txt", data_id = item.ID, id = "id" + item.ID })
 
                                             </td>
-                                            <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
-                                            <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                            <td>
+
+                                                @Html.DisplayFor(x => item.Birimler.Birim)
+
+                                            </td>
+                                            <td>@*@Html.DisplayFor(x => item.BirimFiyat)*@   @Html.TextBoxFor(x => item.BirimFiyat, new { @class = "txt1", data_id = item.ID, id = "id1" + item.ID })₺</td>
                                             <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
                                             <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@item.ID" /></td>
                                         </tr>
@@ -149,7 +187,8 @@
                         <table id="tbl3" class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th>Açıklama</th>
+                                    <th>Servis İçi Açıklama</th>
+                                    <th>Fiyat Formu Açıklaması</th>
                                     <th>Miktarı</th>
                                     <th>Birimi</th>
                                     <th>Birim Fiyatı</th>
@@ -162,14 +201,16 @@
                                 if (item.TurID == 2)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                        <td> @Html.TextBoxFor(x => item.Aciklama, new { @class = "acik1", data_id = item.ID, id = "ida" + item.ID }) </td>
+                                        <td> @Html.TextBoxFor(x => item.StokKodu, new { @class = "acik1", data_id = item.ID, id = "ida1" + item.ID }) </td>
                                         <td>
 
-                                            @Html.DisplayFor(x => item.Miktari)
+                                            @*@Html.DisplayFor(x => item.Miktari)*@
+                                            @Html.TextBoxFor(x => item.Miktari, new { @class = "txt2", data_id = item.ID, id = "id" + item.ID })
 
                                         </td>
                                         <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
-                                        <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                        <td>@*@Html.DisplayFor(x => item.BirimFiyat)*@   @Html.TextBoxFor(x => item.BirimFiyat, new { @class = "txt1", data_id = item.ID, id = "id1" + item.ID })₺</td>
                                         <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
                                         <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@item.ID" /></td>
                                     </tr>
@@ -181,7 +222,8 @@
                         <table id="tbl4" class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th>Açıklama</th>
+                                    <th>Servis İçi Açıklama</th>
+                                    <th>Fiyat Formu Açıklaması</th>
                                     <th>Miktarı</th>
                                     <th>Birimi</th>
                                     <th>Birim Fiyatı</th>
@@ -194,16 +236,17 @@
                                 if (item.TurID == 4)
                                 {
                                     <tr>
-                                        <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                        <td> @Html.TextBoxFor(x => item.Aciklama, new { @class = "acik1", data_id = item.ID, id = "ida" + item.ID })</td>
+                                        <td> @Html.TextBoxFor(x => item.StokKodu, new { @class = "acik1", data_id = item.ID, id = "idasa" + item.ID })</td>
                                         <td>
-          
+
 
                                             @Html.DisplayFor(x => item.Miktari)
 
 
                                         </td>
                                         <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
-                                        <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                        <td>@*@Html.DisplayFor(x => item.BirimFiyat)*@   @Html.TextBoxFor(x => item.BirimFiyat, new { @class = "txt1", data_id = item.ID, id = "id1" + item.ID })₺</td>
                                         <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
                                         <td><input type="submit" name="btn" value="Sil" class="btn btn-danger btnSil" data-id="@item.ID" /></td>
                                     </tr>
@@ -261,7 +304,9 @@
                         </div>
                         <br />
                     </div>
-                    <!-- /.tab-pane -->
+                    <!------------------------------------------------------------ ARAÇ BİLGİLERİ BÖLÜMÜ BİTİŞ    ----------------------------------->
+                    <!-- SERVİS BİLGİLERİ GÜNCELLEME BÖLÜMÜ BAŞLANGIÇ-->
+
                     <div class="tab-pane" id="tab_2">
                         <h2 style="text-align:center;">Servis Bilgileri Güncelleme</h2>
                         <br /><br />
@@ -297,42 +342,78 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary" id="btnGuncel">Kaydet</button>
                                 <button type="submit" class="btn btn-primary" id="btnGuncel1">Servis Tamamlandı</button>
+                                <div id="dialog" title="Emin Misiniz ?">
+                                    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Bu servis tamamlanmak üzere. Tamamlamak istediğinize emin misiniz ? </p>
+                                </div>
                             }
                         </div>
                     </div>
+                    <!-- SERVİS BİLGİLERİ GÜNCELLEME BÖLÜMÜ BİTİŞ -->
+                    <!-- SERVİS KALEM EKLEME BÖLÜMÜ BAŞLANGIÇ -->
                     <div class="tab-pane" id="tab_3">
                         <div class="card-body" id="Ekleee">
                             <div class="row">
+                                <div class="col-lg-2">
+                                    <label>STOKTAN ÜRÜN ADI VEYA STOK KODU ARATILACAK ALAN<br />(ÖRNEĞİN "H1" GİBİ")</label>
+                                    <input type="text" id="urunID" name="urunID" class="form-control" placeholder="Açıklama" disabled hidden>
+                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                    <p id="MiktarAcik" hidden style="color:red"></p>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>SERVİSİMİZDE GÖZÜKECEK AÇIKLAMA KISMI<br />(İşçilik,Dışarıdan Y.Parça,M.Parça,Rot-Balans vs. girişi buradan yapılır.)</label>
+                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>MÜŞTERİ FİYAT TEKLİF FORMUNDA GÖZÜKECEK AÇIKLAMA KISMI</label>
+                                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label>NOT : BARKOD CİHAZI İLE ÜRÜN GİRİŞİ İÇİN SADECE BU SAYFADA OLMANIZ YETERLİDİR. HERHANGİ BİR YERE TIKLAMANIZA GEREK YOKTUR.</label>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
                                 <div class="input-group col-lg-2">
-                                
                                     <div class="input-group">
-                                        <input type="text" id="BarkodNo" name="BarkodNo" class="form-control" placeholder="Barkod No Giriniz." disabled>
+                                        <input type="text" id="BarkodNo" name="BarkodNo" class="form-control" placeholder="Stoktan Yedek Parça">
+
+                                    </div>
+                                </div>
+                                <div class="input-group col-lg-2">
+
+                                    <input type="text" id="kategoriAd" name="kategoriAd" class="form-control" placeholder="Açıklama" hidden>
+                                    <div class="input-group">
+                                        <input type="text" id="Aciklama" name="Aciklama" class="form-control" placeholder="Açıklama Kısmı">
+
                                     </div>
                                 </div>
                                 <div class="input-group col-lg-2">
                                     <div class="input-group">
-                                        <input type="text" id="Aciklama" name="Aciklama" class="form-control" placeholder="Açıklama">
+                                        <input type="text" id="formAciklama" name="urunAcik" class="form-control" placeholder="Fiyat Formu Açıklaması">
                                     </div>
                                 </div>
-                                <div class="input-group col-lg-1">
-                                    <select name="Tur" id="Tur" class="form-control">
-                                        <option id="1" value="Yedek Parça">Yedek Parça</option>
-                                        <option id="2" value="İşçilik">İşçilik</option>
-                                        <option id="3" value="Muhtelif Parça">Muhtelif Parça</option>
-                                        <option id="4" value="Rot Balans">Rot Balans</option>
-                                    </select>
+                                <div class="input-group col-lg-2">
+                                    @*<select name="Tur" id="Tur" class="form-control">
+                                            <option value="">--Ürün Türü Seçiniz--</option>
+                                            <option id="1" value="Yedek Parça">Yedek Parça</option>
+                                            <option id="2" value="İşçilik">İşçilik</option>
+                                            <option id="3" value="Muhtelif Parça">Muhtelif Parça</option>
+                                            <option id="4" value="Rot Balans">Rot Balans</option>
+                                        </select>*@
+                                    @Html.DropDownListFor(x => x.Tur.ID, (List<SelectListItem>)ViewBag.dgr3, "--Ürün Türü Seçiniz--", new { @class = "form-control", id = "Tur", value = "1" })
                                 </div>
                                 <div class="input-group col-lg-1">
                                     <div class="input-group">
                                         <input type="number" id="Miktar" name="Miktar" class="form-control" placeholder="Adet">
                                     </div>
                                 </div>
-                                <div class="input-group col-lg-1">
-                                    <select name="Birim" id="Birim" class="form-control">
-                                        <option id="1" value="ADET">ADET</option>
-                                        <option id="2" value="TK">TK</option>
-                                    </select>
+                                <div class="input-group col-lg-2">
+                                    @Html.DropDownListFor(x => x.Birimler.ID, (List<SelectListItem>)ViewBag.dgr2, "--Birim Seçiniz--", new { @class = "form-control", id = "Birim", value = "1" })
                                 </div>
+                            </div>
+                            <br />
+                            <div class="row">
+
                                 <div class="col-lg-2">
                                     <div class="input-group">
                                         <input type="text" id="SatisFiyat" name="SatisFiyat" class="form-control" placeholder="Satış Fiyatı">
@@ -350,37 +431,44 @@
                                     </div>
                                 </div>
                                 <br /><br />
-                                <div class="col-md-1">
+                                <div class="col-lg-2">
                                     <div class="input-group">
                                         <button class="btn btn-primary" id="addToList" type="submit">Ürünü Listeye Ekle</button>
                                     </div>
                                 </div>
                             </div>
+                            <br />
+                            <br />
                             <div id="Tablomuz">
-                                <div class="container">
-                                    <table id="detailsTablem" class="table table-responsive-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Açıklama</th>
-                                                <th>Tür</th>
-                                                <th hidden>Tür ID</th>
-                                                <th>Miktar</th>
-                                                <th>Birim</th>
-                                                <th hidden>BirimID</th>
-                                                <th>Birim Fiyat</th>
-                                                @*<th>Tutar</th>*@
-                                                <th>Sil</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <table id="detailsTablem" class="table table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Kategori</th>
+                                            <th>Servis Açıklama</th>
+                                            <th>Fiyat Form Açıklama</th>
+                                            <th>Tür</th>
+                                            <th hidden>Tür ID</th>
+                                            <th>Miktar</th>
+                                            <th>Birim</th>
+                                            <th hidden>BirimID</th>
+                                            <th>Birim Fiyat</th>
+                                            @*<th>Tutar</th>*@
+                                            <th>Sil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                             <button id="saveOrder" style="float:right;" type="submit" class="btn btn-success">Değişiklikleri Kaydet</button>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
+                    <!-- SERVİS KALEM EKLEME BÖLÜMÜ BİTİŞ -->
+
+
+
+
                 </div>
                 <!-- /.tab-content -->
             </div><!-- /.card-body -->
@@ -435,14 +523,16 @@
         position: absolute;
     }
 </style>
+
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <script src="~/GenelScript/jquery-code-scanner.js"></script>
-
+<script src="~/Content/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
 
 @* Sayfa açılışında çalışan script *@
 <script>
     $(document).ready(function () {
+        $("#iskontoBut").hide();
         $("#UrunEkle").hide();
         $("#İscilikEkle").hide();
         $("#MuhtelifEkle").hide();
@@ -491,8 +581,86 @@
 
     })
 
+    var barkodNo = $("#BarkodNo").val();
+    var aciklama = $("#Aciklama").val();
+
+
     $("#btnGuncel1").hide();
 </script>
+
+
+@* DİNAMİK OLARAK MİKTAR VE AÇIKLAMA BÖLÜMLERİNİN GÜNCELLEME VE TOPLAM FİYATLARIN HESAPLANDIĞI BÖLÜMÜN SCRİPT KODLARI*@
+<script>
+    $('.txt').on('keyup', function () {
+        this.value = this.value.replace(',', '.');
+    });
+    $('.txt').on('change', function () {
+        var miktar = $(this).val();
+        var kalemid = $(this).attr('data-id');
+        var id2 = new Date().getTime();
+        $.ajax({
+            url: '/Servis/DinamikMiktar1/',
+            data: { id: kalemid, miktari: miktar },
+            success: function (res) {
+                document.location.reload();
+
+
+            }
+        });
+    });
+    $('.txt1').on('keyup', function () {
+        this.value = this.value.replace(',', '.');
+    });
+    $('.txt1').on('change', function () {
+        var fiyat = $(this).val();
+        var kalemid = $(this).attr('data-id');
+        var id2 = new Date().getTime();
+        $.ajax({
+            url: '/Servis/DinamikMiktar2/',
+            data: { id: kalemid, satisfiyat: fiyat },
+            success: function (res) {
+                document.location.reload();
+
+
+            }
+        });
+    });
+
+    $('.txt2').on('keyup', function () {
+        this.value = this.value.replace(',', '.');
+    });
+    $('.txt2').on('change', function () {
+        var miktar = $(this).val();
+        var kalemid = $(this).attr('data-id');
+        var id2 = new Date().getTime();
+        $.ajax({
+            url: '/Servis/DinamikMiktar1/',
+            data: { id: kalemid, miktari: miktar },
+            success: function (res) {
+                document.location.reload();
+
+
+            }
+        });
+    });
+
+    $('.acik1').on('change', function () {
+        var aciklama = $(this).val();
+        var kalemid = $(this).attr('data-id');
+        $.ajax({
+            url: '/Servis/DinamikAciklama/',
+            data: { id: kalemid, aciklama: aciklama },
+            success: function (res) {
+                document.location.reload();
+            }
+        });
+    });
+
+
+</script>
+@* DİNAMİK OLARAK MİKTAR VE AÇIKLAMA BÖLÜMLERİNİN GÜNCELLEME VE TOPLAM FİYATLARIN HESAPLANDIĞI BÖLÜMÜN SCRİPT KODLARI*@
+
+
 
 @* Servis bilgilerini güncelleme scripti*@
 <script>
@@ -516,58 +684,70 @@
         });
     });
 </script>
+@* Servis bilgilerini güncelleme scripti*@
+
 
 @* Barkod cihazı ile listeye ürün ekleme*@
 <script>
     $('#BarkodNo').codeScanner({
         onScan: function ($element, code) {
-            $("#BarkodNo").val(code);
-        
+
+
             $.ajax({
-                url: "/Servis/UrunGetir/" + $('#BarkodNo').val(),
+                url: "/Servis/UrunGetir/" + code,
                 type: 'GET',
                 dataType: 'json',
                 success:
                     function (data) {
                         if (data == "0") {
-                            alert("Üründen stokta kalmamıştır");
+                            alert("Üründen mağaza stoğunda kalmamıştır. Ya da böyle bir ürün yok.");
                         }
                         else {
                             $.each(data, function (key, Value) {
+                                var UrunID = Value.ID;
+                                var KategoriAdi = Value.Kategori;
+                                var StokKodu = Value.StokKodu;
+                                var FormAciklama = Value.FormAciklama;
+                                var UrunAdi = Value.UrunAdi;
+                                var Miktar = parseFloat(1);
+                                var SatisFiyat = Value.SatisFiyati;
                                 var TurID = 1
-                                var BirimID = 1
-                                var Aciklama = Value.UrunAdi;
-                                Tur = "Yedek Parça"
-                                Miktar = parseFloat(1);
-                                Birim = "ADET"
-                               
-                                detailsTableBody = $("#detailsTablem tbody");
+                                var BirimID = Value.BirimID;
+                                var Birim = "ADET"
+                                var Tur = "Yedek Parça"
+                                var orderArr = [];
+                                orderArr.length = 0;
+                                orderArr.push({
+                                    ServisID: $("#ServisID").val(),
+                                    Aciklama: StokKodu + ' - ' + UrunAdi,
+                                    ID: UrunID,
+                                    KategoriAd: KategoriAdi,
+                                    StokKodu: StokKodu + ' - ' + FormAciklama,
+                                    TurID: TurID,
+                                    Miktari: Miktar,
+                                    BirimID: BirimID,
+                                    BirimFiyat: SatisFiyat,
+                                });
+                                var data = JSON.stringify({
+                                    kalemler: orderArr
+                                });
+                                $.ajax({
+                                    contentType: 'application/json; charset=utf-8',
+                                    dataType: 'json',
+                                    type: 'POST',
+                                    url: "/Servis/SaveOrder",
+                                    data: data,
+                                    success: function (result) {
+                                        //alert(result);
+                                        location.reload();
+                                    },
+                                    error: function () {
+                                        alert("Error!")
+                                    }
 
-                                var id = new Date().getTime();
-                                var productItem = '<tr><td>' + Aciklama
-                                    + '</td><td>' + Tur
-                                    + '</td><td hidden>' + TurID
-                                    + '</td><td><input type="number" class="form-control" id="ozelMiktar' + id + '" value="'+ Miktar +'"/>  '
-                                    + '</td><td>' + Birim
-                                    + '</td><td hidden>' + BirimID
-                                    + '</td><td><input type="text" class="form-control" id="ozelBFiyat' + id + '"/>'
-                                    //+ '</td><td><input type="text" class="form-control" id="ozelTutar' + id + '"/>'+
-                                    + '</td><td><a data-itemId="0" href="#" class="deleteItem">Sil</a></td></tr>';
-
-                               
-                                detailsTableBody.append(productItem);
-                              /*  $("#detailsTablem tbody tr").find('td:eq(6) input')*/$('#ozelBFiyat' + id).val(parseFloat(Value.SatisFiyati).toFixed(2));
-
-                              
-                            
-
-       
-
+                                });
                             });
-
-
                         }
-
                     },
                 error:
                     function () {
@@ -578,9 +758,11 @@
     });
 </script>
 
+
+
 @* Toplam tutar için tetiklenme scripti *@
 <script>
-   
+
 
     $("#Miktar").click(function (e) {
         var satisFiyat = $("#SatisFiyat").val();
@@ -653,6 +835,7 @@
 
 </script>
 
+
 @* Textboxları sıfırlama scripti*@
 <script>
 
@@ -680,27 +863,37 @@
     $("#addToList").click(function (e) {
 
         e.preventDefault();
-        if ($.trim($("#Aciklama").val()) == "" || $.trim($("#Tur").val()) == "" || $.trim($("#Miktar").val()) == "" || $.trim($("#Birim").val()) == "") return;
+        if ($.trim($("#Aciklama").val()) == "" || $.trim($("#Tur").val()) == "" || $.trim($("#Miktar").val()) == "" || $.trim($("#Birim").val()) == "" || $.trim($("#SatisFiyat").val()) == "") {
+            alert("Boş alanlar mevcut lütfen eksiksiz doldurunuz");
+            return;
 
-        var TurID = $("#Tur").children(":selected").attr("id");
-        var BirimID = $("#Birim").children(":selected").attr("id");
-        var Aciklama = $("#Aciklama").val(),
-            Tur = $("#Tur").val(),
-            Miktar = $("#Miktar").val(),
-            Birim = $("#Birim").val(),
-            BirimFiyat = $("#SatisFiyat").val(),
-            detailsTableBody = $("#detailsTablem tbody");
+        }
+        var ID = $("#urunID").val();
+        var Kategori = $("#kategoriAd").val();
+        var Aciklama = $("#Aciklama").val();
+        var formAciklama = $("#formAciklama").val();
+        var TurID = $("#Tur").val();
+        var Tur = $("#Tur option:selected").text();
+        var Miktar = $("#Miktar").val();
+        var BirimID = $("#Birim").val();
+        var Birim = $("#Birim").children(":selected").text();
+        var BirimFiyat = $("#SatisFiyat").val();
+
+
+        detailsTableBody = $("#detailsTablem tbody");
 
         var id = new Date().getTime();
-        var productItem = '<tr><td>' + Aciklama + '</td><td>' + Tur + '</td><td hidden>' + TurID + '</td><td><input type="number" class="form-control" id="ozelMiktar' + id + '" value="' + Miktar + '" /> ' + '</td> <td>' + Birim + '</td><td hidden>' + BirimID + '</td><td><input type="text" class="form-control" id="ozelBFiyat' + id + '" value="' + parseFloat(BirimFiyat).toFixed(2) + '" />' + '</td><td><a data-itemId="0" href="#" class="deleteItem">Sil</a></td></tr > ';
+        var productItem = '<tr><td>' + ID + '</td><td>' + Kategori
+            + '</td><td><input type="text" class="form-control" id="ozelAciklama' + id + '" value="' + Aciklama + '" /> ' + '</td><td><input type="text" class="form-control" id="ozelstokKod' + id + '" value="' + formAciklama + '" />' + '</td><td>' + Tur + '</td><td hidden>' + TurID + '</td><td>' + Miktar + '</td> <td>' + Birim + '</td><td hidden>' + BirimID + '</td><td>' + parseFloat(BirimFiyat).toFixed(2) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Sil</a></td></tr > ';
 
         detailsTableBody.append(productItem);
-      
-
+        $("#Aciklama").removeAttr("disabled", "true");
+        $("#formAciklama").removeAttr("disabled", "true");
+        $("#MiktarAcik").attr("hidden", "true");
+        $("#kategoriAd").val('');
         clearItem();
 
     });
-
 
     function clearItem() {
         $('#Aciklama').val('');
@@ -708,121 +901,75 @@
         $("#SatisFiyat").val('');
         $("#ToplamTutar").val('');
         $("#Miktar").val('');
-        $form.find(' input:password, input:file, select, textarea').val('');
-
+        $("#formAciklama").val('');
+        $("#kategoriAd").val('');
+        $("#urunID").val('');
+        $("#Tur").val('');
+        $("#Birim").val('');
+        /*$form.find(' input:password, input:file, select, textarea').val('');*/
     }
 
     $(document).on('click', 'a.deleteItem', function (e) {
-
         e.preventDefault();
-
         var $self = $(this);
-
         if ($(this).attr('data-itemId') == "0") {
-
             $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
-
                 $(this).remove();
-
             });
-
         }
-
     });
-
     function saveOrder(data) {
-
         return $.ajax({
-
             contentType: 'application/json; charset=utf-8',
-
             dataType: 'json',
-
             type: 'POST',
-
             url: "/Servis/SaveOrder",
-
             data: data,
-
             success: function (result) {
-         
-           
-                    alert(result);
-
-                    location.reload();
-             
-         
-
-
-
+                //alert(result);
+                location.reload();
             },
-
             error: function () {
-
-                alert("Error!")
-
+                alert("Listeye hiçbir ürün eklemediniz.")
             }
-
         });
-
     }
 
     $("#saveOrder").click(function (e) {
 
         e.preventDefault();
 
-
-
         var orderArr = [];
 
         orderArr.length = 0;
-
-
 
         $.each($("#detailsTablem tbody tr"), function () {
 
             orderArr.push({
 
                 ServisID: $("#ServisID").val(),
-                Aciklama: $(this).find('td:eq(0)').html(),
-                TurID: $(this).find('td:eq(2)').html(),
-                Miktari: $(this).find('td:eq(3) input').val(),
-                BirimID: $(this).find('td:eq(5)').html(),
-                BirimFiyat: $(this).find('td:eq(6) input').val(),
-                
-                //ToplamTutar: $(this).find('td:eq(7)').html()
-
-
+                Aciklama: $(this).find('td:eq(2) input').val(),
+                ID: $(this).find('td:eq(0)').html(),
+                KategoriAd: $(this).find('td:eq(1)').html(),
+                StokKodu: $(this).find('td:eq(3) input').val(),
+                TurID: $(this).find('td:eq(5)').html(),
+                Miktari: $(this).find('td:eq(6)').html(),
+                BirimID: $(this).find('td:eq(8)').html(),
+                BirimFiyat: $(this).find('td:eq(9)').html(),
             });
-
         });
-
-
-
-
-
         var data = JSON.stringify({
-
             kalemler: orderArr
-
         });
-
-
-
         $.when(saveOrder(data)).then(function (response) {
-
             console.log(response);
-
         }).fail(function (err) {
-
             console.log(err);
-
         });
-
-
-
     });
 </script>
+
+
 
 @* İşçilik Silme*@
 <script type="text/javascript">
@@ -852,6 +999,9 @@
 <script type="text/javascript">
     $(function () {
         $("#tbl2").on("click", ".btnSil", function () {
+            $(this).click(function () {
+                return false;
+            });
             var btn = $(this);
             bootbox.confirm(btn.data("id") + "nolu ID kaydı silinsin mi?", function (result) {
                 if (result) {
@@ -917,29 +1067,119 @@
 </script>
 
 @* Servis Tamamlandı Buton*@
+
+<script>
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            resizable: false,
+            draggable: false,
+            show: {
+                effect: "blind",
+                duration: 100
+            },
+            hide: {
+                effect: "blind",
+                duration: 100
+            },
+            buttons: {
+                "Evet Eminim": function () {
+                    $.ajax({
+                        url: "/Tamiratlar/TamiratAl/" + $("#ServisID").val(),
+                        type: "POST",
+                        dataType: 'json',
+                        success:
+                            function (response) {
+                                if (response.result == 'Redirect')
+                                    window.location = response.url;
+                                else if (response == "2")
+                                    alert("Servise Hiçbir ürün girişi yapılmadı");
+                                else if (response == "3")
+                                    alert(" '0' adetli veya '-' adetli giriş yaptınız. Ürün adetlerini lütfen kontrol ediniz.");
+                                else if (response == "4") {
+                                    alert("Mağazada olmayan bir ürünü stoktan düşemezsiniz.");
+                                }
+                                else {
+                                    $.each(response, function (key, Value) {
+                                        alert(Value.UrunAdi + " adlı üründen " + Value.Adi + " adlı depoda " + Value.Miktar + " adet stokta var. Yalnız siz daha fazla miktar girişi yaptınız. ");
+                                    });
+                                }
+                                //alert(data);
+                                //alert("Kayıt başarıyla gerçekleşti");
+                            },
+                        error: function () {
+                            alert("Hata");
+                        }
+                    });
+                },
+                "İptal": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+    });
+</script>
 <script>
     $("#btnGuncel1").click(function (e) {
         e.preventDefault();
+        $("#dialog").dialog("open");
+    });
 
-        $.ajax({
-            url: "/Tamiratlar/TamiratAl/" + $("#ServisID").val(),
-            type: "POST",
-            dataType: 'json',
-            success:
-                function (response) {
-                    if (response.result == 'Redirect')
-                        window.location = response.url;
-                    else if (response = "0") {
-                        alert("Stok adedinden fazla adet giremezsiniz.");
-                    }
-                    //alert(data);
-                    //alert("Kayıt başarıyla gerçekleşti");
+</script>
+
+@* Servis İptali*@
+
+<script>
+    $(function () {
+        $("#dialog1").dialog({
+            autoOpen: false,
+            height: "auto",
+            width: 400,
+            resizable: false,
+            draggable: false,
+            show: {
+                effect: "blind",
+                duration: 100
+            },
+            hide: {
+                effect: "blind",
+                duration: 100
+            },
+            buttons: {
+                "Evet Eminim": function () {
+                    $.ajax({
+                        url: "/Servis/Servisİptal/" + $("#ServisID").val(),
+                        type: "POST",
+                        dataType: 'json',
+                        success:
+                            function (response) {
+                                if (response.result == 'Redirect') {
+                                    alert("Servis İptal Edildi. Yönlendiriliyorsunuz");
+                                    window.location = response.url;
+                                }
+                            },
+                        error: function () {
+                            alert("Hata Oluştu");
+                        }
+                    });
                 },
-            error: function () {
-                alert("Hata");
+                "İptal": function () {
+                    $(this).dialog("close");
+                }
             }
         });
+
     });
+</script>
+<script>
+    $("#iptal").click(function (e) {
+        e.preventDefault();
+        $("#dialog1").dialog("open");
+    });
+
 </script>
 
 @* SummerNote *@
@@ -975,6 +1215,7 @@
         $("#İsk").prop('checked', false);
         $("#iskontoDiv").prop('hidden', true);
         //$("#geneltop").val(0.00);
+        $("#iskontoBut").show();
 
 
     });
@@ -982,6 +1223,7 @@
     $("#İsk").click(function () {
         $("#notİsk").prop('checked', false);
         $("#iskontoDiv").removeAttr('hidden');
+        $("#iskontoBut").show();
 
     })
 
@@ -994,7 +1236,7 @@
             var sayac = 0.00;
             var iskontoParams = $("#iskonto").val()
             var genelToplam = $("#toplamFiyat").html();
-            alert(genelToplam);
+            //alert(genelToplam);
             parseFloat(iskontoParams);
             if ($("#notİsk").prop('checked') == true) {
                 $.ajax({
@@ -1016,18 +1258,14 @@
                     data: { id: $("#ServisID").val(), iskontoP: iskontoParams },
                     success:
                         function (data) {
-
                             location.reload();
                         }
                 });
-
             }
             else if (iskontoParams > genelToplam) {
                 alert("Genel Toplam Fiyatının üstünde olamaz");
             }
-
         });
-
         var iskontoluToplam = $("#iskonto").val();
         if (iskontoluToplam == 0.00) {
             $("#İsk").prop('checked', false);
@@ -1039,27 +1277,123 @@
             $("#İsk").prop('checked', true);
             $("#iskontoDiv").removeAttr('hidden');
             $("#iskontoKaydet").removeAttr('hidden');
+        }
+        $("#iskonto").keyup(function () {
+            this.value = this.value.replace(',', '.');
+        });
+        $("#iskonto").focus(function () {
+            $("#iskontoBut").show();
+        });
+    });
+</script>
+
+
+<script>
+    String.prototype.turkishToUpper = function () {
+        var string = this;
+        var letters = { "i": "İ", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç", "ı": "I" };
+        string = string.replace(/(([iışğüçö]))/g, function (letter) { return letters[letter]; })
+        return string.toUpperCase();
+    }
+    $("#BarkodNo").keyup(function (e) {
+        if (e.keyCode == 8) {
+            $("#MiktarAcik").attr("hidden", "true");
+            $("#Aciklama").val("");
+            $("#Aciklama").removeAttr("disabled", "true");
+            $("#formAciklama").removeAttr("disabled", "true");
+            $("#formAciklama").val("");
+            $("#Tur").val("");
+            $("#Birim").val("");
+            $("#Miktar").val("");
+            $("#SatisFiyat").val("");
+            $("#urunID").val("");
+            $("#ToplamTutar").val("");
+            $("#BarkodNo").val("");
+        }
+    })
+    $("#Aciklama").keyup(function () {
+        var acik = $(this).val();
+        //this.value = this.value.turkishToUpper();
+        $("#formAciklama").val(acik);
+        $("#kategoriAd").val("");
+        $("#urunID").val("");
+    });
+    $("#formAciklama").change(function () {
+        //this.value = this.value.turkishToUpper();
+        $("#kategoriAd").val("");
+    });
+    $("#Aciklama").autocomplete({
+        source: '/Servis/Search2',
+        minLength: 1,
+        select: function (event, ui) {
+            $("#SatisFiyat").val(ui.item.sfiyat);
+            $("#formAciklama").val(ui.item.value);
+            $("#Miktar").val(1);
+            $("#Tur").val(2);
+            $("#Birim").val(1);
 
         }
-
-
-
     });
 </script>
 
 <script>
-    $("#deneme").click(function () {
-        $.ajax({
-            type: "GET",
-            url: "/Servis/Kaydet",
-            dataType: 'json',
-            success:
-                function (data) {
+    $(document).ready(function () {
+        $("#BarkodNo").autocomplete({
+            source: '/Servis/Search',
+            minLength: 1,
+            select: function (event, ui) {
+                $.ajax({
+                    url: "/Servis/UrunGetir3/" + ui.item.id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success:
+                        function (data) {
+                            if (data == "0") {
+                                $("#formAciklama").val("");
+                                $("#Tur").val("");
+                                $("#Aciklama").attr("disabled", "true");
+                                $("#formAciklama").attr("disabled", "true");
+                                $("#Birim").val("");
+                                $("#Miktar").val("");
+                                $("#MiktarAcik").removeAttr("hidden");
+                                $("#MiktarAcik").html("Bu üründen varsayılan mağaza stoğunda kalmamıştır. Depo stoğunu kontrol ediniz.");
 
-                    alert(data);
-                }
+                            }
+                            else {
+
+                                $.each(data, function (key, Value) {
+                                    var TurID = 1
+                                    var UrunAdi = Value.UrunAdi;
+                                    var Miktar = 1;
+                                    Tur = "Yedek Parça"
+                                    $("#urunID").val(Value.UrunID);
+                                    $("#Aciklama").val(Value.StokKodu + ' - ' + UrunAdi);
+                                    $("#kategoriAd").val(Value.Kategori);
+                                    $("#formAciklama").val(Value.StokKodu + ' - ' + Value.FormAciklama);
+                                    $("#Tur").val(TurID);
+                                    $("#Miktar").val(Miktar);
+                                    $("#Birim").val(Value.BirimID);
+                                    $("#SatisFiyat").val(Value.SatisFiyati);
+                                    $("#Aciklama").attr("disabled", "true");
+                                    $("#formAciklama").attr("disabled", "true");
+                                    $("#MiktarAcik").removeAttr("hidden");
+                                    $("#MiktarAcik").html("Bu üründen " + Value.Adi + "'da " + Value.Miktar + " adet kalmıştır");
+
+                                });
+                            }
+                        },
+                    error:
+                        function () {
+                            alert("Hata");
+                        }
+                });
+            },
         });
-    })
-
+    });
 </script>
+@*<script type="text/javascript" language="javascript">
 
+        //Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(BeginRequestHandler);
+        //function BeginRequestHandler(sender, args) { var oControl = args.get_postBackElement(); oControl.disabled = true; }
+
+    </script>*@

@@ -8,11 +8,12 @@ namespace MVC_StokTakip.Models.ParcaliIslemler
 {
     public class BildirimIslemler
     {
-        MVC_StokTakipEntities db = new MVC_StokTakipEntities();
+        arabamis_MVC_StokTakipEntities db = new arabamis_MVC_StokTakipEntities();
 
-           public List<Urunler> AzalanStokListe()
+           public List<DepoUrun> AzalanStokListe()
         {
-            return db.Urunler.Where(x => x.Miktari <= 5 && x.Miktari>=1).ToList();
+            return db.DepoUrun.Where(x => x.Miktar <= 5 && x.Miktar>=1 && x.Urunler.IsDelete== false).OrderBy(x=>x.Miktar).ToList();
         }
+        
     }
 }

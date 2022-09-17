@@ -47,11 +47,11 @@
                             {
                                 <div class="card-body">
                                     <div class="form-row">
-                                      
-                                           
-                                            @Html.HiddenFor(x => x.Araclar.Plaka, new { @class = "form-control", id = "Plaka2" })
-                                            @*<span style="color: red; background-color:white;" id="spani2"></span>*@
-                                       
+
+
+                                        @Html.HiddenFor(x => x.Araclar.Plaka, new { @class = "form-control", id = "Plaka2" })
+                                        @*<span style="color: red; background-color:white;" id="spani2"></span>*@
+
                                         <div class="form-group col-md-6">
                                             @Html.Label("Araç Markası")
                                             @Html.DropDownListFor(x => x.Araclar.MarkaID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Marka" })
@@ -81,36 +81,36 @@
                         <div id="AracGuncelle">
                             @using (Html.BeginForm("AracGuncelle", "Servis", FormMethod.Post, new { id = "AracGuncel" }))
                             {
-                            <div class="card-body">
-                                @Html.HiddenFor(x => x.Araclar.ID, new { id = "ID" })
+                                <div class="card-body">
+                                    @Html.HiddenFor(x => x.Araclar.ID, new { id = "ID" })
 
-                                <div class="form-row">
-                                    @*<div class="form-group col-md-4">
-                                        @Html.LabelFor(x => x.Araclar.Plaka)
-                                        @Html.TextBoxFor(x => x.Araclar.Plaka, new { @class = "form-control", id = "Plaka1" })
-                                    </div>*@
-                                    <div class="form-group col-md-6">
-                                        @Html.Label("Araç Markası")
-                                        @Html.DropDownListFor(x => x.Araclar.MarkaID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Marka1" })
+                                    <div class="form-row">
+                                        @*<div class="form-group col-md-4">
+                                                @Html.LabelFor(x => x.Araclar.Plaka)
+                                                @Html.TextBoxFor(x => x.Araclar.Plaka, new { @class = "form-control", id = "Plaka1" })
+                                            </div>*@
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Araç Markası")
+                                            @Html.DropDownListFor(x => x.Araclar.MarkaID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Marka1" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Araç Modeli")
+                                            @Html.TextBoxFor(x => x.Araclar.Model, new { @class = "form-control", id = "Model1" })
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        @Html.Label("Araç Modeli")
-                                        @Html.TextBoxFor(x => x.Araclar.Model, new { @class = "form-control", id = "Model1" })
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Şasi No")
+                                            @Html.TextBoxFor(x => x.Araclar.SasiNo, new { @class = "form-control", id = "Sasi1" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Renk")
+                                            @Html.TextBoxFor(x => x.Araclar.Renk, new { @class = "form-control", id = "Renk1" })
+                                        </div>
                                     </div>
+                                    <button type="submit" id="btnGuncelle" class="btn btn-primary">Güncelle</button>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        @Html.Label("Şasi No")
-                                        @Html.TextBoxFor(x => x.Araclar.SasiNo, new { @class = "form-control", id = "Sasi1" })
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        @Html.Label("Renk")
-                                        @Html.TextBoxFor(x => x.Araclar.Renk, new { @class = "form-control", id = "Renk1" })
-                                    </div>
-                                </div>
-                                <button type="submit" id="btnGuncelle" class="btn btn-primary">Güncelle</button>
-                            </div>
-                                    
+
                             }
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="input-group">
-                                            <label>Müşteri Sorgulama</label>
+                                            <label>Müşteri Adı Yazınız</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -155,90 +155,95 @@
                                 @using (Html.BeginForm("MusteriEkle", "Servis", FormMethod.Post, new { id = "MusteriKayidi" }))
                                 {
 
-                                <div class="card-body">
-                                    <h3>Müşteri Bilgileri</h3>
-                                    <br />
-                                    <div class="form-row">
+                                    <div class="card-body">
+                                        <h3>Müşteri Bilgileri</h3>
+                                        <br />
+                                        <div class="form-row">
 
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Müşteri ADI")
-                                            @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad" })
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Müşteri ADI")
+                                                @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Müşteri SOYADI")
+                                                @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Telefon No:")
+                                                @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Email :")
+                                                @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email" })
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Müşteri SOYADI")
-                                            @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad" })
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                @Html.Label("Adres :")
+                                                @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres" })
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                @Html.Label("Vergi Dairesi")
+                                                @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi" })
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                @Html.Label("Vergi Numarası : ")
+                                                @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo" })
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Telefon No:")
-                                            @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon" })
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Email :")
-                                            @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email" })
-                                        </div>
+                                        <button type="submit" id="btnMusteri" class="btn btn-primary">Müşteri Kaydet</button>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Adres :")
-                                            @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres" })
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Vergi Dairesi")
-                                            @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi" })
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Vergi Numarası : ")
-                                            @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo" })
-                                        </div>
-                                    </div>
-                                    <button type="submit" id="btnMusteri" class="btn btn-primary">Müşteri Kaydet</button>
-                                </div>
                                 }
                             </div>
                             <div id="MusteriGuncelForm">
                                 @using (Html.BeginForm("MusteriGuncelle", "Servis", FormMethod.Post, new { id = "MusteriGuncel" }))
                                 {
-                                <div class="card-body">
-                                    <h3>Müşteri Bilgileri</h3>
-                                    <br />
-                                    @Html.HiddenFor(x => x.Musteriler.ID, new { id = "MusteriGuncelID" })
-                                    <div class="form-row">
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Müşteri ADI")
-                                            @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad1" })
+                                    <div class="card-body">
+                                        <h3>Müşteri Bilgileri</h3>
+                                        <br />
+                                        @Html.HiddenFor(x => x.Musteriler.ID, new { id = "MusteriGuncelID" })
+                                        <div class="form-row">
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Müşteri ADI")
+                                                @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad1" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Müşteri SOYADI")
+                                                @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad1" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Telefon No:")
+                                                @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon1" })
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                @Html.Label("Email :")
+                                                @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email1" })
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Müşteri SOYADI")
-                                            @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad1" })
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Telefon No:")
-                                            @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon1" })
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            @Html.Label("Email :")
-                                            @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email1" })
+                                        <div class="form-row">
+                                            <div class="form-group col-md-4">
+                                                @Html.Label("Adres :")
+                                                @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres1" })
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                @Html.Label("Vergi Dairesi")
+                                                @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi1" })
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                @Html.Label("Vergi Numarası : ")
+                                                @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo1" })
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Adres :")
-                                            @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres1" })
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Vergi Dairesi")
-                                            @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi1" })
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            @Html.Label("Vergi Numarası : ")
-                                            @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo1" })
-                                        </div>
-                                    </div>
-                                </div>
                                     <div class="card-footer">
                                         <button type="submit" id="btnMusteriGuncel" class="btn btn-primary">Müşteri Güncelle</button>
+
                                     </div>
                                 }
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" id="yinedeKayit" class="btn btn-primary" hidden>Bunlardan biri değilse yeni kayıt oluştur</button>
                             </div>
 
                         </div>
@@ -246,11 +251,11 @@
                     <div class="tab-pane" id="tab_3">
                         <h2 style="text-align:center;">Servis</h2>
                         <br />
-                        <input type="text" id="MusteriID" />
+                        <input hidden type="text" id="MusteriID" />
                         @using (Html.BeginForm("ServiseAl", "Servis", FormMethod.Post, new { id = "ServisGiris" }))
                         {
                             <div class="form-row">
-                                @Html.TextBoxFor(x => x.Servis.AracID, new { id = "AracID" })
+                                @Html.HiddenFor(x => x.Servis.AracID, new { id = "AracID" })
                             </div>
                             <div class="form-group col-md-6 center2">
                                 @Html.Label("Aracın Kilometresi")
@@ -304,6 +309,7 @@
 <script>
     $(document).ready(function () {
 
+
         $("#AracGuncelle").hide();
         $("#MusteriGuncelForm").hide();
         //$("#MusteriKayit").hide();
@@ -350,7 +356,12 @@
     });
 
 
-
+    String.prototype.turkishToUpper = function () {
+        var string = this;
+        var letters = { "i": "İ", "ş": "Ş", "ğ": "Ğ", "ü": "Ü", "ö": "Ö", "ç": "Ç", "ı": "I" };
+        string = string.replace(/(([iışğüçö]))/g, function (letter) { return letters[letter]; })
+        return string.toUpperCase();
+    }
 
     $('#Plaka').keyup(function () {
         this.value = this.value.toUpperCase();
@@ -362,34 +373,35 @@
         this.value = this.value.toUpperCase();
     });
     $('#Sasi').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
     $('#Sasi1').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
     $('#Model').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
     $('#Model1').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
 
     $('#Ad').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
     $('#Ad1').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
     $('#Soyad').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
     $('#Soyad1').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
 
     $('#MusteriAd').keyup(function () {
-        this.value = this.value.toUpperCase();
+        this.value = this.value.turkishToUpper();
     });
+
 </script>
 
 @*Araç Plaka Sorgulama Sonucu Var Olan Kayıtları Getirme Script*@
@@ -472,7 +484,7 @@
                                 $("#musteriTablo").hide();
                                 $("#MusteriKayitForm").hide();
                                 $("#MusteriGuncelForm").show();
-                                $("#btnMusteri").hide();
+                                //$("#btnMusteri").hide();
                                 $("#MusteriID").val(Value.MusteriID);
                                 $("#MusteriGuncelID").val(Value.MusteriID);
                                 $("#Ad1").val(Value.Ad);
@@ -485,12 +497,12 @@
 
                             })
                         }
-                        else if (Value.MusteriID == null){                         
+                        else if (Value.MusteriID == null) {
                             $('#mytabs a[href="#tab_2"]').tab('show');
                             $('#mytabs a[href="#tab_3"]').addClass('disabled');
                             $('#mytabs a[href="#tab_3"]').find('a').removeAttr("data-toggle", "tab")
                             alert("Kayıt Bulundu.");
-                            alert("Müşteri Ara");
+                            alert("Müşteri Seçme ekranına yönlendiriliyorsunuz.");
                             $.each(data, function (key, Value) {
                                 $("#ID").val(Value.ID) + $('#Plaka1').val(Value.Plaka) + $('#Model1').val(Value.Model) + $('#Sasi1').val(Value.SasiNo) + $('#Renk1').val(Value.Renk);
                                 $("#Marka1").val(Value.MarkaID); $("#AracID").val(Value.ID);
@@ -569,7 +581,7 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data == "0") {
-                            alert("Bu plaka zaten kayıtlı lütfen arama yapınız.")
+                            alert("Bu plaka zaten kayıtlı lütfen başka arama yapınız.")
                         }
                         else {
                             $('#mytabs li.active').next('li').removeClass('disabled');
@@ -594,7 +606,7 @@
                             FormSifirla($('#MusteriKayidi'));
                             $("#MusteriKayit").show();
                         }
-                       
+
                     }
                 });
             }
@@ -663,7 +675,7 @@
                     dataType: 'json',
                     success:
                         function (data) {
-                            alert(data);
+                            //alert(data);
                             $('#mytabs a[href="#tab_2"]').tab('show');
                         },
                     error: function () {
@@ -720,6 +732,8 @@
                         FormSifirlaMusteri($('#MusteriKayidi'));
                         FormSifirlaMusteriG($('#MusteriGuncel'));
                         $('#Ad').val(MusteriAd);
+                        $("#yinedeKayit").attr("hidden", "true");
+
 
                     }
                     else {
@@ -733,29 +747,10 @@
                             tr += '<td>' + Value.Ad + '</td>';
                             tr += '<td>' + Value.Soyad + '</td>';
                             tr += '<td>' + Value.Telefon + '</td>';
-                            tr += '<td> <button class="btn btn-success" id="sec">Seç</button> </td>';
+                            tr += '<td> <button class="btn btn-success btnsec" data-id="' + Value.ID + '">Seç</button> </td>';
                             tr += '</tr>';
                             $("#musteriTablo").append(tr);
-                            $("#sec").click(function () {
-                                $('#mytabs li').not('.active').removeClass('disabled');
-                                $('#mytabs a[href="#tab_3"]').removeClass('disabled');
-                                $('#mytabs li').not('.active').find('a').attr("data-toggle", "tab");
-                                $('#mytabs a[href="#tab_3"]').tab('show');
-                                $("#musteriTablo").hide();
-                                $("#MusteriKayitForm").hide();
-                                $("#MusteriGuncelForm").show();
-                                $("#MusteriID").val(Value.ID);
-                                $("#MusteriGuncelID").val(Value.ID);
-                                $("#Ad1").val(Value.Ad);
-                                $("#Soyad1").val(Value.Soyad);
-                                $("#Telefon1").val(Value.Telefon);
-                                $("#Email1").val(Value.Email);
-                                $("#Adres1").val(Value.Adres);
-                                $("#VergiDairesi1").val(Value.VergiDairesi);
-                                $("#VergiNo1").val(Value.VergiNo);
-                                $("#MusteriAd").val('');
-
-                            })
+                            $("#yinedeKayit").removeAttr("hidden");
                         });
                     }
                 },
@@ -768,6 +763,125 @@
 
 </script>
 <script>
+    $("#musteriTablo").on("click", ".btnsec", function () {
+        var btn = $(this);
+        var id = btn.data("id");
+        $.ajax({
+            type: "GET",
+            url: "/Servis/MusteriBilgileri2",
+            data: { id: id },
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (key, Value) {
+                    alert(Value.Ad + " isimli " + Value.Telefon + " telefon nolu müşteri seçildi");
+                    $('#mytabs li').not('.active').removeClass('disabled');
+                    $('#mytabs a[href="#tab_3"]').removeClass('disabled');
+                    $('#mytabs li').not('.active').find('a').attr("data-toggle", "tab");
+                    $('#mytabs a[href="#tab_3"]').tab('show');
+                    $("#musteriTablo").hide();
+                    $("#MusteriKayitForm").hide();
+                    $("#MusteriGuncelForm").show();
+                    $("#MusteriID").val(Value.ID);
+                    $("#MusteriGuncelID").val(Value.ID);
+                    $("#Ad1").val(Value.Ad);
+                    $("#Soyad1").val(Value.Soyad);
+                    $("#Telefon1").val(Value.Telefon);
+                    $("#Email1").val(Value.Email);
+                    $("#Adres1").val(Value.Adres);
+                    $("#VergiDairesi1").val(Value.VergiDairesi);
+                    $("#VergiNo1").val(Value.VergiNo);
+                    $("#MusteriAd").val('');
+                    $("#yinedeKayit").attr("hidden", "true");
+                });
+
+            }
+        });
+
+    })
+</script>
+<script>
+    $("#yinedeKayit").click(function () {
+        $('#mytabs a[href="#tab_3"]').addClass('disabled');
+        alert("Yeni Kayıt Oluştur");
+        $("#musteriTablo").hide();
+        //$("#btnMusteri").show();
+        $("#MusteriKayitForm").show();
+        $("#MusteriGuncelForm").hide();
+        FormSifirlaMusteri($('#MusteriKayidi'));
+        FormSifirlaMusteriG($('#MusteriGuncel'));
+        $("#yinedeKayit").attr("hidden", "true");
+    });
+</script>
+@*<script>
+        $(document).ready(function () {
+            $("#MusteriAd").autocomplete({
+                source: '/Servis/SearchCustomer',
+                minLength: 1,
+                select: function (event, ui) {
+                    $.ajax({
+                        url: '/Servis/MusteriBilgileri2/' + ui.item.id,
+                        type: "POST",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data == 0) {
+                                $('#mytabs a[href="#tab_3"]').addClass('disabled');
+                                alert("Yeni Kayıt Oluştur");
+                                $("#musteriTablo").hide();
+                                //$("#btnMusteri").show();
+                                $("#MusteriKayitForm").show();
+                                $("#MusteriGuncelForm").hide();
+                                FormSifirlaMusteri($('#MusteriKayidi'));
+                                FormSifirlaMusteriG($('#MusteriGuncel'));
+                                $('#Ad').val(MusteriAd);
+
+                            }
+                            else {
+                                $("#musteriTablo").children("tr").empty();
+                                $("#musteriTablo").show();
+                                $("#MusteriKayitForm").hide();
+                                $("#MusteriGuncelForm").hide();
+                                $.each(data, function (key, Value) {
+                                    var tr = '<tr>';
+                                    tr += '<td>' + Value.ID + '</td>';
+                                    tr += '<td>' + Value.Ad + '</td>';
+                                    tr += '<td>' + Value.Soyad + '</td>';
+                                    tr += '<td>' + Value.Telefon + '</td>';
+                                    tr += '<td> <button class="btn btn-success" id="sec">Seç</button> </td>';
+                                    tr += '</tr>';
+                                    $("#musteriTablo").append(tr);
+                                    $("#sec").click(function () {
+                                        $('#mytabs li').not('.active').removeClass('disabled');
+                                        $('#mytabs a[href="#tab_3"]').removeClass('disabled');
+                                        $('#mytabs li').not('.active').find('a').attr("data-toggle", "tab");
+                                        $('#mytabs a[href="#tab_3"]').tab('show');
+                                        $("#musteriTablo").hide();
+                                        $("#MusteriKayitForm").hide();
+                                        $("#MusteriGuncelForm").show();
+                                        $("#MusteriID").val(Value.ID);
+                                        $("#MusteriGuncelID").val(Value.ID);
+                                        $("#Ad1").val(Value.Ad);
+                                        $("#Soyad1").val(Value.Soyad);
+                                        $("#Telefon1").val(Value.Telefon);
+                                        $("#Email1").val(Value.Email);
+                                        $("#Adres1").val(Value.Adres);
+                                        $("#VergiDairesi1").val(Value.VergiDairesi);
+                                        $("#VergiNo1").val(Value.VergiNo);
+                                        $("#MusteriAd").val('');
+
+                                    })
+                                });
+                            }
+                        },
+                        error: function () {
+                            alert("Hata");
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>*@
+<script>
     $(document).ready(function () {
         $("#MusteriKayidi").validate({
             rules: {
@@ -777,9 +891,9 @@
                 "Musteriler.Soyad": {
                     required: true
                 },
-                "Musteriler.Telefon": {
-                    required: true
-                },
+                //"Musteriler.Telefon": {
+                //    required: true
+                //},
             },
             messages: {
                 "Musteriler.Ad": {
@@ -790,10 +904,10 @@
                     required: 'Soyad bilgisi girmeniz gereklidir.',
 
                 },
-                "Musteriler.Telefon": {
-                    required: 'Telefon Bilgisi girmeniz gereklidir',
+                //"Musteriler.Telefon": {
+                //    required: 'Telefon Bilgisi girmeniz gereklidir',
 
-                },
+                //},
             },
             submitHandler: function (form) {
                 $.ajax({
@@ -809,7 +923,7 @@
                             $('#mytabs a[href="#tab_3"]').tab('show');
                             alert("Müşteri Sisteme Kayıt Edildi.");
                             $("#MusteriID").val(data);
-                            alert(data);
+                            //alert(data);
                             $("#MusteriKayitForm").hide();
                             $("#MusteriGuncelForm").show();
                             $("#MusteriGuncelID").val(data);
@@ -847,9 +961,9 @@
                 "Musteriler.Soyad": {
                     required: true
                 },
-                "Musteriler.Telefon": {
-                    required: true
-                },
+                //"Musteriler.Telefon": {
+                //    required: true
+                //},
                 //"Musteriler.Adres": {
                 //    required: true
                 //},
@@ -872,10 +986,10 @@
                     required: 'Soyad bilgisi girmeniz gereklidir.',
 
                 },
-                "Musteriler.Telefon": {
-                    required: 'Telefon Bilgisi girmeniz gereklidir',
+                //"Musteriler.Telefon": {
+                //    required: 'Telefon Bilgisi girmeniz gereklidir',
 
-                },
+                //},
                 //"Musteriler.Adres": {
                 //    required: 'Adres bilgisi girmeniz gereklidir',
 
@@ -899,7 +1013,7 @@
                     dataType: 'json',
                     success:
                         function (data) {
-                            alert(data);
+                            //alert(data);
                             $('#mytabs a[href="#tab_3"]').tab('show');
                         },
                     error: function () {
@@ -957,7 +1071,7 @@
             submitHandler: function (form) {
                 var musteriparams = $("#MusteriID").val();
                 var dataToPost = $('#ServisGiris').serialize() + "&siteID=" + musteriparams;
-                alert(musteriparams);
+                //alert(musteriparams);
                 $.ajax({
                     url: "/Servis/ServiseAl/",
                     type: "POST",
@@ -972,9 +1086,9 @@
                                 alert("Araç zaten serviste");
                                 window.location = response.url;
                             }
-                                
 
-                            
+
+
                         },
                     error: function () {
                         alert("Hata");
@@ -984,14 +1098,14 @@
         })
     });
 </script>
-<script>
-    jQuery.extend(jQuery.validator.methods, {
-        number: function (value, element) {
-            return this.optional(element)
-                || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:[,.]\d+)?$/.test(value);
-        }
-    });
-</script>
+@*<script>
+        jQuery.extend(jQuery.validator.methods{
+            number: function (value, element) {
+                return this.optional(element)
+                    || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:[,.]\d+)?$/.test(value);
+            }
+        });
+    </script>*@
 
 <script>
 
@@ -1019,11 +1133,11 @@
     });
 </script>
 
-<script>
-    jQuery.extend(jQuery.validator.methods, {
-        number: function (value, element) {
-            return this.optional(element)
-                || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:[,.]\d+)?$/.test(value);
-        }
-    });
-</script>
+@*<script>
+        jQuery.extend(jQuery.validator.methods, {
+            number: function (value, element) {
+                return this.optional(element)
+                    || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:[,.]\d+)?$/.test(value);
+            }
+        });
+    </script>*@ 
