@@ -1,0 +1,113 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "Detay";
+}
+
+<div class="row">
+    <div class="col-md-3">
+
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+
+                <h3 class="profile-username text-center">@Html.DisplayFor(x => Model.Musteriler.Ad) @Html.DisplayFor(x => Model.Musteriler.Soyad)</h3>
+
+
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Telefon</b> <a class="float-right">@Html.DisplayFor(x => Model.Musteriler.Telefon)</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Adres</b> <a class="float-right">@Html.DisplayFor(x => Model.Musteriler.Adres)</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>E-Mail</b> <a class="float-right">@Html.DisplayFor(x => Model.Musteriler.Email)</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Vergi No</b> <a class="float-right">@Html.DisplayFor(x => Model.Musteriler.VergiNo)</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Vergi Dairesi</b> <a class="float-right">@Html.DisplayFor(x => Model.Musteriler.VergiDairesi)</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header p-2">
+                <p style="text-align:center; font-size:1.350em;">MÜŞTERİ BİLGİLERİ SAYFASI</p>
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Müşteri Bilgileri</a></li>
+                    @*<li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>*@
+                </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+
+                        <h4>Araçlar</h4>
+                        <table id="tbl1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Plaka</th>
+                                    <th>Marka</th>
+                                    <th>Model</th>
+                                    <th>Renk</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Araclars)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(x => item.ID)</td>
+                                        <td>@Html.DisplayFor(x => item.Plaka)</td>
+                                        <td>@Html.DisplayFor(x => item.AracMarka.Marka)</td>
+                                        <td>@Html.DisplayFor(x => item.Model)</td>
+                                        <td>@Html.DisplayFor(x => item.Renk)</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+                        <h4>Tamirler</h4>
+                        <table id="tbl1" class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tarih</th>
+                                    <th>Plaka</th>
+                                    <th>Fiyat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Tamiratlars)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(x => item.ID)</td>
+                                        <td>@Html.DisplayFor(x => item.Tarih)</td>
+                                        <td>@Html.DisplayFor(x => item.Araclar.Plaka)</td>
+                                        <td>@Html.DisplayFor(x => item.GenelToplam)</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+</div>

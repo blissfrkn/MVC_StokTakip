@@ -1,0 +1,371 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "Detay";
+}
+
+    <div class="col-md-12">
+        <span style="margin-top:7px;"><a href="/Tamiratlar/Yazdir/?id=@Model.Tamiratlar.ID" class="btn btn-success">Yazdır</a></span>
+        <h4 style="text-align:right;">Tamirat Tarihi : @Html.DisplayFor(x => Model.Tamiratlar.Tarih)</h4>
+    </div>
+
+<div class="row">
+    <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+            <div class="card-header d-flex p-0">
+                <h2 class="card-title p-3 " style="text-align:center;">
+                    <strong>TAMİRAT DETAYLARI</strong>
+                </h2>
+                
+                <ul class="nav nav-pills ml-auto p-2">
+                    <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Araç Bilgileri</a></li>
+                    @*<li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Düzenle</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tab_3" data-toggle="tab"></a></li>*@
+                </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Araç Bilgileri</strong></span>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Plaka</strong>: @Html.DisplayFor(x => x.Tamiratlar.Araclar.Plaka)</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Marka-Model</strong>: @Html.DisplayFor(x => x.Tamiratlar.Araclar.AracMarka.Marka) @Html.DisplayFor(x => x.Tamiratlar.Araclar.Model) </span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Km</strong>: @Html.DisplayFor(x => x.Tamiratlar.Km) </span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Şasi No</strong>: @Html.DisplayFor(x => x.Tamiratlar.Araclar.SasiNo)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Müşteri Bilgileri</strong></span>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Ad-Soyad</strong>: @Html.DisplayFor(x => x.Tamiratlar.Araclar.Musteriler.Ad) @Html.DisplayFor(x => x.Tamiratlar.Araclar.Musteriler.Soyad)</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Tel No</strong>: @Html.DisplayFor(x => x.Tamiratlar.Araclar.Musteriler.Telefon) </span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="info-box-text text-center text-muted" style="font-size:1.350em;"><strong>Email</strong>: @Html.DisplayFor(x => x.Tamiratlar.Araclar.Musteriler.Email) </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title" style="font-size:1.350em;">
+                                            Müşteri Şikayetleri
+                                        </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body" style="font-size:1.350em;">
+                                        @Html.Raw(Model.Tamiratlar.Not1)
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title" style="font-size:1.350em;">
+
+                                            Araca Uygulananlar
+                                        </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body" style="font-size:1.350em;">
+                                        @Html.Raw(Model.Tamiratlar.Not2)
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                            </div>
+                            <!-- ./col -->
+                        </div>
+                        <br />
+                        <h4>Kullanılan Parçalar</h4>
+                        <table id="tbl2" class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>Açıklama</th>
+                                    <th hidden>TürID</th>
+                                    <th>Miktarı</th>
+                                    <th>Birimi</th>
+                                    <th>Birim Fiyatı</th>
+                                    <th>Toplam Tutar</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.TamiratKalems)
+                                {
+                                    if (item.TurID == 1 || item.TurID == 3)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                            <td hidden>@Html.DisplayFor(x => item.TurID)</td>
+                                            <td>@Html.DisplayFor(x => item.Miktari)</td>
+                                            <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
+                                            <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                            <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
+                                         
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <br />
+                        <h4>Uygulanan İşçilikler</h4>
+                        <table id="tbl3" class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>Açıklama</th>
+                                    <th>Miktarı</th>
+                                    <th>Birimi</th>
+                                    <th>Birim Fiyatı</th>
+                                    <th>Toplam Tutar</th>
+                                  
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.TamiratKalems)
+                            {
+                                if (item.TurID == 2)
+                                {
+                        <tr>
+                            <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                            <td>@Html.DisplayFor(x => item.Miktari)</td>
+                            <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
+                            <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                            <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
+
+                        </tr>
+                                }
+                            }
+                        </table>
+                        <br />
+                        <h4>Rot Balans</h4>
+                        <table id="tbl4" class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>Açıklama</th>
+                                    <th>Miktarı</th>
+                                    <th>Birimi</th>
+                                    <th>Birim Fiyatı</th>
+                                    <th>Toplam Tutar</th>
+                             
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.TamiratKalems)
+                            {
+                                if (item.TurID == 4)
+                                {
+                        <tr>
+                            <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                            <td>@Html.DisplayFor(x => item.Miktari)</td>
+                            <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
+                            <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                            <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
+                        
+                        </tr>
+                                }
+                            }
+                        </table>
+                        <br />
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="ytop">Yedek Parça Toplam Ücreti :  @Html.DisplayFor(x => Model.Tamiratlar.YToplam) ₺</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="itop">İşçilik  Toplam Ücreti :  @Html.DisplayFor(x => Model.Tamiratlar.İToplam) ₺</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="mtop">Muhtelif Parça Toplam Ücreti :  @Html.DisplayFor(x => Model.Tamiratlar.MToplam) ₺</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="rtop">Rot-Balans Toplam Ücreti :  @Html.DisplayFor(x => Model.Tamiratlar.RotBalans) ₺</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="toptoplam">Toplam Ücreti :  @Html.DisplayFor(x => Model.Tamiratlar.Toplam) ₺</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="iskontoTutar">İskonto Tutar :  @Html.DisplayFor(x => Model.Tamiratlar.İskonto) ₺</p>
+                        </div>
+                        <div class="col-md-12">
+                            <p style="font-size:1.350em;" id="toplamFiyat">Genel Toplam :  @Html.DisplayFor(x => Model.Tamiratlar.GenelToplam) ₺</p>
+                        </div>
+                        @*<div class="col-md-12">
+                            <div class="row">
+                                <div class="col-sm-2 form-check">
+                                    <input type="radio" id="notİsk" name="notİsk" class="form-check-input" checked />
+                                    <label>Tamiratta İndirim Yok</label>
+                                </div>
+                                <br />
+                                <div class="col-sm-2 form-check">
+                                    <input type="radio" id="İsk" name="İsk" class="form-check-input" />
+                                    <label>Tamiratta İndirim Var</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div id="iskontoDiv" class="col-md-12" hidden>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>  İskonto Tutarı : </label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" id="iskonto" name="iskonto" class="form-control" value="@Html.DisplayFor(x => x.Tamiratlar.İskonto)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-success" type="submit" style="float:left" id="iskontoBut">Kaydet</button>
+                        </div>*@
+                        <br />
+                    </div>
+                    <!-- /.tab-pane -->
+                    @*<div class="tab-pane" id="tab_2">
+                        <h2 style="text-align:center;">Servis Bilgileri Güncelleme</h2>
+                        <br /><br />
+                        <div class="container">
+                            @using (Html.BeginForm("ServisGuncelle", "Servis", FormMethod.Post, new { id = "ServisGuncel" }))
+                            {
+
+                                @Html.HiddenFor(x => x.Servis.ID, new { id = "ServisID" });
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Aracın Son Durumu")
+                                        @Html.DropDownListFor(x => x.Servis.DurumID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Durum" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Aracın Kilometresi")
+                                        @Html.TextBoxFor(x => x.Servis.Km, new { @class = "form-control", id = "Km" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Müşteri Şikayetleri")
+                                        @Html.TextAreaFor(x => x.Servis.Not1, new { @class = "form-control content-editor", id = "Not1" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Araca Uygulananlar")
+                                        @Html.TextAreaFor(x => x.Servis.Not2, new { @class = "form-control content-editor", id = "Not2" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6 center1">
+                                    @Html.Label("Usta Notları")
+                                    @Html.TextAreaFor(x => x.Servis.Not3, new { @class = "form-control content-editor", id = "Not3" })
+                                </div>
+                                <button type="submit" class="btn btn-primary" id="btnGuncel">Kaydet</button>
+                                <button type="submit" class="btn btn-primary" id="btnGuncel1">Servis Tamamlandı</button>
+                            }
+                        </div>
+                    </div>*@
+                    @*<div class="tab-pane" id="tab_3">
+                        <div class="card-body" id="Ekleee">
+                            <div class="row">
+                                <div class="input-group col-lg-2">
+                                    <div class="input-group">
+                                        <input type="text" id="BarkodNo" name="BarkodNo" class="form-control" placeholder="Barkod No Giriniz.">
+                                    </div>
+                                </div>
+                                <div class="input-group col-lg-2">
+                                    <div class="input-group">
+                                        <input type="text" id="Aciklama" name="Aciklama" class="form-control" placeholder="Açıklama">
+                                    </div>
+                                </div>
+                                <div class="input-group col-lg-1">
+                                    <select name="Tur" id="Tur" class="form-control">
+                                        <option id="1" value="Yedek Parça">Yedek Parça</option>
+                                        <option id="2" value="İşçilik">İşçilik</option>
+                                        <option id="3" value="Muhtelif Parça">Muhtelif Parça</option>
+                                        <option id="4" value="Rot Balans">Rot Balans</option>
+                                    </select>
+                                </div>
+                                <div class="input-group col-lg-1">
+                                    <div class="input-group">
+                                        <input type="number" id="Miktar" name="Miktar" class="form-control" placeholder="Adet">
+                                    </div>
+                                </div>
+                                <div class="input-group col-lg-1">
+                                    <select name="Birim" id="Birim" class="form-control">
+                                        <option id="1" value="ADET">ADET</option>
+                                        <option id="2" value="TK">TK</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <input type="text" id="SatisFiyat" name="SatisFiyat" class="form-control" placeholder="Satış Fiyatı">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">₺</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <input type="text" id="ToplamTutar" name="ToplamTutar" class="form-control" placeholder="Tutar">
+                                        <div class="input-group-append">
+                                            <button type="button" id="reset" name="reset" class="btn btn-warning">Sıfırla</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br /><br />
+                                <div class="col-md-1">
+                                    <div class="input-group">
+                                        <button class="btn btn-primary" id="addToList" type="submit">Ürünü Listeye Ekle</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="Tablomuz">
+                                <div class="container">
+                                    <table id="detailsTablem" class="table table-responsive-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Açıklama</th>
+                                                <th>Tür</th>
+                                                <th hidden>Tür ID</th>
+                                                <th>Miktar</th>
+                                                <th>Birim</th>
+                                                <th hidden>BirimID</th>
+                                                <th>Birim Fiyat</th>
+                                                <th>Tutar</th>
+                                                <th>Sil</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <button id="saveOrder" style="float:right;" type="submit" class="btn btn-success">Değişiklikleri Kaydet</button>
+                        </div>
+                    </div>*@
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+    </div>
+    <!-- /.col -->
+</div>
+

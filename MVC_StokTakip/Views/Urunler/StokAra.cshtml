@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "StokAra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <h2 class="text-center display-4">Stok Ara</h2>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form action="simple-results.html">
+                    <div class="input-group input-group-lg">
+                        <input type="search" id="BarkodNo" class="form-control form-control-lg" placeholder="Barkod Numarası giriniz." value="Barkod Numarası">
+                        <div class="input-group-append">
+                            <a href="#" class="btn btn-lg btn-default">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="Tablomuz">
+            <div class="container">
+                <table id="detailsTablem" class="table table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>Barkod No</th>
+                            <th>Kategori</th>
+                            <th>Ürün Adı</th>
+                            <th>Miktar</th>
+                            <th>Alış Fiyat</th>
+                            <th>Satış Fiyat</th>
+                            <th>Sepete Ekle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/GenelScript/jquery-code-scanner.js"></script>
+<script>
+    $("#Tablomuz").hide();
+</script>
+
+<script>
+    $('#BarkodNo').codeScanner({
+        onScan: function ($element, code) {
+            $("#BarkodNo").val(code);
+
+            $.ajax({
+                url: "/Urunler/UrunGetir/" + $('#BarkodNo').val(),
+                type: 'GET',
+                dataType: 'json',
+                success:
+                    function (data) {
+                        if (data == "0") {
+                            alert("Bu barkodlu ürün yoktur.");
+                        }
+                        else {
+                            $("#Tablomuz").show();
+                            $("#detailsTablem tbody").empty();
+                            $.each(data, function (key, Value) {
+                                var ID = Value.ID;
+                                var Aciklama = Value.UrunAdi;
+                                var Miktar = Value.Miktari; 
+                                var SatisFiyat = Value.SatisFiyati;
+                                var AlisFiyat = Value.AlisFiyati;
+                                var BarkodNo = Value.BarkodNo;
+                                var Kategori = Value.Kategori;
+                               
+
+                                detailsTableBody = $("#detailsTablem tbody");
+
+
+                                var productItem = '<tr><td>' + BarkodNo
+                                    + '</td><td hidden>' + ID
+                                    + '</td><td>' + Kategori
+                                    + '</td><td>' + Aciklama
+                                    + '</td><td>' + Miktar
+                                    + '</td><td>' + AlisFiyat
+                                    + '</td><td>' + SatisFiyat   
+                                    + '</td><td><a data-itemId="0" href="#" class="btn btn-success addItem">Sepete Ekle</a></td></tr > ';
+                                detailsTableBody.append(productItem);
+                            });
+                            
+                        }
+                        $("#BarkodNo").val('');
+                    },
+                error:
+                    function () {
+                        alert("Hata");
+                    }
+            });
+
+        }
+    });
+
+    $(document).on('click', 'a.addItem', function (e) {
+
+        e.preventDefault();
+        var Id = $("#detailsTablem tbody").find('td:eq(1)').html();
+        alert(Id);
+        $.ajax({
+            url: "/Sepet/SepeteEkle2/" + Id,
+            type: "POST",
+            dataType: 'json',
+            success:
+                function (response) {
+                    if (response == "0")
+                        alert("Ürün Sepete Eklendi");
+                    location.reload();
+                },
+            error: function () {
+                alert("Hata");
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+
+</script>

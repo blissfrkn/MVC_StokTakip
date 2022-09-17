@@ -1,0 +1,1029 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    ViewBag.Title = "ServisKayit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <!-- Custom Tabs -->
+        <div class="card">
+            <div class="card-header d-flex p-0">
+                <h3 class="card-title p-3" style="font-size: 1.350em;">
+                    Servis Kayıdı
+                </h3>
+                <ul id="mytabs" class="nav nav-pills ml-auto p-2">
+                    <li class="active"><a class="nav-link active" href="#tab_1" data-toggle="tab" style="font-size: 1.350em;">Araç</a></li>
+                    <li><a class="nav-link" href="#tab_2" data-toggle="tab" style="font-size: 1.350em;">Müşteri</a></li>
+                    <li><a class="nav-link" href="#tab_3" data-toggle="tab" style="font-size: 1.350em;">Servis</a></li>
+                </ul>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <label>Plaka Sorgulama</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" id="Plaka" name="Plaka" class="form-control" placeholder="Plaka Arayınız." />
+                                    </div>
+                                    <span style="color: red; background-color:white;" id="spani"></span>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="input-group">
+                                        <input type="button" class="btn bg-gradient-primary" id="GetCar" value="Ara" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="AracKayit">
+                            @using (Html.BeginForm("AracEkle", "Servis", FormMethod.Post, new { id = "AracKayidi" }))
+                            {
+                                <div class="card-body">
+                                    <div class="form-row">
+                                      
+                                           
+                                            @Html.HiddenFor(x => x.Araclar.Plaka, new { @class = "form-control", id = "Plaka2" })
+                                            @*<span style="color: red; background-color:white;" id="spani2"></span>*@
+                                       
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Araç Markası")
+                                            @Html.DropDownListFor(x => x.Araclar.MarkaID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Marka" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Araç Modeli")
+                                            @Html.TextBoxFor(x => x.Araclar.Model, new { @class = "form-control", id = "Model" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Şasi No")
+                                            @Html.TextBoxFor(x => x.Araclar.SasiNo, new { @class = "form-control", id = "Sasi" })
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            @Html.Label("Renk")
+                                            @Html.TextBoxFor(x => x.Araclar.Renk, new { @class = "form-control", id = "Renk" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" id="btnKaydet" class="btn btn-primary">Kaydet</button>
+                                </div>
+                                <div id="msg"></div>
+                            }
+                        </div>
+                        <div id="AracGuncelle">
+                            @using (Html.BeginForm("AracGuncelle", "Servis", FormMethod.Post, new { id = "AracGuncel" }))
+                            {
+                            <div class="card-body">
+                                @Html.HiddenFor(x => x.Araclar.ID, new { id = "ID" })
+
+                                <div class="form-row">
+                                    @*<div class="form-group col-md-4">
+                                        @Html.LabelFor(x => x.Araclar.Plaka)
+                                        @Html.TextBoxFor(x => x.Araclar.Plaka, new { @class = "form-control", id = "Plaka1" })
+                                    </div>*@
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Araç Markası")
+                                        @Html.DropDownListFor(x => x.Araclar.MarkaID, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control", id = "Marka1" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Araç Modeli")
+                                        @Html.TextBoxFor(x => x.Araclar.Model, new { @class = "form-control", id = "Model1" })
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Şasi No")
+                                        @Html.TextBoxFor(x => x.Araclar.SasiNo, new { @class = "form-control", id = "Sasi1" })
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @Html.Label("Renk")
+                                        @Html.TextBoxFor(x => x.Araclar.Renk, new { @class = "form-control", id = "Renk1" })
+                                    </div>
+                                </div>
+                                <button type="submit" id="btnGuncelle" class="btn btn-primary">Güncelle</button>
+                            </div>
+                                    
+                            }
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tab_2">
+                        <h2 style="text-align:center;">Müşteri</h2>
+                        <div id="MusteriKayit">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <label>Müşteri Sorgulama</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" id="MusteriAd" name="MusteriAd" class="form-control" placeholder="Müşteri Arayınız.">
+                                        </div>
+                                        <span style="color: red; background-color:white;" id="spani"></span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="input-group">
+                                            <input type="button" class="input-group-text" id="GetCustomer" value="Ara">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table id="musteriTablo" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ad</th>
+                                            <th>Soyad</th>
+                                            <th>Telefon</th>
+                                            <th>Seç</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="MusteriKayitForm">
+                                @using (Html.BeginForm("MusteriEkle", "Servis", FormMethod.Post, new { id = "MusteriKayidi" }))
+                                {
+
+                                <div class="card-body">
+                                    <h3>Müşteri Bilgileri</h3>
+                                    <br />
+                                    <div class="form-row">
+
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Müşteri ADI")
+                                            @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Müşteri SOYADI")
+                                            @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Telefon No:")
+                                            @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Email :")
+                                            @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email" })
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Adres :")
+                                            @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Vergi Dairesi")
+                                            @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Vergi Numarası : ")
+                                            @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo" })
+                                        </div>
+                                    </div>
+                                    <button type="submit" id="btnMusteri" class="btn btn-primary">Müşteri Kaydet</button>
+                                </div>
+                                }
+                            </div>
+                            <div id="MusteriGuncelForm">
+                                @using (Html.BeginForm("MusteriGuncelle", "Servis", FormMethod.Post, new { id = "MusteriGuncel" }))
+                                {
+                                <div class="card-body">
+                                    <h3>Müşteri Bilgileri</h3>
+                                    <br />
+                                    @Html.HiddenFor(x => x.Musteriler.ID, new { id = "MusteriGuncelID" })
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Müşteri ADI")
+                                            @Html.TextBoxFor(x => x.Musteriler.Ad, new { @class = "form-control", id = "Ad1" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Müşteri SOYADI")
+                                            @Html.TextBoxFor(x => x.Musteriler.Soyad, new { @class = "form-control", id = "Soyad1" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Telefon No:")
+                                            @Html.TextBoxFor(x => x.Musteriler.Telefon, new { @class = "form-control", id = "Telefon1" })
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            @Html.Label("Email :")
+                                            @Html.TextBoxFor(x => x.Musteriler.Email, new { @class = "form-control", id = "Email1" })
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Adres :")
+                                            @Html.TextBoxFor(x => x.Musteriler.Adres, new { @class = "form-control", id = "Adres1" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Vergi Dairesi")
+                                            @Html.TextBoxFor(x => x.Musteriler.VergiDairesi, new { @class = "form-control", id = "VergiDairesi1" })
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            @Html.Label("Vergi Numarası : ")
+                                            @Html.TextBoxFor(x => x.Musteriler.VergiNo, new { @class = "form-control", id = "VergiNo1" })
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" id="btnMusteriGuncel" class="btn btn-primary">Müşteri Güncelle</button>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_3">
+                        <h2 style="text-align:center;">Servis</h2>
+                        <br />
+                        <input type="text" id="MusteriID" />
+                        @using (Html.BeginForm("ServiseAl", "Servis", FormMethod.Post, new { id = "ServisGiris" }))
+                        {
+                            <div class="form-row">
+                                @Html.TextBoxFor(x => x.Servis.AracID, new { id = "AracID" })
+                            </div>
+                            <div class="form-group col-md-6 center2">
+                                @Html.Label("Aracın Kilometresi")
+                                @Html.TextBoxFor(x => x.Servis.Km, new { @class = "form-control", id = "Km" })
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    @Html.Label("Müşteri Şikayetleri")
+                                    @Html.TextAreaFor(x => x.Servis.Not1, new { @class = "form-control content-editor", id = "Not1" })
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    @Html.Label("Usta Notları")
+                                    @Html.TextAreaFor(x => x.Servis.Not3, new { @class = "form-control content-editor", id = "Not3" })
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-6 center1">
+                                @Html.Label("Araca Uygulananlar")
+                                @Html.TextAreaFor(x => x.Servis.Not2, new { @class = "form-control content-editor", id = "Not2" })
+                            </div>
+                            <br />
+                            <div class="center2">
+                                <button type="submit" class="btn btn-primary btn-lg" id="btnServis">Servise Al</button>
+                            </div>
+
+                        }
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div><!-- /.card-body -->
+        </div>
+        <!-- ./card -->
+    </div>
+    <!-- /.col -->
+</div>
+@section scriptdanger{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+}
+
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+
+@* Çalışan İlk Script *@
+<script>
+    $(document).ready(function () {
+
+        $("#AracGuncelle").hide();
+        $("#MusteriGuncelForm").hide();
+        //$("#MusteriKayit").hide();
+        $('#mytabs li').not('.active').addClass('disabled');
+        $('#mytabs li').not('.active').find('a').removeAttr("data-toggle");
+
+
+        function FormKapat($form) {
+            $('#Plaka2').prop('disabled', true);
+            $('#Model').prop('disabled', true);
+            $('#Sasi').prop('disabled', true);
+            $('#Renk').prop('disabled', true);
+            $form.find(' input:password, input:file, select, textarea, input:submit, button').prop('disabled', true);
+        }
+
+        FormKapat($('#AracKayidi'));
+        FormSifirla($("#AracKayidi"));
+
+
+    });
+
+</script>
+
+@* Araç Kayıt Form textbox kontrolleri *@
+<script>
+
+    $("#Plaka").on("keydown keyup change", function () {
+        var minLength1 = 7;
+        var maxLength1 = 8;
+        var value = $(this).val();
+
+        if (value.length < minLength1) {
+            $("#spani").text("Plaka çok kısa");
+            $("#GetCar").hide()
+        }
+        else if (value.length > maxLength1) {
+            $("#spani").text("Plaka Çok uzun");
+            $("#GetCar").hide()
+        }
+        else {
+            $("#GetCar").show();
+            $("#spani").empty();
+        }
+    });
+
+
+
+
+    $('#Plaka').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Plaka1').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Plaka2').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Sasi').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Sasi1').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Model').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Model1').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#Ad').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Ad1').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Soyad').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+    $('#Soyad1').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#MusteriAd').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+</script>
+
+@*Araç Plaka Sorgulama Sonucu Var Olan Kayıtları Getirme Script*@
+<script>
+
+    function FormSifirla($form) {
+
+        $('#Plaka2').val('');
+        $('#Model').val('');
+
+        $('#Sasi').val('');
+
+        $('#Renk').val('');
+
+        $form.find(' input:password, input:file, select, textarea').val('');
+        $form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    }
+    function FormSifirlaMusteri($form) {
+        $('#Ad').val('');
+        $('#Soyad').val('');
+        $('#Telefon').val('');
+        $('#Email').val('');
+        $('#Adres').val('');
+        $('#VergiDairesi').val('');
+        $('#VergiNo').val('');
+        $form.find(' input:password, input:file, select, textarea').val('');
+        $form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    }
+    function FormSifirlaMusteriG($form) {
+        $("#MusteriGuncelID").val('');
+        $('#Ad1').val('');
+        $('#Soyad1').val('');
+        $('#Telefon1').val('');
+        $('#Email1').val('');
+        $('#Adres1').val('');
+        $('#VergiDairesi1').val('');
+        $('#VergiNo1').val('');
+        $form.find(' input:password, input:file, select, textarea').val('');
+        $form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    }
+
+    $("#GetCar").click(function (e) {
+        var id = $("#Plaka").val()
+        e.preventDefault();
+        $.ajax({
+            url: '/Servis/AracBilgileri/' + id,
+            type: 'POST',
+            dataType: 'json',
+            success:
+                function (data) {
+                    if (data == "0") {
+                        $('#mytabs li').not('.active').addClass('disabled');
+                        $('#mytabs li').not('.active').find('a').removeAttr("data-toggle");
+                        FormSifirla($('#AracKayidi'));
+                        FormSifirlaMusteri($("#MusteriKayidi"));
+                        FormSifirlaMusteriG($("#MusteriGuncel"));
+                        alert("Bu Plakaya ait kayıt yoktur.");
+                        $('#Plaka2').val(id);
+                        $('#Plaka2').prop('disabled', false)
+                        $('#Marka').prop('disabled', false)
+                        $('#Model').prop('disabled', false)
+                        $('#Sasi').prop('disabled', false)
+                        $('#Renk').prop('disabled', false)
+                        $('#btnKaydet').prop('disabled', false)
+                        $("#AracKayit").show();
+                        $("#AracGuncelle").hide();
+                        $("#MusteriKayitForm").hide();
+                    }
+                    $.each(data, function (key, Value) {
+                        if (Value.MusteriID != null) {
+                            $('#mytabs li').not('.active').removeClass('disabled');
+                            $('#mytabs li').not('.active').find('a').attr("data-toggle", "tab");
+                            $('#mytabs a[href="#tab_3"]').tab('show');
+                            alert("Kayıt Bulundu.");
+                            $.each(data, function (key, Value) {
+                                $("#ID").val(Value.ID) + $('#Plaka1').val(Value.Plaka) + $('#Model1').val(Value.Model) + $('#Sasi1').val(Value.SasiNo) + $('#Renk1').val(Value.Renk);
+                                $("#Marka1").val(Value.MarkaID); $("#AracID").val(Value.ID);
+                                $("#AracKayit").hide();
+                                $("#AracGuncelle").show();
+                                $("#musteriTablo").hide();
+                                $("#MusteriKayitForm").hide();
+                                $("#MusteriGuncelForm").show();
+                                $("#btnMusteri").hide();
+                                $("#MusteriID").val(Value.MusteriID);
+                                $("#MusteriGuncelID").val(Value.MusteriID);
+                                $("#Ad1").val(Value.Ad);
+                                $("#Soyad1").val(Value.Soyad);
+                                $("#Telefon1").val(Value.Telefon);
+                                $("#Email1").val(Value.Email);
+                                $("#Adres1").val(Value.Adres);
+                                $("#VergiDairesi1").val(Value.VergiDairesi);
+                                $("#VergiNo1").val(Value.VergiNo);
+
+                            })
+                        }
+                        else if (Value.MusteriID == null){                         
+                            $('#mytabs a[href="#tab_2"]').tab('show');
+                            $('#mytabs a[href="#tab_3"]').addClass('disabled');
+                            $('#mytabs a[href="#tab_3"]').find('a').removeAttr("data-toggle", "tab")
+                            alert("Kayıt Bulundu.");
+                            alert("Müşteri Ara");
+                            $.each(data, function (key, Value) {
+                                $("#ID").val(Value.ID) + $('#Plaka1').val(Value.Plaka) + $('#Model1').val(Value.Model) + $('#Sasi1').val(Value.SasiNo) + $('#Renk1').val(Value.Renk);
+                                $("#Marka1").val(Value.MarkaID); $("#AracID").val(Value.ID);
+                                $("#AracKayit").hide();
+                                $("#AracGuncelle").show();
+                                $("#musteriTablo").hide();
+                                $("#MusteriKayitForm").hide();
+                                $("#MusteriGuncelForm").hide();
+                                FormSifirlaMusteri($('#MusteriKayidi'));
+                                FormSifirlaMusteriG($('#MusteriGuncel'));
+                            })
+                        }
+                    });
+                },
+            error:
+                function () {
+                    alert("Hata");
+                }
+        });
+    })
+</script>
+
+@*Araç Kayıt Formu Post ve Validation İşlemleri*@
+<script>
+    $(document).ready(function () {
+        $("#AracKayidi").validate({
+            rules: {
+                "Araclar.Plaka": {
+                    required: true,
+                    minlength: 7,
+                    maxlength: 9
+
+                },
+                "Araclar.MarkaID": {
+                    required: true
+                },
+                "Araclar.Model": {
+                    required: true
+                },
+                //"Araclar.SasiNo": {
+                //    required: true
+                //},
+                //"Araclar.Renk": {
+                //    required: true
+                //}
+            },
+            messages: {
+                "Araclar.Plaka": {
+                    required: 'En az 7 hane girmelisiniz.',
+                    minlength: "7 Haneden az olamaz",
+                    maxlength: "9 Haneden fazla olamaz"
+
+                },
+                "Araclar.MarkaID": {
+                    required: 'Marka bilgisi girmeniz gereklidir.',
+
+                },
+                "Araclar.Model": {
+                    required: 'Model Bilgisi girmeniz gereklidir',
+
+                },
+                //"Araclar.SasiNo": {
+                //    required: 'Şasi bilgisi girmeniz gereklidir',
+
+                //},
+                //"Araclar.Renk": {
+                //    required: 'Renk bilgisi girmeniz gereklidir',
+
+                //}
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/Servis/AracEkle/",
+                    type: "POST",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data == "0") {
+                            alert("Bu plaka zaten kayıtlı lütfen arama yapınız.")
+                        }
+                        else {
+                            $('#mytabs li.active').next('li').removeClass('disabled');
+                            $('#mytabs li.active').next('li').find('a').attr("data-toggle", "tab")
+                            $('#mytabs a[href="#tab_2"]').tab('show');
+                            alert("Araç Sisteme Kayıt Edildi.");
+                            //alert(data);
+                            $("#AracID").val(data);
+                            var Plaka = $("#Plaka").val();
+                            var MarkaID = $("#Marka").val();
+                            var Model = $("#Model").val();
+                            var SasiNo = $("#Sasi").val();
+                            var Renk = $("#Renk").val();
+                            $("#AracKayit").hide();
+                            $("#AracGuncelle").show();
+                            $("#ID").val(data);
+                            $("#Plaka1").val(Plaka);
+                            $("#Marka1").val(MarkaID);
+                            $("#Model1").val(Model);
+                            $("#Sasi1").val(SasiNo);
+                            $("#Renk1").val(Renk);
+                            FormSifirla($('#MusteriKayidi'));
+                            $("#MusteriKayit").show();
+                        }
+                       
+                    }
+                });
+            }
+        });
+    })
+
+
+
+
+
+</script>
+
+@* Araç Kayıt Güncelleme POST ve Validation işlemleri *@
+<script>
+    $(document).ready(function () {
+        $("#AracGuncel").validate({
+            rules: {
+                //"Araclar.Plaka": {
+                //    required: true,
+                //    minlength: 7,
+                //    maxlength: 9
+
+                //},
+                "Araclar.MarkaID": {
+                    required: true
+                },
+                "Araclar.Model": {
+                    required: true
+                },
+                //"Araclar.SasiNo": {
+                //    required: true
+                //},
+                //"Araclar.Renk": {
+                //    required: true
+                //}
+            },
+            messages: {
+                //"Araclar.Plaka": {
+                //    required: 'En az 7 hane girmelisiniz.',
+                //    minlength: "7 Haneden az olamaz",
+                //    maxlength: "9 Haneden fazla olamaz"
+
+                //},
+                "Araclar.MarkaID": {
+                    required: 'Marka bilgisi girmeniz gereklidir.',
+
+                },
+                "Araclar.Model": {
+                    required: 'Model Bilgisi girmeniz gereklidir',
+
+                },
+                //"Araclar.SasiNo": {
+                //    required: 'Şasi bilgisi girmeniz gereklidir',
+
+                //},
+                //"Araclar.Renk": {
+                //    required: 'Renk bilgisi girmeniz gereklidir',
+
+                //}
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/Servis/AracGuncelle/",
+                    type: "POST",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success:
+                        function (data) {
+                            alert(data);
+                            $('#mytabs a[href="#tab_2"]').tab('show');
+                        },
+                    error: function () {
+                        alert("Hata");
+                    }
+                });
+            }
+        })
+    });
+
+</script>
+
+@* Müşteri Kısmı *@
+<script>
+    $(document).ready(function () {
+        $("#MusteriKayitForm").hide();
+        function FormSifirlaMusteri($form) {
+            $('#Ad').val('');
+            $('#Soyad').val('');
+            $('#Telefon').val('');
+            $('#Email').val('');
+            $('#Adres').val('');
+            $('#VergiDairesi').val('');
+            $('#VergiNo').val('');
+            $form.find(' input:password, input:file, select, textarea').val('');
+            $form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+        }
+        function FormSifirlaMusteriG($form) {
+            $("#MusteriGuncelID").val('');
+            $('#Ad1').val('');
+            $('#Soyad1').val('');
+            $('#Telefon1').val('');
+            $('#Email1').val('');
+            $('#Adres1').val('');
+            $('#VergiDairesi1').val('');
+            $('#VergiNo1').val('');
+            $form.find(' input:password, input:file, select, textarea').val('');
+            $form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+        }
+        $("#GetCustomer").click(function () {
+            var MusteriAd = $("#MusteriAd").val();
+            $.ajax({
+                url: '/Servis/MusteriBilgileri/' + $("#MusteriAd").val(),
+                type: "POST",
+                dataType: "json",
+                success: function (data) {
+                    if (data == 0) {
+                        $('#mytabs a[href="#tab_3"]').addClass('disabled');
+                        alert("Yeni Kayıt Oluştur");
+                        $("#musteriTablo").hide();
+                        //$("#btnMusteri").show();
+                        $("#MusteriKayitForm").show();
+                        $("#MusteriGuncelForm").hide();
+                        FormSifirlaMusteri($('#MusteriKayidi'));
+                        FormSifirlaMusteriG($('#MusteriGuncel'));
+                        $('#Ad').val(MusteriAd);
+
+                    }
+                    else {
+                        $("#musteriTablo").children("tr").empty();
+                        $("#musteriTablo").show();
+                        $("#MusteriKayitForm").hide();
+                        $("#MusteriGuncelForm").hide();
+                        $.each(data, function (key, Value) {
+                            var tr = '<tr>';
+                            tr += '<td>' + Value.ID + '</td>';
+                            tr += '<td>' + Value.Ad + '</td>';
+                            tr += '<td>' + Value.Soyad + '</td>';
+                            tr += '<td>' + Value.Telefon + '</td>';
+                            tr += '<td> <button class="btn btn-success" id="sec">Seç</button> </td>';
+                            tr += '</tr>';
+                            $("#musteriTablo").append(tr);
+                            $("#sec").click(function () {
+                                $('#mytabs li').not('.active').removeClass('disabled');
+                                $('#mytabs a[href="#tab_3"]').removeClass('disabled');
+                                $('#mytabs li').not('.active').find('a').attr("data-toggle", "tab");
+                                $('#mytabs a[href="#tab_3"]').tab('show');
+                                $("#musteriTablo").hide();
+                                $("#MusteriKayitForm").hide();
+                                $("#MusteriGuncelForm").show();
+                                $("#MusteriID").val(Value.ID);
+                                $("#MusteriGuncelID").val(Value.ID);
+                                $("#Ad1").val(Value.Ad);
+                                $("#Soyad1").val(Value.Soyad);
+                                $("#Telefon1").val(Value.Telefon);
+                                $("#Email1").val(Value.Email);
+                                $("#Adres1").val(Value.Adres);
+                                $("#VergiDairesi1").val(Value.VergiDairesi);
+                                $("#VergiNo1").val(Value.VergiNo);
+                                $("#MusteriAd").val('');
+
+                            })
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Hata");
+                }
+            });
+        });
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $("#MusteriKayidi").validate({
+            rules: {
+                "Musteriler.Ad": {
+                    required: true,
+                },
+                "Musteriler.Soyad": {
+                    required: true
+                },
+                "Musteriler.Telefon": {
+                    required: true
+                },
+            },
+            messages: {
+                "Musteriler.Ad": {
+                    required: 'Ad girmelisiniz',
+
+                },
+                "Musteriler.Soyad": {
+                    required: 'Soyad bilgisi girmeniz gereklidir.',
+
+                },
+                "Musteriler.Telefon": {
+                    required: 'Telefon Bilgisi girmeniz gereklidir',
+
+                },
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/Servis/MusteriEkle/",
+                    type: "POST",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success:
+                        function (data) {
+                            $('#mytabs li').not('.active').removeClass('disabled');
+                            $('#mytabs a[href="#tab_3"]').removeClass('disabled');
+                            $('#mytabs li').not('.active').find('a').attr("data-toggle", "tab");
+                            $('#mytabs a[href="#tab_3"]').tab('show');
+                            alert("Müşteri Sisteme Kayıt Edildi.");
+                            $("#MusteriID").val(data);
+                            alert(data);
+                            $("#MusteriKayitForm").hide();
+                            $("#MusteriGuncelForm").show();
+                            $("#MusteriGuncelID").val(data);
+                            var Ad = $("#Ad").val();
+                            var Soyad = $("#Soyad").val();
+                            var Telefon = $("#Telefon").val();
+                            var Adres = $("#Adres").val();
+                            var Email = $("#Email").val();
+                            var VergiNo = $("#VergiNo").val();
+                            var VergiDairesi = $("#VergiDairesi").val();
+                            $("#Ad1").val(Ad);
+                            $("#Soyad1").val(Soyad);
+                            $("#Telefon1").val(Telefon);
+                            $("#Adres1").val(Adres);
+                            $("#Email1").val(Email);
+                            $("#VergiNo1").val(VergiNo);
+                            $("#VergiDairesi1").val(VergiDairesi);
+                            $("#MusteriAd").val('');
+                        }
+                });
+            }
+        });
+    })
+</script>
+
+@*Müşteri Güncelleme POST ve Validation İşlemleri*@
+<script>
+
+    $(document).ready(function () {
+        $("#MusteriGuncel").validate({
+            rules: {
+                "Musteriler.Ad": {
+                    required: true,
+                },
+                "Musteriler.Soyad": {
+                    required: true
+                },
+                "Musteriler.Telefon": {
+                    required: true
+                },
+                //"Musteriler.Adres": {
+                //    required: true
+                //},
+                //"Musteriler.Email": {
+                //    required: true
+                //},
+                //"Musteriler.VergiNo": {
+                //    required: true
+                //},
+                //"Musteriler.VergiDairesi": {
+                //    required: true
+                //},
+            },
+            messages: {
+                "Musteriler.Ad": {
+                    required: 'Ad girmelisiniz',
+
+                },
+                "Musteriler.Soyad": {
+                    required: 'Soyad bilgisi girmeniz gereklidir.',
+
+                },
+                "Musteriler.Telefon": {
+                    required: 'Telefon Bilgisi girmeniz gereklidir',
+
+                },
+                //"Musteriler.Adres": {
+                //    required: 'Adres bilgisi girmeniz gereklidir',
+
+                //},
+                //"Musteriler.Email": {
+                //    required: 'Email bilgisi girmeniz gereklidir',
+
+                //},
+                //"Musteriler.VergiNo": {
+                //    required: 'VergiNo bilgisi girmeniz gereklidir'
+                //},
+                //"Musteriler.VergiDairesi": {
+                //    required: 'VergiDairesi bilgisi girmeniz gereklidir'
+                //},
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: "/Servis/MusteriGuncelle/",
+                    type: "POST",
+                    data: $(form).serialize(),
+                    dataType: 'json',
+                    success:
+                        function (data) {
+                            alert(data);
+                            $('#mytabs a[href="#tab_3"]').tab('show');
+                        },
+                    error: function () {
+                        alert("Hata");
+                    }
+                });
+            }
+        })
+    });
+</script>
+
+@* Servis Kısmı *@
+<script>
+    //$("#btnServis").click(function (e) {
+    //    var musteriparams = $("#MusteriID").val();
+    //    var dataToPost = $('#ServisGiris').serialize() + "&siteID=" + musteriparams;
+    //    alert(musteriparams);
+    //    $.ajax({
+    //        url: "/Servis/ServiseAl/",
+    //        type: "POST",
+    //        data: dataToPost,
+    //        dataType: 'json',
+    //        success:
+    //            function (response) {
+    //                if (response.result == 'Redirect')
+    //                    window.location = response.url;
+    //                alert(data);
+    //                alert("Kayıt başarıyla gerçekleşti");
+    //            },
+    //        error: function () {
+    //            alert("Hata");
+    //        }
+    //    });
+    //    e.preventDefault();
+    //});
+
+</script>
+
+<script>
+    $(document).ready(function () {
+
+
+        $("#ServisGiris").validate({
+            rules: {
+                "Servis.Km": {
+                    required: true,
+                },
+            },
+            messages: {
+                "Servis.Km": {
+                    required: 'Km bilgisi girmelisiniz',
+
+                },
+            },
+            submitHandler: function (form) {
+                var musteriparams = $("#MusteriID").val();
+                var dataToPost = $('#ServisGiris').serialize() + "&siteID=" + musteriparams;
+                alert(musteriparams);
+                $.ajax({
+                    url: "/Servis/ServiseAl/",
+                    type: "POST",
+                    data: dataToPost,
+                    dataType: 'json',
+                    success:
+                        function (response) {
+                            if (response.result == 'Redirect')
+                                window.location = response.url;
+
+                            if (response.result == 'Redirect1') {
+                                alert("Araç zaten serviste");
+                                window.location = response.url;
+                            }
+                                
+
+                            
+                        },
+                    error: function () {
+                        alert("Hata");
+                    }
+                });
+            }
+        })
+    });
+</script>
+<script>
+    jQuery.extend(jQuery.validator.methods, {
+        number: function (value, element) {
+            return this.optional(element)
+                || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:[,.]\d+)?$/.test(value);
+        }
+    });
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".content-editor").summernote({
+            height: 150,
+            minHeight: null,
+            maxHeight: null,
+            codemirror: {
+                theme: "monokai"
+            },
+            fontSizes: ['12', '14', '16', '18', '24', '36', '48'],
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+        });
+    });
+</script>
+
+<script>
+    jQuery.extend(jQuery.validator.methods, {
+        number: function (value, element) {
+            return this.optional(element)
+                || /^-?(?:\d+|\d{1,3}(?:\.\d{3})+)(?:[,.]\d+)?$/.test(value);
+        }
+    });
+</script>

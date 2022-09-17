@@ -1,0 +1,35 @@
+﻿@model MVC_StokTakip.Models.Entity.Birimler
+@{
+    ViewBag.Title = "SilBilgiGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <h3 style="text-align:center;">Kayıt silinsin mi ?</h3>
+</div>
+<br />
+<br />
+
+<div class="container">
+    @using (Html.BeginForm("Sil", "Birimler"))
+    {
+        <h1></h1>
+
+        <div class="form-group">
+            @Html.HiddenFor(x => x.ID)
+            <b>@Html.LabelFor(x => x.Birim):</b>
+            @Html.DisplayFor(x => x.Birim, new { @class = "form-control" })
+        </div>
+
+
+        <div>
+            <button class="btn btn-danger">Birim Sil</button>
+        </div>
+        <div style="margin-top:20px">
+            <a href="/Birimler/Index/">Ana Sayfaya Dön</a>
+        </div>
+
+    }
+
+
+</div>

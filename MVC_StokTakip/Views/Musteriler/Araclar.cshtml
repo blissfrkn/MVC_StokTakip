@@ -1,0 +1,24 @@
+﻿
+@model List<MVC_StokTakip.Models.Entity.Araclar>
+
+
+
+
+    <div class="dropdown" style="color:white">
+        <a href="#" class="nav-link px-lg-4 dropdown" data-toggle="dropdown">
+            Araçlar
+            <i class="fa fa-caret-down" style="color: #CCC" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+            @*<a class="dropdown-item" href="/Kullanicilar/Guncelle/">
+            Bilgileri Güncelle
+        </a>*@
+            @foreach (var item in Model)
+            {
+                <a class="dropdown-item" href="/Arac/AracGetir/@item.ID">
+                    @item.Plaka
+                </a>
+            }
+
+        </div>
+    </div>

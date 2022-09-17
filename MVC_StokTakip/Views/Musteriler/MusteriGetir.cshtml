@@ -1,0 +1,100 @@
+﻿@model MVC_StokTakip.Models.Entity.Musteriler
+@{
+    ViewBag.Title = "MusteriGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Müşteri Güncelleme Sayfası</h2>
+<div class="container">
+    @using (Html.BeginForm("Guncelle", "Musteriler", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.ID)
+        <div class="form-group">
+            @Html.LabelFor(x => x.Ad)
+            @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Ad, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Soyad)
+            @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Soyad, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Telefon)
+            @Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Telefon, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Adres)
+            @Html.TextBoxFor(x => x.Adres, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Adres, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.VergiDairesi)
+            @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.VergiDairesi, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.VergiNo)
+            @Html.TextBoxFor(x => x.VergiNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.VergiNo, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div><button class="btn btn-success">Müşteri Güncelle</button></div>
+
+    }
+</div>
+
+@section scriptdanger{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    $('#Ad').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#Soyad').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#Telefon').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#Adres').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#Email').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#VergiDairesi').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $('#VergiNo').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+</script>

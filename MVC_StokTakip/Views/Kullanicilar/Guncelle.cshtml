@@ -1,0 +1,69 @@
+﻿@model MVC_StokTakip.Models.Entity.Kullanicilar
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Kullanıcı Kayıt Güncelleme Sayfası</title>
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/styledanger.css" rel="stylesheet" />
+</head>
+<body class="container col-md-7">
+    <br />
+    @using (Html.BeginForm("Guncelle", "Kullanicilar", FormMethod.Post))
+    {
+        <div style="height:50px; background-color:#28A745; color:white; text-align:center;">
+            <p style="margin-top:auto; margin-bottom:auto; font-size:30px;">Kullanıcı Kayıt Güncelleme Sayfası</p>
+        </div>
+        <div style="margin-top:20px;">
+            @Html.HiddenFor(x=>x.ID)
+            @Html.LabelFor(x => x.KullaniciAdi)
+            @Html.TextBoxFor(x => x.KullaniciAdi, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.KullaniciAdi, null, new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            @Html.LabelFor(x => x.Sifre)
+            @Html.TextBoxFor(x => x.Sifre, new { @class = "form-control" ,type="password"})
+            @Html.ValidationMessageFor(x => x.Sifre, null, new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            @Html.LabelFor(x => x.AdiSoyadi)
+            @Html.TextBoxFor(x => x.AdiSoyadi, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.AdiSoyadi, null, new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            @Html.LabelFor(x => x.Telefon)
+            @Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Telefon, null, new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            @Html.LabelFor(x => x.Adres)
+            @Html.TextAreaFor(x => x.Adres, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Adres, null, new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            @Html.LabelFor(x => x.Tarih)
+            @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date", @Value = Model.Tarih.ToString("yyyy-MM-dd") })
+            @Html.ValidationMessageFor(x => x.Tarih, "", new { @class = "text-danger" })
+        </div>
+        <div style="margin-top:20px;">
+            <button class="btn btn-success form-control">Güncelle</button>
+        </div>
+        <p></p>
+    }
+</body>
+</html>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

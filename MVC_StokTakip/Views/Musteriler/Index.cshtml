@@ -1,0 +1,51 @@
+﻿@using MVC_StokTakip.Models.Entity
+@model List<Musteriler>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center">Müşteri Listesi</h2>
+<div class=" form-group col-md-12">
+    <div>   <a href="/Musteriler/Ekle/" class="btn btn-success">Yeni Müşteri Ekle</a></div>
+</div>
+<table id="tbl1" class="table table-responsive-sm" style="margin-top:20px">
+    <thead>
+        <tr>
+            <th>Ad , Soyad</th>
+            <th>Telefon</th>
+            <th>Araçlar</th>
+            <th>Güncelle</th>         
+            <th>Detay</th>
+
+        </tr>
+    </thead>
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>@k.Ad @k.Soyad</td>
+            <td>@k.Telefon</td>
+            <td>@Html.Action("Araclar", "Musteriler", new { area = "", id = k.ID }) </td>
+            <td>@Html.ActionLink("Güncelle", "MusteriGetir", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
+            <td>@Html.ActionLink("Detay", "Detay", new { id = k.ID }, new { @class = "btn btn-primary" })</td>
+        </tr>
+    }
+</table>
+
+<br />
+
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+
+<script>
+    $('#tbl1').dataTable({});
+</script>
+

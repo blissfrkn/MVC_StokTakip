@@ -1,0 +1,58 @@
+﻿@model MVC_StokTakip.Models.Entity.Araclar
+@{
+    ViewBag.Title = "AracGetir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Araç Güncelleme Sayfası</h2>
+<div class="container">
+    @using (Html.BeginForm("Guncelle", "Arac", FormMethod.Post))
+    {
+        @Html.HiddenFor(x => x.ID)
+        <div class="form-group">
+            @Html.LabelFor(x => x.Plaka)
+            @Html.TextBoxFor(x => x.Plaka, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Plaka, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.AracMarka.ID)
+            @Html.DropDownListFor(x => x.MarkaID, (List<SelectListItem>)ViewBag.dgr1, "Seçiniz", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.MarkaID, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Model)
+            @Html.TextBoxFor(x => x.Model, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.SasiNo)
+            @Html.TextBoxFor(x => x.SasiNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.SasiNo, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Renk)
+            @Html.TextBoxFor(x => x.Renk, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Renk, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div><button class="btn btn-success">Araç Güncelle</button></div>
+
+    }
+</div>
+
+@section scriptdanger{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+

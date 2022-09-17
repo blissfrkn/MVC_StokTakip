@@ -1,0 +1,72 @@
+﻿@using MVC_StokTakip.Models.Entity
+@model List<MVC_StokTakip.Models.Entity.Birimler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Birimler Ana Sayfası</h2>
+            </div>
+            <div class="col-md-12">
+                <a href=" /Birimler/Ekle/" class="btn btn-success" style="margin-top:10px">Birim Ekle</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:10px" class="container">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Birim
+                    </th>
+                    <th>
+                        Açıklama
+                    </th>
+                    <th>
+                        Sil
+                    </th>
+                    <th>
+                        Güncelle
+                    </th>
+                </tr>
+
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th>
+                            @item.ID
+                        </th>
+                        <td>
+                            @item.Birim
+                        </td>
+                        <td>
+                            @item.Aciklama
+                        </td>
+                        <td>
+                            <a href="/Birimler/SilBilgiGetir/@item.ID" class="btn btn-danger">Sil</a>
+
+                        </td>
+                        <td>
+                            <a href="/Birimler/GuncelleBilgiGetir/@item.ID" class="btn btn-warning">Güncelle</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+
+

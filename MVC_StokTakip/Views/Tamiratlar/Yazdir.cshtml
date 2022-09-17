@@ -1,0 +1,298 @@
+﻿@model MVC_StokTakip.Models.Entity.Class1
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fiyat Teklif Formu</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/dist/css/adminlte.min.css">
+    <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Main content -->
+        <section class="invoice">
+            <!-- title row -->
+
+            <br />
+            <!-- info row -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="page-header">
+                        <img style="width:300px; height:150px; " src="~/img/AnaSayfa-Logo.png" />
+                    </h2>
+                </div>
+                <div class="col-md-8">
+                    <H3 style="text-align:center; margin-top:5px;">BAKIM - ONARIM & GENEL SERVİS HİZMETLERİ</H3>
+                    <hr />
+                    <p style="text-align:center; font-size:1.100em;">
+                        YeniDoğan Mah. &nbsp;Abdi İpekçi Cad.&nbsp; Ramtaş Sanayi Sitesi No:163/I &nbsp; <br />(İnönü Meslek Lisesi Halı Sahaları Karşısında)&nbsp; B.Paşa - İSTANBUL<br />Tel : 0212 615 15 10 &nbsp;- GSM: 0530 514 28 90<br /> www.arabamistanbul.com.tr&nbsp;- info@arabamistanbul.com.tr
+                    </p>
+                </div>
+                <!-- /.col -->
+                <!-- /.col -->
+            </div>
+            <br />
+            <div class="col-md-12">
+                <div class="row ">
+                    <div class="col-md-4">
+                        <label>Müşteri Bilgileri : </label> @Html.DisplayFor(x => Model.Tamiratlar.Araclar.Musteriler.Ad) @Html.DisplayFor(x => Model.Tamiratlar.Araclar.Musteriler.Soyad)
+                    </div>
+                    <div class="col-md-4">
+                        <label>Tel : </label>  @Html.DisplayFor(x => Model.Tamiratlar.Araclar.Musteriler.Telefon)
+                    </div>
+                    <div class="col-md-4">
+                        <label>Tarih : </label> @Html.DisplayFor(x => Model.Tamiratlar.Tarih)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row ">
+                    <div class="col-md-3">
+                        <label>Plaka : </label> @Html.DisplayFor(x => Model.Tamiratlar.Araclar.Plaka)
+                    </div>
+                    <div class="col-md-3">
+                        <label>Marka : </label> @Html.DisplayFor(x => Model.Tamiratlar.Araclar.AracMarka.Marka) @Html.DisplayFor(x => Model.Tamiratlar.Araclar.Model)
+                    </div>
+                    <div class="col-md-3">
+                        <label>KM : </label> @Html.DisplayFor(x => Model.Tamiratlar.Km)
+                    </div>
+                    <div class="col-md-3">
+                        <label>Şasi No : </label> @Html.DisplayFor(x => Model.Tamiratlar.Araclar.SasiNo)
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.row -->
+            <!-- Table row -->
+            <br />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+
+                                Müşteri Şikayetleri
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <p>@Html.Raw(Model.Tamiratlar.Not1)</p>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- ./col -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+
+                                Araca Uygulananlar
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <p>@Html.Raw(Model.Tamiratlar.Not2)</p>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- ./col -->
+            </div>
+
+
+            <div class="row">
+                <div class="col-12 table-responsive">
+                    <br />
+                    <h4>Kullanılan Parçalar</h4>
+                    <table id="tbl2" class="table table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Açıklama</th>
+                                <th hidden>TürID</th>
+                                <th>Miktarı</th>
+                                <th>Birimi</th>
+                                <th>Birim Fiyatı</th>
+                                <th>Toplam Tutar</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.TamiratKalems)
+                            {
+                                if (item.TurID == 1 || item.TurID == 3)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                        <td hidden>@Html.DisplayFor(x => item.TurID)</td>
+                                        <td>
+                                            @Html.DisplayFor(x => item.Miktari, new { @class = "txt1" })
+                                        </td>
+                                        <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
+                                        <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                        <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
+
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+                    <h4>Uygulanan İşçilikler</h4>
+                    <table id="tbl3" class="table table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>Açıklama</th>
+                                <th>Miktarı</th>
+                                <th>Birimi</th>
+                                <th>Birim Fiyatı</th>
+                                <th>Toplam Tutar</th>
+
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.TamiratKalems)
+                        {
+                            if (item.TurID == 2)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                    <td>
+
+                                        @Html.DisplayFor(x => item.Miktari, new { @class = "txt2" })
+
+
+
+                                    </td>
+                                    <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
+                                    <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                    <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
+
+                                </tr>
+                            }
+
+                        }
+                    </table>
+                    @*<h4>Rot Balans</h4>
+                        <table id="tbl4" class="table table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th>Açıklama</th>
+                                    <th>Miktarı</th>
+                                    <th>Birimi</th>
+                                    <th>Birim Fiyatı</th>
+                                    <th>Toplam Tutar</th>
+
+                                </tr>
+                            </thead>
+                            @foreach (var item in Model.ServisKalemList)
+                            {
+                                if (item.TurID == 4)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(x => item.Aciklama)</td>
+                                        <td>
+
+
+                                            @Html.DisplayFor(x => item.Miktari, new { @class = "txt2" })
+
+
+                                        </td>
+                                        <td>@Html.DisplayFor(x => item.Birimler.Birim)</td>
+                                        <td>@Html.DisplayFor(x => item.BirimFiyat)₺</td>
+                                        <td>@Html.DisplayFor(x => item.ToplamTutar)₺</td>
+
+                                    </tr>
+                                }
+                            }
+                        </table>*@
+                    <br />
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-6">
+                    @*<p class="lead">Payment Methods:</p>
+                        <img src="~/AdminLTE-3.1.0/dist/img/credit/visa.png" alt="Visa">
+                        <img src="~/AdminLTE-3.1.0/dist/img/credit/mastercard.png" alt="Mastercard">
+                        <img src="~/AdminLTE-3.1.0/dist/img/credit/american-express.png" alt="American Express">
+                        <img src="~/AdminLTE-3.1.0/dist/img/credit/paypal2.png" alt="Paypal">
+
+                        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                            Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
+                            jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                        </p>*@
+                </div>
+                <!-- /.col -->
+                <div class="col-6">
+                    <p class="lead"></p>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Yedek Parça Toplam:</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.YToplam)₺</td>
+                            </tr>
+                            <tr>
+                                <th style="width:50%">İşçilik Toplam:</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.İToplam)₺</td>
+                            </tr>
+                            <tr>
+                                <th style="width:50%">Muhtelif Parça Toplam:</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.MToplam)₺</td>
+                            </tr>
+                            <tr>
+                                <th style="width:50%">Rot-Balans :</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.RotBalans)₺</td>
+                            </tr>
+                            <tr>
+                                <th style="width:50%">Toplam:</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.Toplam)₺</td>
+                            </tr>
+                            <tr>
+                                <th style="width:50%">İskonto :</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.İskonto)₺</td>
+                            </tr>
+                            <tr>
+                                <th style="width:50%">Genel Toplam:</th>
+                                <td>@Html.DisplayFor(x => Model.Tamiratlar.GenelToplam)₺</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- Page specific script -->
+    <script>window.addEventListener("load", window.print());</script>
+</body>
+</html>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>

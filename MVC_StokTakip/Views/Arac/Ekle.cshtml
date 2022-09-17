@@ -1,0 +1,87 @@
+﻿@model MVC_StokTakip.Models.Entity.Araclar
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align:center;">Araç Ekleme Sayfası</h2>
+<div class="container">
+    @using (Html.BeginForm("Ekle", "Arac", FormMethod.Post))
+    {
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Plaka)
+        @Html.TextBoxFor(x => x.Plaka, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Plaka, "", new { @class = "text-danger" })
+        <span style="color: red; background-color:white;" id="spani"></span>
+
+    </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.AracMarka.ID)
+            @Html.DropDownListFor(x => x.MarkaID, (List<SelectListItem>)ViewBag.dgr1, "Seçiniz", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.MarkaID, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Model)
+            @Html.TextBoxFor(x => x.Model, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Model, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.SasiNo)
+            @Html.TextBoxFor(x => x.SasiNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.SasiNo, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Renk)
+            @Html.TextBoxFor(x => x.Renk, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Renk, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div><button id ="addCar"class="btn btn-success">Araç Ekle</button></div>
+
+    }
+</div>
+
+@section scriptdanger{
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/ondalik.js"></script>
+}
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<script>
+    $('#Plaka').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+
+    $('#Model').keyup(function () {
+        this.value = this.value.toUpperCase();
+    });
+
+    $("#Plaka").on("keydown keyup change", function () {
+        var minLength1 = 7;
+        var maxLength1 = 8;
+        var value = $(this).val();
+
+        if (value.length < minLength1) {
+            $("#spani").text("Plaka çok kısa");
+            $("#addCar").hide()
+        }
+        else if (value.length > maxLength1) {
+            $("#spani").text("Plaka Çok uzun");
+            $("#addCar").hide()
+        }
+        else {
+            $("#addCar").show();
+            $("#spani").empty();
+        }
+    });
+</script>

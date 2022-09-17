@@ -1,0 +1,1485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MVC_StokTakipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Araclar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriID" Type="int" />
+          <Property Name="MarkaID" Type="int" Nullable="false" />
+          <Property Name="Plaka" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="SasiNo" Type="varchar" MaxLength="50" />
+          <Property Name="Renk" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AracMarka">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marka" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Birimler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Birim" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Durumlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Durum" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Girisler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunID" Type="int" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="SepetID" Type="int" Nullable="false" />
+          <Property Name="BarkodNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OemKod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirimFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="ToplamFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="KDV" Type="int" Nullable="false" />
+          <Property Name="BirimID" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+          <Property Name="Saat" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Adres" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KullaniciRolleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="RolID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Soyad" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Adres" Type="varchar" MaxLength="500" />
+          <Property Name="VergiDairesi" Type="varchar" MaxLength="150" />
+          <Property Name="VergiNo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Roller">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rol" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Satislar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunID" Type="int" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="SepetID" Type="int" Nullable="false" />
+          <Property Name="BarkodNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OemKod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirimFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="ToplamFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="KDV" Type="int" Nullable="false" />
+          <Property Name="BirimID" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+          <Property Name="Saat" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sepet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="UrunID" Type="int" Nullable="false" />
+          <Property Name="BirimFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="ToplamFiyat" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+          <Property Name="Saat" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servis">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DurumID" Type="int" Nullable="false" />
+          <Property Name="AracID" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" Nullable="false" />
+          <Property Name="Km" Type="int" Nullable="false" />
+          <Property Name="Not1" Type="varchar" MaxLength="500" />
+          <Property Name="Not2" Type="varchar" MaxLength="500" />
+          <Property Name="Not3" Type="varchar" MaxLength="500" />
+          <Property Name="YToplam" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="İToplam" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="RotBalans" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="MToplam" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Toplam" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="İskonto" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="GenelToplam" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ServisKalem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServisID" Type="int" Nullable="false" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="250" />
+          <Property Name="TurID" Type="int" />
+          <Property Name="BirimID" Type="int" />
+          <Property Name="BirimFiyat" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="ToplamTutar" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TamiratKalem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="250" />
+          <Property Name="BirimID" Type="int" />
+          <Property Name="TurID" Type="int" />
+          <Property Name="TamiratID" Type="int" />
+          <Property Name="BirimFiyat" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="ToplamTutar" Type="decimal" Precision="28" Scale="2" />
+        </EntityType>
+        <EntityType Name="Tamiratlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AracID" Type="int" />
+          <Property Name="ServisID" Type="int" />
+          <Property Name="DurumID" Type="int" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="Km" Type="int" />
+          <Property Name="Not1" Type="varchar" MaxLength="500" />
+          <Property Name="Not2" Type="varchar" MaxLength="500" />
+          <Property Name="Not3" Type="varchar" MaxLength="500" />
+          <Property Name="YToplam" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="İToplam" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="RotBalans" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="MToplam" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="Toplam" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="İskonto" Type="decimal" Precision="28" Scale="2" />
+          <Property Name="GenelToplam" Type="decimal" Precision="28" Scale="2" />
+        </EntityType>
+        <EntityType Name="Tur">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tur" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriID" Type="int" Nullable="false" />
+          <Property Name="UrunAdi" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="BarkodNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OemKod" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AlisFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="SatisFiyati" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="Miktari" Type="decimal" Precision="28" Scale="2" Nullable="false" />
+          <Property Name="KDV" Type="int" Nullable="false" />
+          <Property Name="BirimID" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="date" Nullable="false" />
+          <Property Name="Aciklama" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Araclar_AracMarka">
+          <End Role="AracMarka" Type="Self.AracMarka" Multiplicity="1" />
+          <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracMarka">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Araclar">
+              <PropertyRef Name="MarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Araclar_Musteriler">
+          <End Role="Musteriler" Type="Self.Musteriler" Multiplicity="0..1" />
+          <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Araclar">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Girisler_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Girisler" Type="Self.Girisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Girisler">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Girisler_Urunler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Girisler" Type="Self.Girisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Girisler">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciRolleri_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="KullaniciRolleri" Type="Self.KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciRolleri_Roller">
+          <End Role="Roller" Type="Self.Roller" Multiplicity="1" />
+          <End Role="KullaniciRolleri" Type="Self.KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roller">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satislar_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Satislar" Type="Self.Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satislar_Ürünler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Satislar" Type="Self.Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Ürünler">
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="1" />
+          <End Role="Sepet" Type="Self.Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servis_Araclar">
+          <End Role="Araclar" Type="Self.Araclar" Multiplicity="1" />
+          <End Role="Servis" Type="Self.Servis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Araclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Servis">
+              <PropertyRef Name="AracID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servis_Durumlar">
+          <End Role="Durumlar" Type="Self.Durumlar" Multiplicity="1" />
+          <End Role="Servis" Type="Self.Servis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Durumlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Servis">
+              <PropertyRef Name="DurumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServisKalem_Birimler">
+          <End Role="Birimler" Type="Self.Birimler" Multiplicity="0..1" />
+          <End Role="ServisKalem" Type="Self.ServisKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birimler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServisKalem">
+              <PropertyRef Name="BirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServisKalem_Servis">
+          <End Role="Servis" Type="Self.Servis" Multiplicity="1" />
+          <End Role="ServisKalem" Type="Self.ServisKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servis">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServisKalem">
+              <PropertyRef Name="ServisID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServisKalem_Tur">
+          <End Role="Tur" Type="Self.Tur" Multiplicity="0..1" />
+          <End Role="ServisKalem" Type="Self.ServisKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tur">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServisKalem">
+              <PropertyRef Name="TurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TamiratKalem_Birimler">
+          <End Role="Birimler" Type="Self.Birimler" Multiplicity="0..1" />
+          <End Role="TamiratKalem" Type="Self.TamiratKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birimler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TamiratKalem">
+              <PropertyRef Name="BirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TamiratKalem_Tamiratlar">
+          <End Role="Tamiratlar" Type="Self.Tamiratlar" Multiplicity="0..1" />
+          <End Role="TamiratKalem" Type="Self.TamiratKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tamiratlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TamiratKalem">
+              <PropertyRef Name="TamiratID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TamiratKalem_Tur">
+          <End Role="Tur" Type="Self.Tur" Multiplicity="0..1" />
+          <End Role="TamiratKalem" Type="Self.TamiratKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tur">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TamiratKalem">
+              <PropertyRef Name="TurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tamiratlar_Araclar">
+          <End Role="Araclar" Type="Self.Araclar" Multiplicity="0..1" />
+          <End Role="Tamiratlar" Type="Self.Tamiratlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Araclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tamiratlar">
+              <PropertyRef Name="AracID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Birimler">
+          <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birimler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="BirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Kategoriler">
+          <End Role="Kategoriler" Type="Self.Kategoriler" Multiplicity="1" />
+          <End Role="Urunler" Type="Self.Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVC_StokTakipModelStoreContainer">
+          <EntitySet Name="Araclar" EntityType="Self.Araclar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AracMarka" EntityType="Self.AracMarka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Birimler" EntityType="Self.Birimler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Durumlar" EntityType="Self.Durumlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Girisler" EntityType="Self.Girisler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciRolleri" EntityType="Self.KullaniciRolleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteriler" EntityType="Self.Musteriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roller" EntityType="Self.Roller" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Satislar" EntityType="Self.Satislar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sepet" EntityType="Self.Sepet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servis" EntityType="Self.Servis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServisKalem" EntityType="Self.ServisKalem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TamiratKalem" EntityType="Self.TamiratKalem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tamiratlar" EntityType="Self.Tamiratlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tur" EntityType="Self.Tur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Araclar_AracMarka" Association="Self.FK_Araclar_AracMarka">
+            <End Role="AracMarka" EntitySet="AracMarka" />
+            <End Role="Araclar" EntitySet="Araclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Araclar_Musteriler" Association="Self.FK_Araclar_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="Araclar" EntitySet="Araclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Girisler_Kullanicilar" Association="Self.FK_Girisler_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Girisler" EntitySet="Girisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Girisler_Urunler" Association="Self.FK_Girisler_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Girisler" EntitySet="Girisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciRolleri_Kullanicilar" Association="Self.FK_KullaniciRolleri_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciRolleri_Roller" Association="Self.FK_KullaniciRolleri_Roller">
+            <End Role="Roller" EntitySet="Roller" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satislar_Kullanicilar" Association="Self.FK_Satislar_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satislar_Ürünler" Association="Self.FK_Satislar_Ürünler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Kullanicilar" Association="Self.FK_Sepet_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Ürünler" Association="Self.FK_Sepet_Ürünler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servis_Araclar" Association="Self.FK_Servis_Araclar">
+            <End Role="Araclar" EntitySet="Araclar" />
+            <End Role="Servis" EntitySet="Servis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servis_Durumlar" Association="Self.FK_Servis_Durumlar">
+            <End Role="Durumlar" EntitySet="Durumlar" />
+            <End Role="Servis" EntitySet="Servis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServisKalem_Birimler" Association="Self.FK_ServisKalem_Birimler">
+            <End Role="Birimler" EntitySet="Birimler" />
+            <End Role="ServisKalem" EntitySet="ServisKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServisKalem_Servis" Association="Self.FK_ServisKalem_Servis">
+            <End Role="Servis" EntitySet="Servis" />
+            <End Role="ServisKalem" EntitySet="ServisKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServisKalem_Tur" Association="Self.FK_ServisKalem_Tur">
+            <End Role="Tur" EntitySet="Tur" />
+            <End Role="ServisKalem" EntitySet="ServisKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TamiratKalem_Birimler" Association="Self.FK_TamiratKalem_Birimler">
+            <End Role="Birimler" EntitySet="Birimler" />
+            <End Role="TamiratKalem" EntitySet="TamiratKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TamiratKalem_Tamiratlar" Association="Self.FK_TamiratKalem_Tamiratlar">
+            <End Role="Tamiratlar" EntitySet="Tamiratlar" />
+            <End Role="TamiratKalem" EntitySet="TamiratKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TamiratKalem_Tur" Association="Self.FK_TamiratKalem_Tur">
+            <End Role="Tur" EntitySet="Tur" />
+            <End Role="TamiratKalem" EntitySet="TamiratKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tamiratlar_Araclar" Association="Self.FK_Tamiratlar_Araclar">
+            <End Role="Araclar" EntitySet="Araclar" />
+            <End Role="Tamiratlar" EntitySet="Tamiratlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Birimler" Association="Self.FK_Urunler_Birimler">
+            <End Role="Birimler" EntitySet="Birimler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Kategoriler" Association="Self.FK_Urunler_Kategoriler">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVC_StokTakipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Birimler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Birim" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ServisKalem" Relationship="MVC_StokTakipModel.FK_ServisKalem_Birimler" FromRole="Birimler" ToRole="ServisKalem" />
+          <NavigationProperty Name="TamiratKalem" Relationship="MVC_StokTakipModel.FK_TamiratKalem_Birimler" FromRole="Birimler" ToRole="TamiratKalem" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Urunler_Birimler" FromRole="Birimler" ToRole="Urunler" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Urunler_Kategoriler" FromRole="Kategoriler" ToRole="Urunler" />
+        </EntityType>
+        <EntityContainer Name="MVC_StokTakipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Birimler" EntityType="Self.Birimler" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" />
+          <EntitySet Name="Kullanicilar" EntityType="MVC_StokTakipModel.Kullanicilar" />
+          <EntitySet Name="KullaniciRolleri" EntityType="MVC_StokTakipModel.KullaniciRolleri" />
+          <EntitySet Name="Roller" EntityType="MVC_StokTakipModel.Roller" />
+          <AssociationSet Name="FK_KullaniciRolleri_Kullanicilar" Association="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KullaniciRolleri_Roller" Association="MVC_StokTakipModel.FK_KullaniciRolleri_Roller">
+            <End Role="Roller" EntitySet="Roller" />
+            <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+          </AssociationSet>
+          <EntitySet Name="Girisler" EntityType="MVC_StokTakipModel.Girisler" />
+          <AssociationSet Name="FK_Girisler_Kullanicilar" Association="MVC_StokTakipModel.FK_Girisler_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Girisler" EntitySet="Girisler" />
+          </AssociationSet>
+          <EntitySet Name="Satislar" EntityType="MVC_StokTakipModel.Satislar" />
+          <AssociationSet Name="FK_Satislar_Kullanicilar" Association="MVC_StokTakipModel.FK_Satislar_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
+          <EntitySet Name="Durumlar" EntityType="MVC_StokTakipModel.Durumlar" />
+          <EntitySet Name="AracMarka" EntityType="MVC_StokTakipModel.AracMarka" />
+          <EntitySet Name="ServisKalem" EntityType="MVC_StokTakipModel.ServisKalem" />
+          <EntitySet Name="Tur" EntityType="MVC_StokTakipModel.Tur" />
+          <AssociationSet Name="FK_ServisKalem_Birimler" Association="MVC_StokTakipModel.FK_ServisKalem_Birimler">
+            <End Role="Birimler" EntitySet="Birimler" />
+            <End Role="ServisKalem" EntitySet="ServisKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServisKalem_Tur" Association="MVC_StokTakipModel.FK_ServisKalem_Tur">
+            <End Role="Tur" EntitySet="Tur" />
+            <End Role="ServisKalem" EntitySet="ServisKalem" />
+          </AssociationSet>
+          <EntitySet Name="TamiratKalem" EntityType="MVC_StokTakipModel.TamiratKalem" />
+          <AssociationSet Name="FK_TamiratKalem_Birimler" Association="MVC_StokTakipModel.FK_TamiratKalem_Birimler">
+            <End Role="Birimler" EntitySet="Birimler" />
+            <End Role="TamiratKalem" EntitySet="TamiratKalem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TamiratKalem_Tur" Association="MVC_StokTakipModel.FK_TamiratKalem_Tur">
+            <End Role="Tur" EntitySet="Tur" />
+            <End Role="TamiratKalem" EntitySet="TamiratKalem" />
+          </AssociationSet>
+          <EntitySet Name="Sepet" EntityType="MVC_StokTakipModel.Sepet" />
+          <AssociationSet Name="FK_Sepet_Kullanicilar" Association="MVC_StokTakipModel.FK_Sepet_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <EntitySet Name="Musteriler" EntityType="MVC_StokTakipModel.Musteriler" />
+          <EntitySet Name="Araclar" EntityType="MVC_StokTakipModel.Araclar" />
+          <AssociationSet Name="FK_Araclar_AracMarka" Association="MVC_StokTakipModel.FK_Araclar_AracMarka">
+            <End Role="AracMarka" EntitySet="AracMarka" />
+            <End Role="Araclar" EntitySet="Araclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Araclar_Musteriler" Association="MVC_StokTakipModel.FK_Araclar_Musteriler">
+            <End Role="Musteriler" EntitySet="Musteriler" />
+            <End Role="Araclar" EntitySet="Araclar" />
+          </AssociationSet>
+          <EntitySet Name="Tamiratlar" EntityType="MVC_StokTakipModel.Tamiratlar" />
+          <EntitySet Name="Urunler" EntityType="MVC_StokTakipModel.Urunler" />
+          <AssociationSet Name="FK_Tamiratlar_Araclar" Association="MVC_StokTakipModel.FK_Tamiratlar_Araclar">
+            <End Role="Araclar" EntitySet="Araclar" />
+            <End Role="Tamiratlar" EntitySet="Tamiratlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Birimler" Association="MVC_StokTakipModel.FK_Urunler_Birimler">
+            <End Role="Birimler" EntitySet="Birimler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Girisler_Urunler" Association="MVC_StokTakipModel.FK_Girisler_Urunler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Girisler" EntitySet="Girisler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Urunler_Kategoriler" Association="MVC_StokTakipModel.FK_Urunler_Kategoriler">
+            <End Role="Kategoriler" EntitySet="Kategoriler" />
+            <End Role="Urunler" EntitySet="Urunler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satislar_Ürünler" Association="MVC_StokTakipModel.FK_Satislar_Ürünler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Satislar" EntitySet="Satislar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sepet_Ürünler" Association="MVC_StokTakipModel.FK_Sepet_Ürünler">
+            <End Role="Urunler" EntitySet="Urunler" />
+            <End Role="Sepet" EntitySet="Sepet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TamiratKalem_Tamiratlar" Association="MVC_StokTakipModel.FK_TamiratKalem_Tamiratlar">
+            <End Role="Tamiratlar" EntitySet="Tamiratlar" />
+            <End Role="TamiratKalem" EntitySet="TamiratKalem" />
+          </AssociationSet>
+          <EntitySet Name="Servis" EntityType="MVC_StokTakipModel.Servis" />
+          <AssociationSet Name="FK_Servis_Araclar" Association="MVC_StokTakipModel.FK_Servis_Araclar">
+            <End Role="Araclar" EntitySet="Araclar" />
+            <End Role="Servis" EntitySet="Servis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Servis_Durumlar" Association="MVC_StokTakipModel.FK_Servis_Durumlar">
+            <End Role="Durumlar" EntitySet="Durumlar" />
+            <End Role="Servis" EntitySet="Servis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServisKalem_Servis" Association="MVC_StokTakipModel.FK_ServisKalem_Servis">
+            <End Role="Servis" EntitySet="Servis" />
+            <End Role="ServisKalem" EntitySet="ServisKalem" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdiSoyadi" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Adres" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="KullaniciRolleri" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" FromRole="Kullanicilar" ToRole="KullaniciRolleri" />
+          <NavigationProperty Name="Girisler" Relationship="MVC_StokTakipModel.FK_Girisler_Kullanicilar" FromRole="Kullanicilar" ToRole="Girisler" />
+          <NavigationProperty Name="Satislar" Relationship="MVC_StokTakipModel.FK_Satislar_Kullanicilar" FromRole="Kullanicilar" ToRole="Satislar" />
+          <NavigationProperty Name="Sepet" Relationship="MVC_StokTakipModel.FK_Sepet_Kullanicilar" FromRole="Kullanicilar" ToRole="Sepet" />
+        </EntityType>
+        <EntityType Name="KullaniciRolleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="RolID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Kullanicilar" FromRole="KullaniciRolleri" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Roller" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Roller" FromRole="KullaniciRolleri" ToRole="Roller" />
+        </EntityType>
+        <EntityType Name="Roller">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KullaniciRolleri" Relationship="MVC_StokTakipModel.FK_KullaniciRolleri_Roller" FromRole="Roller" ToRole="KullaniciRolleri" />
+        </EntityType>
+        <Association Name="FK_KullaniciRolleri_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.KullaniciRolleri" Role="KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KullaniciRolleri_Roller">
+          <End Type="MVC_StokTakipModel.Roller" Role="Roller" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.KullaniciRolleri" Role="KullaniciRolleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roller">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRolleri">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Girisler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="SepetID" Type="Int32" Nullable="false" />
+          <Property Name="BarkodNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OemKod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BirimFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="ToplamFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="KDV" Type="Int32" Nullable="false" />
+          <Property Name="BirimID" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_Girisler_Kullanicilar" FromRole="Girisler" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Girisler_Urunler" FromRole="Girisler" ToRole="Urunler" />
+        </EntityType>
+        <Association Name="FK_Girisler_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Girisler" Role="Girisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Girisler">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Satislar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="SepetID" Type="Int32" Nullable="false" />
+          <Property Name="BarkodNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OemKod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BirimFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="ToplamFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="KDV" Type="Int32" Nullable="false" />
+          <Property Name="BirimID" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_Satislar_Kullanicilar" FromRole="Satislar" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Satislar_Ürünler" FromRole="Satislar" ToRole="Urunler" />
+        </EntityType>
+        <Association Name="FK_Satislar_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Satislar" Role="Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Durumlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Durum" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Servis" Relationship="MVC_StokTakipModel.FK_Servis_Durumlar" FromRole="Durumlar" ToRole="Servis" />
+        </EntityType>
+        <EntityType Name="AracMarka">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marka" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Araclar" Relationship="MVC_StokTakipModel.FK_Araclar_AracMarka" FromRole="AracMarka" ToRole="Araclar" />
+        </EntityType>
+        <EntityType Name="ServisKalem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServisID" Type="Int32" Nullable="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TurID" Type="Int32" />
+          <Property Name="BirimID" Type="Int32" />
+          <Property Name="BirimFiyat" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="ToplamTutar" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <NavigationProperty Name="Birimler" Relationship="MVC_StokTakipModel.FK_ServisKalem_Birimler" FromRole="ServisKalem" ToRole="Birimler" />
+          <NavigationProperty Name="Tur" Relationship="MVC_StokTakipModel.FK_ServisKalem_Tur" FromRole="ServisKalem" ToRole="Tur" />
+          <NavigationProperty Name="Servis" Relationship="MVC_StokTakipModel.FK_ServisKalem_Servis" FromRole="ServisKalem" ToRole="Servis" />
+        </EntityType>
+        <EntityType Name="Tur">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tur1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ServisKalem" Relationship="MVC_StokTakipModel.FK_ServisKalem_Tur" FromRole="Tur" ToRole="ServisKalem" />
+          <NavigationProperty Name="TamiratKalem" Relationship="MVC_StokTakipModel.FK_TamiratKalem_Tur" FromRole="Tur" ToRole="TamiratKalem" />
+        </EntityType>
+        <Association Name="FK_ServisKalem_Birimler">
+          <End Type="MVC_StokTakipModel.Birimler" Role="Birimler" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.ServisKalem" Role="ServisKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birimler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServisKalem">
+              <PropertyRef Name="BirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServisKalem_Tur">
+          <End Type="MVC_StokTakipModel.Tur" Role="Tur" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.ServisKalem" Role="ServisKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tur">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServisKalem">
+              <PropertyRef Name="TurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TamiratKalem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="BirimID" Type="Int32" />
+          <Property Name="TurID" Type="Int32" />
+          <Property Name="TamiratID" Type="Int32" />
+          <Property Name="BirimFiyat" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="ToplamTutar" Type="Decimal" Precision="28" Scale="2" />
+          <NavigationProperty Name="Birimler" Relationship="MVC_StokTakipModel.FK_TamiratKalem_Birimler" FromRole="TamiratKalem" ToRole="Birimler" />
+          <NavigationProperty Name="Tur" Relationship="MVC_StokTakipModel.FK_TamiratKalem_Tur" FromRole="TamiratKalem" ToRole="Tur" />
+          <NavigationProperty Name="Tamiratlar" Relationship="MVC_StokTakipModel.FK_TamiratKalem_Tamiratlar" FromRole="TamiratKalem" ToRole="Tamiratlar" />
+        </EntityType>
+        <Association Name="FK_TamiratKalem_Birimler">
+          <End Type="MVC_StokTakipModel.Birimler" Role="Birimler" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.TamiratKalem" Role="TamiratKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birimler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TamiratKalem">
+              <PropertyRef Name="BirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TamiratKalem_Tur">
+          <End Type="MVC_StokTakipModel.Tur" Role="Tur" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.TamiratKalem" Role="TamiratKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tur">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TamiratKalem">
+              <PropertyRef Name="TurID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Sepet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="BirimFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="ToplamFiyat" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Saat" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Kullanicilar" Relationship="MVC_StokTakipModel.FK_Sepet_Kullanicilar" FromRole="Sepet" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Urunler" Relationship="MVC_StokTakipModel.FK_Sepet_Ürünler" FromRole="Sepet" ToRole="Urunler" />
+        </EntityType>
+        <Association Name="FK_Sepet_Kullanicilar">
+          <End Type="MVC_StokTakipModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Musteriler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Soyad" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Adres" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="VergiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Araclar" Relationship="MVC_StokTakipModel.FK_Araclar_Musteriler" FromRole="Musteriler" ToRole="Araclar" />
+        </EntityType>
+        <EntityType Name="Araclar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriID" Type="Int32" />
+          <Property Name="MarkaID" Type="Int32" Nullable="false" />
+          <Property Name="Plaka" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="SasiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Renk" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AracMarka" Relationship="MVC_StokTakipModel.FK_Araclar_AracMarka" FromRole="Araclar" ToRole="AracMarka" />
+          <NavigationProperty Name="Musteriler" Relationship="MVC_StokTakipModel.FK_Araclar_Musteriler" FromRole="Araclar" ToRole="Musteriler" />
+          <NavigationProperty Name="Tamiratlar" Relationship="MVC_StokTakipModel.FK_Tamiratlar_Araclar" FromRole="Araclar" ToRole="Tamiratlar" />
+          <NavigationProperty Name="Servis" Relationship="MVC_StokTakipModel.FK_Servis_Araclar" FromRole="Araclar" ToRole="Servis" />
+        </EntityType>
+        <Association Name="FK_Araclar_AracMarka">
+          <End Type="MVC_StokTakipModel.AracMarka" Role="AracMarka" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Araclar" Role="Araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AracMarka">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Araclar">
+              <PropertyRef Name="MarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Araclar_Musteriler">
+          <End Type="MVC_StokTakipModel.Musteriler" Role="Musteriler" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.Araclar" Role="Araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Araclar">
+              <PropertyRef Name="MusteriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Tamiratlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AracID" Type="Int32" />
+          <Property Name="ServisID" Type="Int32" />
+          <Property Name="DurumID" Type="Int32" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="Km" Type="Int32" />
+          <Property Name="Not1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Not2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Not3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="YToplam" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="İToplam" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="RotBalans" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="MToplam" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="Toplam" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="İskonto" Type="Decimal" Precision="28" Scale="2" />
+          <Property Name="GenelToplam" Type="Decimal" Precision="28" Scale="2" />
+          <NavigationProperty Name="Araclar" Relationship="MVC_StokTakipModel.FK_Tamiratlar_Araclar" FromRole="Tamiratlar" ToRole="Araclar" />
+          <NavigationProperty Name="TamiratKalem" Relationship="MVC_StokTakipModel.FK_TamiratKalem_Tamiratlar" FromRole="Tamiratlar" ToRole="TamiratKalem" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriID" Type="Int32" Nullable="false" />
+          <Property Name="UrunAdi" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="BarkodNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OemKod" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlisFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="SatisFiyati" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Miktari" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="KDV" Type="Int32" Nullable="false" />
+          <Property Name="BirimID" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="Birimler" Relationship="MVC_StokTakipModel.FK_Urunler_Birimler" FromRole="Urunler" ToRole="Birimler" />
+          <NavigationProperty Name="Girisler" Relationship="MVC_StokTakipModel.FK_Girisler_Urunler" FromRole="Urunler" ToRole="Girisler" />
+          <NavigationProperty Name="Kategoriler" Relationship="MVC_StokTakipModel.FK_Urunler_Kategoriler" FromRole="Urunler" ToRole="Kategoriler" />
+          <NavigationProperty Name="Satislar" Relationship="MVC_StokTakipModel.FK_Satislar_Ürünler" FromRole="Urunler" ToRole="Satislar" />
+          <NavigationProperty Name="Sepet" Relationship="MVC_StokTakipModel.FK_Sepet_Ürünler" FromRole="Urunler" ToRole="Sepet" />
+        </EntityType>
+        <Association Name="FK_Tamiratlar_Araclar">
+          <End Type="MVC_StokTakipModel.Araclar" Role="Araclar" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.Tamiratlar" Role="Tamiratlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Araclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tamiratlar">
+              <PropertyRef Name="AracID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Birimler">
+          <End Type="MVC_StokTakipModel.Birimler" Role="Birimler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Birimler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="BirimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Girisler_Urunler">
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Girisler" Role="Girisler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Girisler">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Urunler_Kategoriler">
+          <End Type="MVC_StokTakipModel.Kategoriler" Role="Kategoriler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategoriler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Urunler">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satislar_Ürünler">
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Satislar" Role="Satislar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Satislar">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sepet_Ürünler">
+          <End Type="MVC_StokTakipModel.Urunler" Role="Urunler" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Sepet" Role="Sepet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Urunler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sepet">
+              <PropertyRef Name="UrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TamiratKalem_Tamiratlar">
+          <End Type="MVC_StokTakipModel.Tamiratlar" Role="Tamiratlar" Multiplicity="0..1" />
+          <End Type="MVC_StokTakipModel.TamiratKalem" Role="TamiratKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tamiratlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TamiratKalem">
+              <PropertyRef Name="TamiratID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Servis">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DurumID" Type="Int32" Nullable="false" />
+          <Property Name="AracID" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Km" Type="Int32" Nullable="false" />
+          <Property Name="Not1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Not2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Not3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="YToplam" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="İToplam" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="RotBalans" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="MToplam" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="Toplam" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="İskonto" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <Property Name="GenelToplam" Type="Decimal" Nullable="false" Precision="28" Scale="2" />
+          <NavigationProperty Name="Araclar" Relationship="MVC_StokTakipModel.FK_Servis_Araclar" FromRole="Servis" ToRole="Araclar" />
+          <NavigationProperty Name="Durumlar" Relationship="MVC_StokTakipModel.FK_Servis_Durumlar" FromRole="Servis" ToRole="Durumlar" />
+          <NavigationProperty Name="ServisKalem" Relationship="MVC_StokTakipModel.FK_ServisKalem_Servis" FromRole="Servis" ToRole="ServisKalem" />
+        </EntityType>
+        <Association Name="FK_Servis_Araclar">
+          <End Type="MVC_StokTakipModel.Araclar" Role="Araclar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Servis" Role="Servis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Araclar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Servis">
+              <PropertyRef Name="AracID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Servis_Durumlar">
+          <End Type="MVC_StokTakipModel.Durumlar" Role="Durumlar" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.Servis" Role="Servis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Durumlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Servis">
+              <PropertyRef Name="DurumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServisKalem_Servis">
+          <End Type="MVC_StokTakipModel.Servis" Role="Servis" Multiplicity="1" />
+          <End Type="MVC_StokTakipModel.ServisKalem" Role="ServisKalem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servis">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServisKalem">
+              <PropertyRef Name="ServisID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVC_StokTakipModelStoreContainer" CdmEntityContainer="MVC_StokTakipEntities">
+          <EntitySetMapping Name="Birimler">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Birimler">
+              <MappingFragment StoreEntitySet="Birimler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Birim" ColumnName="Birim" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategoriler">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Kategoriler">
+              <MappingFragment StoreEntitySet="Kategoriler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilar">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciRolleri">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.KullaniciRolleri">
+              <MappingFragment StoreEntitySet="KullaniciRolleri">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roller">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Roller">
+              <MappingFragment StoreEntitySet="Roller">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Girisler">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Girisler">
+              <MappingFragment StoreEntitySet="Girisler">
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
+                <ScalarProperty Name="KDV" ColumnName="KDV" />
+                <ScalarProperty Name="ToplamFiyati" ColumnName="ToplamFiyati" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
+                <ScalarProperty Name="OemKod" ColumnName="OemKod" />
+                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
+                <ScalarProperty Name="SepetID" ColumnName="SepetID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Satislar">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Satislar">
+              <MappingFragment StoreEntitySet="Satislar">
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
+                <ScalarProperty Name="KDV" ColumnName="KDV" />
+                <ScalarProperty Name="ToplamFiyati" ColumnName="ToplamFiyati" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
+                <ScalarProperty Name="OemKod" ColumnName="OemKod" />
+                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
+                <ScalarProperty Name="SepetID" ColumnName="SepetID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Durumlar">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Durumlar">
+              <MappingFragment StoreEntitySet="Durumlar">
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AracMarka">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.AracMarka">
+              <MappingFragment StoreEntitySet="AracMarka">
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServisKalem">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.ServisKalem">
+              <MappingFragment StoreEntitySet="ServisKalem">
+                <ScalarProperty Name="ToplamTutar" ColumnName="ToplamTutar" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyat" ColumnName="BirimFiyat" />
+                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
+                <ScalarProperty Name="TurID" ColumnName="TurID" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="ServisID" ColumnName="ServisID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tur">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Tur">
+              <MappingFragment StoreEntitySet="Tur">
+                <ScalarProperty Name="Tur1" ColumnName="Tur" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TamiratKalem">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.TamiratKalem">
+              <MappingFragment StoreEntitySet="TamiratKalem">
+                <ScalarProperty Name="ToplamTutar" ColumnName="ToplamTutar" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyat" ColumnName="BirimFiyat" />
+                <ScalarProperty Name="TamiratID" ColumnName="TamiratID" />
+                <ScalarProperty Name="TurID" ColumnName="TurID" />
+                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sepet">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Sepet">
+              <MappingFragment StoreEntitySet="Sepet">
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="ToplamFiyat" ColumnName="ToplamFiyat" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteriler">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Musteriler">
+              <MappingFragment StoreEntitySet="Musteriler">
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Araclar">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Araclar">
+              <MappingFragment StoreEntitySet="Araclar">
+                <ScalarProperty Name="Renk" ColumnName="Renk" />
+                <ScalarProperty Name="SasiNo" ColumnName="SasiNo" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Plaka" ColumnName="Plaka" />
+                <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
+                <ScalarProperty Name="MusteriID" ColumnName="MusteriID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tamiratlar">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Tamiratlar">
+              <MappingFragment StoreEntitySet="Tamiratlar">
+                <ScalarProperty Name="GenelToplam" ColumnName="GenelToplam" />
+                <ScalarProperty Name="İskonto" ColumnName="İskonto" />
+                <ScalarProperty Name="Toplam" ColumnName="Toplam" />
+                <ScalarProperty Name="MToplam" ColumnName="MToplam" />
+                <ScalarProperty Name="RotBalans" ColumnName="RotBalans" />
+                <ScalarProperty Name="İToplam" ColumnName="İToplam" />
+                <ScalarProperty Name="YToplam" ColumnName="YToplam" />
+                <ScalarProperty Name="Not3" ColumnName="Not3" />
+                <ScalarProperty Name="Not2" ColumnName="Not2" />
+                <ScalarProperty Name="Not1" ColumnName="Not1" />
+                <ScalarProperty Name="Km" ColumnName="Km" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="DurumID" ColumnName="DurumID" />
+                <ScalarProperty Name="ServisID" ColumnName="ServisID" />
+                <ScalarProperty Name="AracID" ColumnName="AracID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunler">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Urunler">
+              <MappingFragment StoreEntitySet="Urunler">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="BirimID" ColumnName="BirimID" />
+                <ScalarProperty Name="KDV" ColumnName="KDV" />
+                <ScalarProperty Name="Miktari" ColumnName="Miktari" />
+                <ScalarProperty Name="SatisFiyati" ColumnName="SatisFiyati" />
+                <ScalarProperty Name="AlisFiyati" ColumnName="AlisFiyati" />
+                <ScalarProperty Name="OemKod" ColumnName="OemKod" />
+                <ScalarProperty Name="BarkodNo" ColumnName="BarkodNo" />
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servis">
+            <EntityTypeMapping TypeName="MVC_StokTakipModel.Servis">
+              <MappingFragment StoreEntitySet="Servis">
+                <ScalarProperty Name="GenelToplam" ColumnName="GenelToplam" />
+                <ScalarProperty Name="İskonto" ColumnName="İskonto" />
+                <ScalarProperty Name="Toplam" ColumnName="Toplam" />
+                <ScalarProperty Name="MToplam" ColumnName="MToplam" />
+                <ScalarProperty Name="RotBalans" ColumnName="RotBalans" />
+                <ScalarProperty Name="İToplam" ColumnName="İToplam" />
+                <ScalarProperty Name="YToplam" ColumnName="YToplam" />
+                <ScalarProperty Name="Not3" ColumnName="Not3" />
+                <ScalarProperty Name="Not2" ColumnName="Not2" />
+                <ScalarProperty Name="Not1" ColumnName="Not1" />
+                <ScalarProperty Name="Km" ColumnName="Km" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="AracID" ColumnName="AracID" />
+                <ScalarProperty Name="DurumID" ColumnName="DurumID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

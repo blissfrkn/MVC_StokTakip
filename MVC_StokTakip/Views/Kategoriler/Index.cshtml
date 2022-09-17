@@ -1,0 +1,87 @@
+﻿@using MVC_StokTakip.Models.Entity
+@model List<MVC_StokTakip.Models.Entity.Kategoriler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Kategoriler Ana Sayfası</h2>
+        </div>
+
+        <div class="form-group">
+            @using (Html.BeginForm("Index", "Kategoriler", FormMethod.Get))
+            {
+                <div class="col-md-12"  style="margin-bottom:20px;">
+                    <div class="form-group">
+                        <div style="width:75%; float:left">
+                            @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Aranacak Kategori Adı  Giriniz." })
+
+                        </div>
+                        <div style="float:left">
+                            @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-12">
+            <a href=" /Kategoriler/Ekle/" class="btn btn-success" style="margin-top:10px">Kategori Ekle</a>
+        </div>
+    </div>
+    </div>
+
+<div style="margin-top:10px" class="container">
+    <table class="table">
+        <thead style="background-color:aliceblue">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Kategori
+                </th>
+                <th>
+                    Açıklama
+                </th>
+                <th>
+                    Güncelle
+                </th>
+
+                <th>Ürünler</th>
+            </tr>
+
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        @item.ID
+                    </th>
+                    <td>
+                        @item.Kategori
+                    </td>
+                    <td>
+                        @item.Aciklama
+                    </td>
+                    <td>
+                        <a href="/Kategoriler/GuncelleBilgiGetir/@item.ID" class="btn btn-warning">Güncelle</a>
+                    </td>
+  
+                    <td>
+                        <a href="/Kategoriler/Urunler/@item.ID" class="btn btn-info">Ürünler</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+
+</div>
+

@@ -1,0 +1,102 @@
+﻿@model  List<MVC_StokTakip.Models.Entity.Girisler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div style="width:100%;" class="col-md-12 satislar-index">
+        <h2>Eklenmiş Stok Geçmişi</h2>
+        <br />
+
+        @using (Html.BeginForm("Index", "Girisler", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div style="width:75%; float:left">
+                    @Html.TextBox("ara", null, new { @class = "form-control", @placeholder = "Tarih Arayınız." })
+
+                </div>
+
+                <div style="float:left">
+                    @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
+
+                </div>
+
+                <br />
+                <br />
+            </div>
+
+
+
+        }
+
+        @using (Html.BeginForm("Index", "Girisler", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div style="width:75%; float:left">
+                    @Html.TextBox("ara2", null, new { @class = "form-control", @placeholder = "Barkod No Arayınız." })
+
+                </div>
+
+                <div style="float:left">
+                    @Html.ActionLink("Ara", "Index", null, new { @class = "btn btn-info", onclick = "$(this).parents('form').attr('action',$(this).attr('href'));$(this).parents('form').submit();return false;" })
+
+                </div>
+
+                <br />
+                <br />
+            </div>
+
+
+
+        }
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    @*<th>ID</th>*@
+                    <th>Kullanıcı</th>
+                    <th>Barkod No</th>
+                    <th>Oem Kodu</th>
+                 
+                    <th>Ürün Adı</th>
+
+                    @*<td>Stok Kodu</td>*@
+                    @*<td>Birim Fiyatı</td>*@
+
+                    @*<td>Toplam Fiyatı</td>*@
+                    <th>Miktarı</th>
+                    <th>Birimi</th>
+
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    @*<th>@Html.DisplayFor(x => item.ID)</th>*@
+                    <td>@Html.DisplayFor(x => item.Kullanicilar.AdiSoyadi)</td>
+                    <td>@Html.DisplayFor(x => item.BarkodNo)</td>
+                    <td>@Html.DisplayFor(x => item.OemKod)</td>
+                 
+                    <td>@Html.DisplayFor(x => item.Urunler.UrunAdi)</td>
+                    @*<td>@Html.DisplayFor(x => item.StokKodu)</td>*@
+
+                    @*<td>@Html.DisplayFor(x => item.BirimFiyati)</td>*@
+                    <td>@Html.DisplayFor(x => item.Miktari)</td>
+                    @*<td>@Html.DisplayFor(x => item.ToplamFiyati)</td>*@
+                    @*<td>@Html.DisplayFor(x => item.KDV)</td>*@
+                    <td>@Html.DisplayFor(x => item.Urunler.Birimler.Birim)</td>
+                    <td>@item.Tarih.ToString("dd.MM.yyyy")</td>
+                    <td>@item.Saat.ToString("dd.MM.yyyy HH:mm:ss")</td>
+
+
+
+
+                </tr>
+            }
+        </table>
+    </div>
+

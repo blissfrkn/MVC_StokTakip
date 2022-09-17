@@ -1,0 +1,97 @@
+﻿@model List<MVC_StokTakip.Models.Entity.Urunler>
+@{
+    ViewBag.Title = "Urunler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="width:100%;" class="col-md-12 kategori-urunler">
+    <h2>@ViewBag.viewkategori Kategorisindeki Ürünler</h2>
+
+    <table id="tbl1" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                @*<th>
+                        ID
+                    </th>*@
+                <th>
+                    Kategori
+                </th>
+                <th>
+                    Barkod No
+                </th>
+                <th>
+                    Oem Kodu
+                </th>
+
+                <th>
+                    Ürün Adı
+                </th>
+
+                @*<th>
+                        Alış Fiyatı
+                    </th>*@
+
+                @*<th>
+                        Satış Fiyatı
+                    </th>*@
+                <th>
+                    Miktarı
+                </th>
+                <th>
+                    Birim
+                </th>
+                @*<th>
+                        K.D.V
+                    </th>*@
+                @*<th>
+                        Tarih
+                    </th>*@
+                <th>
+                    Açıklama
+                </th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<th>@Html.DisplayFor(x => item.ID)</th>*@
+                    <td>@Html.DisplayFor(x => item.Kategoriler.Kategori)</td>
+                    <td>@Html.DisplayFor(x => item.BarkodNo) </td>
+                    <td>@Html.DisplayFor(x => item.OemKod)</td>
+
+                    <td>@Html.DisplayFor(x => item.UrunAdi)</td>
+
+
+                    @*<td>@Html.DisplayFor(x => item.AlisFiyati) </td>*@
+                    @*<td>@Html.DisplayFor(x => item.SatisFiyati) </td>*@
+                    <td>@Html.DisplayFor(x => item.Miktari) </td>
+                    <td>@Html.DisplayFor(x => item.Birimler.Birim) </td>
+                    @*<td>% @Html.DisplayFor(x => item.KDV) </td>*@
+                    @*<td>@Html.DisplayFor(x => item.Tarih) </td>*@
+                    <td>@Html.DisplayFor(x => item.Aciklama) </td>
+
+
+
+
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<script>
+    $('#tbl1').dataTable({});
+</script>

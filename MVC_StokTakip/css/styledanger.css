@@ -1,0 +1,324 @@
+﻿.input-validation-error {
+    border: solid red;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) {
+    background: #eee;
+}
+
+th {
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+td, th {
+    padding: 6px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+@media only screen and (max-width: 1024px) {
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .urunler table td:before {
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: none;
+    }
+
+    .urunler td:nth-of-type(0):before {
+        width: 120px;
+        content: "Kategori Adı:";
+    }
+
+    .urunler td:nth-of-type(1):before {
+        width: 120px;
+        content: "Kategori Adı:";
+    }
+
+
+    .urunler td:nth-of-type(2):before {
+        width: 165px;
+        content: "Barkod Numarası:";
+    }
+
+    .urunler td:nth-of-type(3):before {
+        width: 110px;
+        content: "Oem Kodu:";
+    }
+
+
+    .urunler td:nth-of-type(4):before {
+        width: 110px;
+        content: "Marka Adı:";
+    }
+
+    .urunler td:nth-of-type(5):before {
+        width: 90px;
+        content: "Ürün Adı:";
+    }
+
+    .urunler td:nth-of-type(6):before {
+        width: 85px;
+        content: "Miktarı :";
+    }
+
+    .urunler td:nth-of-type(7):before {
+        width: 75px;
+        content: "Birimi :";
+    }
+
+    .urunler td:nth-of-type(8):before {
+        width: 95px;
+        content: "Açıklama :";
+    }
+
+    .urunler .table-pager {
+        display: none;
+    }
+
+    .kategori-urunler table td:before {
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: none;
+    }
+
+
+    .kategori-urunler td:nth-of-type(0):before {
+        width: 130px;
+        content: "Kategori Adı: ";
+    }
+
+    .kategori-urunler td:nth-of-type(1):before {
+        width: 120px;
+        content: "Kategori Adı: ";
+    }
+
+
+    .kategori-urunler td:nth-of-type(2):before {
+        width: 120px;
+        content: "Barkod No: ";
+    }
+
+    .kategori-urunler td:nth-of-type(3):before {
+        width: 110px;
+        content: "Oem Kodu: ";
+    }
+
+
+    .kategori-urunler td:nth-of-type(4):before {
+        width: 110px;
+        content: "Marka Adı: ";
+    }
+
+    .kategori-urunler td:nth-of-type(5):before {
+        width: 90px;
+        content: "Ürün Adı: ";
+    }
+
+    .kategori-urunler td:nth-of-type(6):before {
+        width: 85px;
+        content: "Miktarı : ";
+    }
+
+    .kategori-urunler td:nth-of-type(7):before {
+        width: 75px;
+        content: "Birimi : ";
+    }
+
+    .kategori-urunler td:nth-of-type(8):before {
+        width: 95px;
+        content: "Açıklama : ";
+    }
+
+    .kategori-urunler .table-pager {
+        display: none;
+    }
+
+    .markalar-urunler table td:before {
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: none;
+    }
+
+
+    .markalar-urunler td:nth-of-type(0):before {
+        width: 120px;
+        content: "Kategori Adı:";
+    }
+
+    .markalar-urunler td:nth-of-type(1):before {
+        width: 120px;
+        content: "Kategori Adı:";
+    }
+
+
+    .markalar-urunler td:nth-of-type(2):before {
+        width: 120px;
+        content: "Barkod No:";
+    }
+
+    .markalar-urunler td:nth-of-type(3):before {
+        width: 110px;
+        content: "Oem Kodu:";
+    }
+
+
+    .markalar-urunler td:nth-of-type(4):before {
+        width: 110px;
+        content: "Ürün Adı:";
+    }
+
+    .markalar-urunler td:nth-of-type(5):before {
+        width: 90px;
+        content: "Miktarı :";
+    }
+
+    .markalar-urunler td:nth-of-type(6):before {
+        width: 75px;
+        content: "Birimi :";
+    }
+
+    .markalar-urunler td:nth-of-type(7):before {
+        width: 100px;
+        content: "Açıklama :";
+    }
+
+
+
+    .markalar-urunler .table-pager {
+        display: none;
+    }
+
+    .kategori-markalar table td:before {
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: none;
+    }
+
+
+
+    .kategori-markalar td:nth-of-type(0):before {
+        width: 110px;
+        content: "Marka Adı:";
+    }
+
+    .kategori-markalar td:nth-of-type(1):before {
+        width: 110px;
+        content: "Marka Adı:";
+    }
+
+    .satislar-index table td:before {
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+        border: none;
+    }
+
+
+    .satislar-index td:nth-of-type(0):before {
+        width: 135px;
+        content: "Kullanıcı Adı: ";
+    }
+
+    .satislar-index td:nth-of-type(1):before {
+        width: 135px;
+        content: "Kullanıcı Adı: ";
+    }
+
+
+    .satislar-index td:nth-of-type(2):before {
+        width: 120px;
+        content: "Barkod No : ";
+    }
+
+    .satislar-index td:nth-of-type(3):before {
+        width: 110px;
+        content: "Oem Kodu : ";
+    }
+
+
+    .satislar-index td:nth-of-type(4):before {
+        width: 110px;
+        content: "Marka Adı: ";
+    }
+
+    .satislar-index td:nth-of-type(5):before {
+        width: 90px;
+        content: "Ürün Adı : ";
+    }
+
+    .satislar-index td:nth-of-type(6):before {
+        width: 85px;
+        content: "Miktarı : ";
+    }
+
+    .satislar-index td:nth-of-type(7):before {
+        width: 75px;
+        content: "Birimi : ";
+    }
+
+    .satislar-index td:nth-of-type(8):before {
+        width: 75px;
+        content: "Tarih : ";
+    }
+
+    .satislar-index td:nth-of-type(9):before {
+        width: 75px;
+        content: "Saat : ";
+    }
+
+    .satislar-index .table-pager {
+        display: none;
+    }
+}
+
+/*.table-pager > td {
+    padding-top: 10px;
+}
+
+    .table-pager > td > a {
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 3px 7px;
+    }
+
+        .table-pager > td > a:hover {
+            background-color: #f0f0f0;
+        }    
+*/
