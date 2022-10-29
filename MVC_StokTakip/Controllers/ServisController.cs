@@ -356,7 +356,7 @@ namespace MVC_StokTakip.Controllers
 
         public JsonResult Search2(string term)
         {
-            var list = db.İscilik.Where(x=> x.IsDelete == false).ToList();
+            var list = db.İscilik.Where(x => x.IsDelete == false).ToList();
             var liste = list.Where(f => f.İscilik1.ToLower().Contains(term.ToLower()));
             var autoSearch = from x in liste
                              select new
@@ -651,92 +651,96 @@ namespace MVC_StokTakip.Controllers
 
         //BU KISIM GÜNCELLENECEK.
 
-        public void DinamikMiktar1(int id, decimal miktari)
+        public void DinamikMiktar(int id, decimal miktari)
         {
-            var model = db.ServisKalem.Find(id);
-            var model1 = db.Servis.Find(model.ServisID);
-            // Öncelikle veritabanında ne kadar miktar girilmişse servisin toplam fiyatlarından tek tek o fiyatları miktari kadar düşüyoruz.
-            if (model.TurID == 1)
+            try
             {
-                model1.YToplam = model1.YToplam - (model.BirimFiyat * model.Miktari);
+                var model = db.ServisKalem.Find(id);
+                var model1 = db.Servis.Find(model.ServisID);
+                decimal kalemFiyat = Math.Round(Convert.ToDecimal(((model.BirimFiyat * model.Miktari) * 100) / 100),2);
+                // Öncelikle veritabanında ne kadar miktar girilmişse servisin toplam fiyatlarından tek tek o fiyatları miktari kadar düşüyoruz.
+                if (model.TurID == 1)
+                    model1.YToplam = Math.Round(Convert.ToDecimal(model1.YToplam - (kalemFiyat)),2);
+                else if (model.TurID == 2)
+                    model1.İToplam = Math.Round(Convert.ToDecimal(model1.İToplam - (kalemFiyat)),2);
+                else if (model.TurID == 3)
+                    model1.MToplam = Math.Round(Convert.ToDecimal(model1.MToplam - (kalemFiyat)),2);
+                else if (model.TurID == 4)
+                    model1.RotBalans = Math.Round(Convert.ToDecimal(model1.RotBalans - (kalemFiyat)),2);
+
+                model1.Toplam = Math.Round(Convert.ToDecimal(model1.Toplam - (kalemFiyat)),2);
+                model1.GenelToplam = Math.Round(Convert.ToDecimal(model1.GenelToplam - (kalemFiyat)),2);
+                // sonra miktar bilgisini güncelledikten sonra toplam tutarı hesaplayıp tek tek servis tablosundaki fiyatlara geri ekliyoruz ve kaydediyoruz.
+                decimal gelenMiktar = Math.Round(miktari, 2);
+                model.Miktari = gelenMiktar;
+                kalemFiyat = Math.Round(Convert.ToDecimal(((model.BirimFiyat * model.Miktari)*100) / 100),2);
+                model.ToplamTutar = Math.Round(Convert.ToDecimal(((model.BirimFiyat * model.Miktari) * 100) / 100),2);
+
+                if (model.TurID == 1)
+                    model1.YToplam = Math.Round(Convert.ToDecimal(model1.YToplam + (kalemFiyat)),2);
+                else if (model.TurID == 2)
+                    model1.İToplam = Math.Round(Convert.ToDecimal(model1.İToplam + (kalemFiyat)),2);
+                else if (model.TurID == 3)
+                    model1.MToplam = Math.Round(Convert.ToDecimal(model1.MToplam + (kalemFiyat)),2);
+                else if (model.TurID == 4)
+                    model1.RotBalans = Math.Round(Convert.ToDecimal(model1.RotBalans + (kalemFiyat)),2);
+
+                model1.Toplam = Math.Round(Convert.ToDecimal(model1.Toplam + (kalemFiyat)),2);
+                model1.GenelToplam = Math.Round(Convert.ToDecimal(model1.GenelToplam + (kalemFiyat)),2);
+                db.SaveChanges();
             }
-            else if (model.TurID == 2)
-                model1.İToplam = model1.İToplam - (model.BirimFiyat * model.Miktari);
-            else if (model.TurID == 3)
+            catch (Exception)
             {
-                model1.MToplam = model1.MToplam - (model.BirimFiyat * model.Miktari);
-            }
-            else if (model.TurID == 4)
-            {
-                model1.RotBalans = model1.RotBalans - (model.BirimFiyat * model.Miktari);
+
+                throw;
             }
 
-            model1.Toplam = model1.Toplam - (model.BirimFiyat * model.Miktari);
-            model1.GenelToplam = model1.GenelToplam - (model.BirimFiyat * model.Miktari);
-            // sonra miktar bilgisini güncelledikten sonra toplam tutarı hesaplayıp tek tek servis tablosundaki fiyatlara geri ekliyoruz ve kaydediyoruz.
-            model.Miktari = miktari;
-            model.ToplamTutar = model.BirimFiyat * model.Miktari;
-
-            if (model.TurID == 1)
-            {
-                model1.YToplam = model1.YToplam + (model.BirimFiyat * model.Miktari);
-
-            }
-            else if (model.TurID == 2)
-            {
-                model1.İToplam = model1.İToplam + (model.BirimFiyat * model.Miktari);
-            }
-            else if (model.TurID == 3)
-                model1.MToplam = model1.MToplam + (model.BirimFiyat * model.Miktari);
-            else if (model.TurID == 4)
-                model1.RotBalans = model1.RotBalans + (model.BirimFiyat * model.Miktari);
-
-            model1.Toplam = model1.Toplam + (model.BirimFiyat * model.Miktari);
-            model1.GenelToplam = model1.GenelToplam + (model.BirimFiyat * model.Miktari);
-            db.SaveChanges();
         }
 
-        public void DinamikMiktar2(int id, decimal satisfiyat)
+        public void DinamikFiyat(int id, decimal satisfiyat)
         {
-            var model = db.ServisKalem.Find(id);
-            var model1 = db.Servis.Find(model.ServisID);
-            if (model.TurID == 1)
+            try
             {
-                model1.YToplam = model1.YToplam - (model.BirimFiyat * model.Miktari);
-            }
-            else if (model.TurID == 2)
-                model1.İToplam = model1.İToplam - (model.BirimFiyat * model.Miktari);
-            else if (model.TurID == 3)
-            {
-                model1.MToplam = model1.MToplam - (model.BirimFiyat * model.Miktari);
-            }
-            else if (model.TurID == 4)
-            {
-                model1.RotBalans = model1.RotBalans - (model.BirimFiyat * model.Miktari);
-            }
+                var model = db.ServisKalem.Find(id);
+                var model1 = db.Servis.Find(model.ServisID);
+                decimal dinamikFiyat = 0;
+                dinamikFiyat = Math.Round(Convert.ToDecimal(((model.BirimFiyat * model.Miktari) * 100) / 100),2);
+                if (model.TurID == 1)
+                    model1.YToplam = Math.Round(Convert.ToDecimal(model1.YToplam - (dinamikFiyat)),2);
+                else if (model.TurID == 2)
+                    model1.İToplam = Math.Round(Convert.ToDecimal(model1.İToplam - (dinamikFiyat)),2);
+                else if (model.TurID == 3)
+                    model1.MToplam = Math.Round(Convert.ToDecimal(model1.MToplam - (dinamikFiyat)),2);
+                else if (model.TurID == 4)
+                    model1.RotBalans = Math.Round(Convert.ToDecimal(model1.RotBalans - (dinamikFiyat)),2);
 
-            model1.Toplam = model1.Toplam - (model.BirimFiyat * model.Miktari);
-            model1.GenelToplam = model1.GenelToplam - (model.BirimFiyat * model.Miktari);
-            model.BirimFiyat = satisfiyat;
-            model.ToplamTutar = model.BirimFiyat * model.Miktari;
+                model1.Toplam = Math.Round(Convert.ToDecimal(model1.Toplam - (dinamikFiyat)),2);
+                model1.GenelToplam = Math.Round(Convert.ToDecimal(model1.GenelToplam - (dinamikFiyat)),2);
 
-            if (model.TurID == 1)
-            {
-                model1.YToplam = model1.YToplam + model.ToplamTutar;
+                decimal gelenFiyat = Math.Round(satisfiyat, 2);
+                model.BirimFiyat = gelenFiyat;
+                dinamikFiyat = Math.Round(Convert.ToDecimal(((model.BirimFiyat * model.Miktari)*100) / 100),2);
+                model.ToplamTutar = Math.Round(Convert.ToDecimal(((model.BirimFiyat * model.Miktari) * 100) / 100),2);
 
+                if (model.TurID == 1)
+                    model1.YToplam = Math.Round(Convert.ToDecimal(model1.YToplam + dinamikFiyat),2);
+                else if (model.TurID == 2)
+                    model1.İToplam = Math.Round(Convert.ToDecimal(model1.İToplam + dinamikFiyat),2);
+                else if (model.TurID == 3)
+                    model1.MToplam = Math.Round(Convert.ToDecimal(model1.MToplam + dinamikFiyat),2);
+                else if (model.TurID == 4)
+                    model1.RotBalans = Math.Round(Convert.ToDecimal(model1.RotBalans + dinamikFiyat),2);
+
+                model1.Toplam = Math.Round(Convert.ToDecimal(model1.Toplam + dinamikFiyat),2);
+                model1.GenelToplam = Math.Round(Convert.ToDecimal(model1.GenelToplam + dinamikFiyat),2);
+                db.SaveChanges();
             }
-            else if (model.TurID == 2)
+            catch (Exception)
             {
-                model1.İToplam = model1.İToplam + model.ToplamTutar;
-            }
-            else if (model.TurID == 3)
-                model1.MToplam = model1.MToplam + model.ToplamTutar;
-            else if (model.TurID == 4)
-                model1.RotBalans = model1.RotBalans + model.ToplamTutar;
 
-            model1.Toplam = model1.Toplam + model.ToplamTutar;
-            model1.GenelToplam = model1.GenelToplam + model.ToplamTutar;
-            db.SaveChanges();
+                throw;
+            }
+            
         }
 
         public void DinamikAciklama(int id, string aciklama)

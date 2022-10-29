@@ -599,7 +599,7 @@
         var kalemid = $(this).attr('data-id');
         var id2 = new Date().getTime();
         $.ajax({
-            url: '/Servis/DinamikMiktar1/',
+            url: '/Servis/DinamikMiktar/',
             data: { id: kalemid, miktari: miktar },
             success: function (res) {
                 document.location.reload();
@@ -616,7 +616,7 @@
         var kalemid = $(this).attr('data-id');
         var id2 = new Date().getTime();
         $.ajax({
-            url: '/Servis/DinamikMiktar2/',
+            url: '/Servis/DinamikFiyat/',
             data: { id: kalemid, satisfiyat: fiyat },
             success: function (res) {
                 document.location.reload();
@@ -634,7 +634,7 @@
         var kalemid = $(this).attr('data-id');
         var id2 = new Date().getTime();
         $.ajax({
-            url: '/Servis/DinamikMiktar1/',
+            url: '/Servis/DinamikMiktar/',
             data: { id: kalemid, miktari: miktar },
             success: function (res) {
                 document.location.reload();
